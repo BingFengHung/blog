@@ -1,7 +1,9 @@
 <template>
   <div class="article">
     <div class="content" v-html="article"></div>
-    <NuxtLink to="/articles/1"><button>繼續閱讀</button> </NuxtLink>
+    <NuxtLink :to="`/articles/${group}_${title}`">
+      繼續閱讀
+    </NuxtLink>
   </div>
 </template>
 
@@ -10,17 +12,12 @@ import { marked } from 'marked'
 import hljs from 'highlight.js'
 import { ref, onMounted } from 'vue'
 import 'highlight.js/styles/github-dark.css';
+import convertImageUrl from '../utils/convertImageUrl'
 
 const article = ref('')
-const { link } = defineProps(['link'])
+const { group ,title, link } = defineProps(['group','title', 'link'])
 
 onMounted(async () => {
-  // marked.setOptions({
-  //   langPrefix: 'hljs language-',
-  //   highlight: function(code) {
-  //     return hljs.highlightAuto(code, ["html", "javascript"]).value;
-  //   }
-  // })
   marked.setOptions({
       renderer: new marked.Renderer(),
       highlight: function (code, language) {
@@ -30,10 +27,6 @@ onMounted(async () => {
         }
         return hljs.highlight(validLanguage, code).value;
       },
-      // highlight: function (code, language) {
-      //   const validLanguage = hljs.getLanguage(language) ? language : 'plaintext';
-      //   return hljs.highlight(validLanguage, code).value;
-      // },
       pedantic: false,
       gfm: true,
       tables: true,
@@ -47,26 +40,23 @@ onMounted(async () => {
     nextTick( async () => {
       const data  = await useFetch('https://bingfenghung.github.io/DevArticles/articles.json')
 
-      //const articles = await useFetch(data.value['Node.js'][0].link)
-      // console.log(link)
       const articles = await useFetch(link)
 
-      // console.log(articles.data.value)
-      const regex = /!\[\]\(.\//gm;
-      const segment = link.split('/')
-      let lastSegment = segment[segment.length - 1]
-      // console.log('last', lastSegment)
-      lastSegment = lastSegment.replace('.', '\.')
-      console.log(lastSegment)
-      const baseUrl = link.replace(new RegExp(lastSegment + '$'), '')
-      console.log('Replace', baseUrl)
-      const url = articles.data.value.replaceAll(regex, `![](${baseUrl}`)
-      console.log(url)
+      // const regex = /!\[\]\(.\//gm;
+      // const segment = link.split('/')
+      // let lastSegment = segment[segment.length - 1]
+      // lastSegment = lastSegment.replace('.', '\.')
+      // const baseUrl = link.replace(new RegExp(lastSegment + '$'), '')
+      // const url = articles.data.value.replaceAll(regex, `![](${baseUrl}`)
+      // const temp = articles.data.value.replaceAll(/\((.*?)\)/gm, (text) => {
+      //   text = text.replace('(', '').replace(')', '').replace('./', '')
+      //   text = `(${baseUrl}${text})`
+      //   const final = text.replace(' ', '%20')
+      //   return final
+      // })
+      const temp = convertImageUrl.imageUrlConverter(link, articles)
 
-
-      // article.value = marked(articles.data.value)
-      // console.log(url)
-      article.value = marked(url)
+      article.value = marked(temp)
     })
 
 })
@@ -84,11 +74,10 @@ onMounted(async () => {
 }
 
 .content {
-  height: 200px;
+  height: 90%;
   overflow: hidden;
 }
 
 button {
-
 }
 </style>

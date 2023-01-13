@@ -3,10 +3,10 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
-    "generate": "nuxt generate",
+    "generate": "nuxt generate && echo > dist/.nojekyll",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages --dotfiles=true -d dist"
   },
   "devDependencies": {
     "nuxt": "3.0.0"
@@ -15,6 +15,7 @@
     "@types/marked": "^4.0.8",
     "gh-pages": "^4.0.0",
     "highlight.js": "^11.7.0",
-    "marked": "^4.2.5"
+    "marked": "^4.2.5",
+    "vue-awesome-paginate": "^1.1.46"
   }
 }

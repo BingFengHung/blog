@@ -1,16 +1,17 @@
 <template>
   <div>
-    <!-- <div v-html="article"></div> -->
-    <!-- <NuxtLink to="/articles/node">Temp</NuxtLink> -->
-    <!-- <Profile></Profile> 
-    <CategoriesCard></CategoriesCard> -->
-    <template v-for="(link, idx) in articleLink" :key="idx">
-      <ArticleCard :link="link"></ArticleCard>
+    <template v-for="(article, idx) in articleLink" :key="idx">
+      <ArticleCard :group="article.group" :title="article.title" :link="article.link"></ArticleCard>
     </template>
-    <!-- <ArticleCard link="https://bingfenghung.github.io/Articles/CSharp/CSharp_%E5%AF%A6%E4%BD%9CEventAggregator%E5%AF%A6%E7%8F%BE%E5%85%A9%E7%89%A9%E4%BB%B6%E4%B9%8B%E9%96%93%E7%9A%84%E6%BA%9D%E9%80%9A/CSharp_%E5%AF%A6%E4%BD%9CEventAggregator%E5%AF%A6%E7%8F%BE%E5%85%A9%E7%89%A9%E4%BB%B6%E4%B9%8B%E9%96%93%E7%9A%84%E6%BA%9D%E9%80%9A.md"></ArticleCard> -->
-    <!-- <ArticleCard link="https://bingfenghung.github.io/Articles/CSharp/CSharp_%E5%AF%A6%E4%BD%9CEventAggregator%E5%AF%A6%E7%8F%BE%E5%85%A9%E7%89%A9%E4%BB%B6%E4%B9%8B%E9%96%93%E7%9A%84%E6%BA%9D%E9%80%9A/CSharp_%E5%AF%A6%E4%BD%9CEventAggregator%E5%AF%A6%E7%8F%BE%E5%85%A9%E7%89%A9%E4%BB%B6%E4%B9%8B%E9%96%93%E7%9A%84%E6%BA%9D%E9%80%9A.md"></ArticleCard> -->
-    <!-- <ArticleCard link="https://bingfenghung.github.io/Articles/CSharp/CSharp_%E5%AF%A6%E4%BD%9CEventAggregator%E5%AF%A6%E7%8F%BE%E5%85%A9%E7%89%A9%E4%BB%B6%E4%B9%8B%E9%96%93%E7%9A%84%E6%BA%9D%E9%80%9A/CSharp_%E5%AF%A6%E4%BD%9CEventAggregator%E5%AF%A6%E7%8F%BE%E5%85%A9%E7%89%A9%E4%BB%B6%E4%B9%8B%E9%96%93%E7%9A%84%E6%BA%9D%E9%80%9A.md"></ArticleCard>
-    <ArticleCard link="https://bingfenghung.github.io/Articles/CSharp/CSharp_%E5%AF%A6%E4%BD%9CEventAggregator%E5%AF%A6%E7%8F%BE%E5%85%A9%E7%89%A9%E4%BB%B6%E4%B9%8B%E9%96%93%E7%9A%84%E6%BA%9D%E9%80%9A/CSharp_%E5%AF%A6%E4%BD%9CEventAggregator%E5%AF%A6%E7%8F%BE%E5%85%A9%E7%89%A9%E4%BB%B6%E4%B9%8B%E9%96%93%E7%9A%84%E6%BA%9D%E9%80%9A.md"></ArticleCard> -->
+    <vue-awesome-paginate
+    :total-items="50"
+    :items-per-page="5"
+    :max-pages-shown="5"
+    v-model="currentPage"
+    :show-breapoint-buttons="false"
+    :show-jump-buttons="true"
+    :on-click="onClickHandler"
+  />
   </div>
 </template>
 
@@ -22,10 +23,16 @@ import 'highlight.js/styles/github-dark.css';
 
 const article = ref('')
 const articleLink = reactive([])
+const onClickHandler = (page ) => {
+  };
+
+  const currentPage = ref(1);
 
 const getDataByDate = (data) => {
-  console.log(data)
-  const dataSet = Object.keys(data).reduce((pre, cur) => pre.concat(data[cur]), [])
+  const dataSet = Object.keys(data).reduce((pre, cur) => {
+    const datas = data[cur].map(el => ({"group": cur, ...el}))
+    return pre.concat(datas)
+  }, [])
   return dataSet.sort((a, b) => {
     const splitA = a.lastModifyDate.split('-')
     const splitB = b.lastModifyDate.split('-')
@@ -68,37 +75,18 @@ onMounted(async () => {
 
   // const data  = await useFetch('https://bingfenghung.github.io/DevArticles/articles.json')
 
-  // console.log(data)
 
   nextTick(async () => {
     const { data } = await useFetch('https://bingfenghung.github.io/DevArticles/articles.json')
-    // console.log(data)
 
-    // console.log('Art', data)
     const sortData = getDataByDate(data.value)
-    // console.log(sortData)
 
     const recentData = sortData.slice(0, 6)
-    // // console.log(recentData)
 
     recentData.forEach(el => {
-      articleLink.push(el.link)
+      articleLink.push(el)
     })
-
-    // await recentData.asyncForEach(async (item) => {
-    //   // const { data: record } = await useFetch(item.link);
-    //   // console.log('a',record)
-    //   console.log('link', item.link)
-    //   articeLink.push(item.link)
-    // })
   })
-
-  // const articles = await useFetch(data.value['Node.js'][0].link)
-  // console.log(articles)
-  // const articles = await useFetch("https://bingfenghung.github.io/Articles/CSharp/CSharp_%E5%AF%A6%E4%BD%9CEventAggregator%E5%AF%A6%E7%8F%BE%E5%85%A9%E7%89%A9%E4%BB%B6%E4%B9%8B%E9%96%93%E7%9A%84%E6%BA%9D%E9%80%9A/CSharp_%E5%AF%A6%E4%BD%9CEventAggregator%E5%AF%A6%E7%8F%BE%E5%85%A9%E7%89%A9%E4%BB%B6%E4%B9%8B%E9%96%93%E7%9A%84%E6%BA%9D%E9%80%9A.md")
-  // console.log(articles.data.value)
-
-  // article.value = marked(articles.data.value)
 })
 
 Array.prototype.asyncForEach = async function(callback) {
@@ -115,4 +103,29 @@ Array.prototype.asyncForEach = async function(callback) {
   padding: 15px;
   border-radius: 5px;
 }
+
+  .pagination-container {
+    display: flex;
+    column-gap: 10px;
+  }
+  .paginate-buttons {
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: rgb(242, 242, 242);
+    border: 1px solid rgb(217, 217, 217);
+    color: black;
+  }
+  .paginate-buttons:hover {
+    background-color: #d8d8d8;
+  }
+  .active-page {
+    background-color: #3498db;
+    border: 1px solid #3498db;
+    color: white;
+  }
+  .active-page:hover {
+    background-color: #2988c8;
+  }
 </style>
