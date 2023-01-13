@@ -1,0 +1,1 @@
+const t=(a,r)=>{const p=/!\[\]\(.\//gm,c=a.split("/");let l=c[c.length-1];l=l.replace(".",".");const n=a.replace(new RegExp(l+"$"),"");return r.data.value.replaceAll(p,`![](${n}`),r.data.value.replaceAll(/\((.*?)\)/gm,e=>(e=e.replace("(","").replace(")","").replace("./",""),e=`(${n}${e})`,e.replace(" ","%20")))},g={imageUrlConverter:t};export{g as c};
