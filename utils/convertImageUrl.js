@@ -1,19 +1,17 @@
 const imageUrlConverter = (link, article) => { 
-  console.log(article)
   const regex = /!\[\]\(.\//gm;
   const segment = link.split('/')
   let lastSegment = segment[segment.length - 1]
   lastSegment = lastSegment.replace('.', '\.')
-  const baseUrl = link.replace(new RegExp(lastSegment + '$'), '')
+  const baseUrl = link.substr(0, link.lastIndexOf(lastSegment))
   const temp = article.data.value.replaceAll(/!\[\]\((.*?)\)/gm, (text) => {
     return text.replace(/\((.*?)\)/gm, (text) => {
-      text = text.replace('(', '').replace(')', '').replace('./', '')
+      text = text.substring(1, text.length - 1).replace('./', '')
       text = `(${baseUrl}${text})`
-      const final = text.replace(' ', '%20')
+      const final = text.replaceAll(' ', '%20')
       return final
     })
   })
-  console.log(temp)
 
   return temp
 }

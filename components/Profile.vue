@@ -1,6 +1,8 @@
 <template>
   <div class="profile">
-    <div class="avatar">Img</div>
+    <div class="avatar">
+      <img src="https://github.com/bingfenghung.png" alt="">
+    </div>
     <div>Bing Feng</div>
     <div>
       <ul>
@@ -37,6 +39,13 @@
 }
 
 .avatar {
+  display: flex;
+  justify-content: center;
+}
+
+.avatar img {
   border-radius: 50%;
+  width: 50%;
+  height: 50%;
 }
 </style>

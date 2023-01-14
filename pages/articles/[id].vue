@@ -17,7 +17,8 @@ const { id } = useRoute().params
 const { describe } = ref('')
 
 
-const [group, title] = id.split('_')
+let [group, title] = id.split('_')
+console.log(group, title)
 
 onMounted(async () => {
   marked.setOptions({
@@ -41,7 +42,31 @@ onMounted(async () => {
 
   nextTick(async () => {
     const { data } = await useFetch('https://bingfenghung.github.io/DevArticles/articles.json')
+
+      data.value['VisualStudio'] = data.value['VisualStudio'].map(el => {
+        el.link = el.link.replaceAll('#', '%23').replaceAll(' ', '%20')
+        el.title = el.title.replaceAll('#', '%23').replaceAll(' ', '%20')
+        return {...el}
+      })
+      data.value['JavaScript'] = data.value['JavaScript'].map(el => {
+        el.link = el.link.replaceAll('#', '%23').replaceAll(' ', '%20')
+        el.title = el.title.replaceAll('#', '%23').replaceAll(' ', '%20')
+        return {...el}
+      })
+
+      data.value['C#'] = data.value['C#'].map(el => {
+        el.link = el.link.replaceAll('#', '%23').replaceAll(' ', '%20')
+        el.title = el.title.replaceAll('#', '%23').replaceAll(' ', '%20')
+        return {...el}
+      })
+
+    data.value['CSharp'] = data.value['C#']
+    delete data.value['C#']
+
+    title = title.replaceAll('#', '%23').replaceAll(' ', '%20')
+
     const result = data.value[group].filter(el => el.title == title)
+    console.log(result)
     // console.log(data.value)
     // const dataSet = Object.keys(data.value).reduce((pre, cur) => {
     //   const datas = data.value[cur].map(el => ({"group": cur, ...el}))

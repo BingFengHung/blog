@@ -22,9 +22,8 @@ import { ref, onMounted } from 'vue'
 import 'highlight.js/styles/github-dark.css';
 
 const article = ref('')
-const articleLink = reactive([])
-const onClickHandler = (page ) => {
-  };
+let articleLink = reactive([])
+let sortData = reactive([])
 
   const currentPage = ref(1);
 
@@ -44,12 +43,6 @@ const getDataByDate = (data) => {
 }
 
 onMounted(async () => {
-  // marked.setOptions({
-  //   langPrefix: 'hljs language-',
-  //   highlight: function(code) {
-  //     return hljs.highlightAuto(code, ["html", "javascript"]).value;
-  //   }
-  // })
   marked.setOptions({
       renderer: new marked.Renderer(),
       highlight: function (code, language) {
@@ -59,10 +52,6 @@ onMounted(async () => {
         }
         return hljs.highlight(validLanguage, code).value;
       },
-      // highlight: function (code, language) {
-      //   const validLanguage = hljs.getLanguage(language) ? language : 'plaintext';
-      //   return hljs.highlight(validLanguage, code).value;
-      // },
       pedantic: false,
       gfm: true,
       tables: true,
@@ -73,13 +62,33 @@ onMounted(async () => {
       xhtml: false
     });
 
-  // const data  = await useFetch('https://bingfenghung.github.io/DevArticles/articles.json')
-
-
   nextTick(async () => {
     const { data } = await useFetch('https://bingfenghung.github.io/DevArticles/articles.json')
 
-    const sortData = getDataByDate(data.value)
+    data.value['VisualStudio'] = data.value['VisualStudio'].map(el => {
+      el.link = el.link.replaceAll('#', '%23').replaceAll(' ', '%20')
+      el.title = el.title.replaceAll('#', '%23').replaceAll(' ', '%20')
+      return {...el}
+    })
+
+    data.value['JavaScript'] = data.value['JavaScript'].map(el => {
+      el.link = el.link.replaceAll('#', '%23').replaceAll(' ', '%20')
+      el.title = el.title.replaceAll('#', '%23').replaceAll(' ', '%20')
+      return {...el}
+    })
+
+    data.value['C#'] = data.value['C#'].map(el => {
+      el.link = el.link.replaceAll('#', '%23').replaceAll(' ', '%20')
+      el.title = el.title.replaceAll('#', '%23').replaceAll(' ', '%20')
+      return {...el}
+    })
+
+    data.value['CSharp'] = data.value['C#']
+    delete data.value['C#']
+    
+
+    sortData = getDataByDate(data.value)
+    console.log('vector', sortData)
 
     const recentData = sortData.slice(0, 6)
 
@@ -89,12 +98,22 @@ onMounted(async () => {
   })
 })
 
+const onClickHandler = (page) => {
+  console.log('recent', sortData)
+  const recentData = sortData.slice(6 * (page - 1), 7 + 6 * (page -1))
+  console.log('recent', recentData)
+
+  articleLink = []
+  recentData.forEach(el => {
+    articleLink.push(el)
+  })
+};
+
 Array.prototype.asyncForEach = async function(callback) {
   for (let i = 0; i < this.length; i++) {
     await callback(this[i], i, this)
   }
 }
-
 
 </script>
 
