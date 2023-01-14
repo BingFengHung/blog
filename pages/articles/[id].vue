@@ -43,22 +43,32 @@ onMounted(async () => {
   nextTick(async () => {
     const { data } = await useFetch('https://bingfenghung.github.io/DevArticles/articles.json')
 
-      data.value['VisualStudio'] = data.value['VisualStudio'].map(el => {
-        el.link = el.link.replaceAll('#', '%23').replaceAll(' ', '%20')
-        el.title = el.title.replaceAll('#', '%23').replaceAll(' ', '%20')
-        return {...el}
-      })
-      data.value['JavaScript'] = data.value['JavaScript'].map(el => {
-        el.link = el.link.replaceAll('#', '%23').replaceAll(' ', '%20')
-        el.title = el.title.replaceAll('#', '%23').replaceAll(' ', '%20')
+    data.value = Object.keys(data.value).reduce(((pre, cur) => {
+      const dataSet = data.value[cur] = data.value[cur].map(el => {
+        el.link = el.link.replaceAll('#', '%23').replaceAll(' ', '%20')// .replaceAll('.', '%2E')
+        el.title = el.title.replaceAll('#', '%23').replaceAll(' ', '%20') //.replaceAll('.', '%2E')
         return {...el}
       })
 
-      data.value['C#'] = data.value['C#'].map(el => {
-        el.link = el.link.replaceAll('#', '%23').replaceAll(' ', '%20')
-        el.title = el.title.replaceAll('#', '%23').replaceAll(' ', '%20')
-        return {...el}
-      })
+      return ({[cur]: dataSet, ...pre})
+    }), {})
+
+      // data.value['VisualStudio'] = data.value['VisualStudio'].map(el => {
+      //   el.link = el.link.replaceAll('#', '%23').replaceAll(' ', '%20')
+      //   el.title = el.title.replaceAll('#', '%23').replaceAll(' ', '%20')
+      //   return {...el}
+      // })
+      // data.value['JavaScript'] = data.value['JavaScript'].map(el => {
+      //   el.link = el.link.replaceAll('#', '%23').replaceAll(' ', '%20')
+      //   el.title = el.title.replaceAll('#', '%23').replaceAll(' ', '%20')
+      //   return {...el}
+      // })
+
+      // data.value['C#'] = data.value['C#'].map(el => {
+      //   el.link = el.link.replaceAll('#', '%23').replaceAll(' ', '%20')
+      //   el.title = el.title.replaceAll('#', '%23').replaceAll(' ', '%20')
+      //   return {...el}
+      // })
 
     data.value['CSharp'] = data.value['C#']
     delete data.value['C#']
