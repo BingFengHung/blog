@@ -25,10 +25,6 @@ onMounted(async () => {
         }
         return hljs.highlight(validLanguage, code).value;
       },
-      // highlight: function (code, language) {
-      //   const validLanguage = hljs.getLanguage(language) ? language : 'plaintext';
-      //   return hljs.highlight(validLanguage, code).value;
-      // },
       pedantic: false,
       gfm: true,
       tables: true,
