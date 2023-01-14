@@ -53,58 +53,21 @@ onMounted(async () => {
       return ({[cur]: dataSet, ...pre})
     }), {})
 
-      // data.value['VisualStudio'] = data.value['VisualStudio'].map(el => {
-      //   el.link = el.link.replaceAll('#', '%23').replaceAll(' ', '%20')
-      //   el.title = el.title.replaceAll('#', '%23').replaceAll(' ', '%20')
-      //   return {...el}
-      // })
-      // data.value['JavaScript'] = data.value['JavaScript'].map(el => {
-      //   el.link = el.link.replaceAll('#', '%23').replaceAll(' ', '%20')
-      //   el.title = el.title.replaceAll('#', '%23').replaceAll(' ', '%20')
-      //   return {...el}
-      // })
-
-      // data.value['C#'] = data.value['C#'].map(el => {
-      //   el.link = el.link.replaceAll('#', '%23').replaceAll(' ', '%20')
-      //   el.title = el.title.replaceAll('#', '%23').replaceAll(' ', '%20')
-      //   return {...el}
-      // })
-
     data.value['CSharp'] = data.value['C#']
     delete data.value['C#']
 
     data.value['VCpp'] = data.value['Visual C++']
     delete data.value['Visual C++']
 
-    console.log('MyDAta',data.value)
-
     title = title.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B')
 
     const result = data.value[group].filter(el => el.title == title)
-    console.log(result)
-    // console.log(data.value)
-    // const dataSet = Object.keys(data.value).reduce((pre, cur) => {
-    //   const datas = data.value[cur].map(el => ({"group": cur, ...el}))
-    //   return pre.concat(datas)
-    // }, [])  
+    const articles = await useFetch(result[0].link)
 
-    // console.log(dataSet)
-    // const result = dataSet[group].filter(item => item.title === title)
-    // console.log('result', result)
-  // const articles = await useFetch(data.value['Node.js'][0].link)
-  // const articles = await useFetch("https://bingfenghung.github.io/Articles/CSharp/CSharp_%E5%AF%A6%E4%BD%9CEventAggregator%E5%AF%A6%E7%8F%BE%E5%85%A9%E7%89%A9%E4%BB%B6%E4%B9%8B%E9%96%93%E7%9A%84%E6%BA%9D%E9%80%9A/CSharp_%E5%AF%A6%E4%BD%9CEventAggregator%E5%AF%A6%E7%8F%BE%E5%85%A9%E7%89%A9%E4%BB%B6%E4%B9%8B%E9%96%93%E7%9A%84%E6%BA%9D%E9%80%9A.md")
-  const articles = await useFetch(result[0].link)
-
-  const temp = convertImageUrl.imageUrlConverter(result[0].link, articles)
-  // article.value = marked(articles.data.value)
-  article.value = marked(temp)
+    const temp = convertImageUrl.imageUrlConverter(result[0].link, articles)
+    article.value = marked(temp)
   })
-
-
-
-
-  })
-
+})
 </script>
 
 <style scoped>
