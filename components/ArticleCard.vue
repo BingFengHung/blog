@@ -72,6 +72,7 @@ onMounted(async () => {
   margin-bottom: 10px;
   padding: 0px 20px;
   background-color: white;
+  box-sizing: border-box;
 }
 
 .content {
@@ -80,5 +81,28 @@ onMounted(async () => {
 }
 
 button {
+}
+
+@media screen and (min-width: 1024px) {
+  /*STYLES*/
+}
+
+@media screen and (min-width: 1200px) {
+  /* 如果使用者之視窗寬度 >= 1200px，將會再載入這裡的 CSS。 */
+}
+
+@media screen and (min-width: 768px) and (max-width: 979px) {
+  /* 如果使用者之視窗寬度介於 768px ~ 979px，將會再載入這裡的 CSS。 */
+}
+
+@media screen and (max-width: 767px) {
+  /* 如果使用者之視窗寬度 <= 768px，將會再載入這裡的 CSS。*/
+}
+
+@media screen and (max-device-width: 480px) {
+  /* 如果使用者之裝置寬度 <= 480px，將會再載入這裡的 CSS。 */
+  .article {
+    
+  }
 }
 </style>

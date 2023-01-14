@@ -3,15 +3,16 @@
     <template v-for="(article, idx) in articleLink" :key="article">
       <ArticleCard :group="article.group" :title="article.title" :link="article.link"></ArticleCard>
     </template>
-    <vue-awesome-paginate
-    :total-items="50"
-    :items-per-page="5"
-    :max-pages-shown="5"
-    v-model="currentPage"
-    :show-breapoint-buttons="false"
-    :show-jump-buttons="true"
-    :on-click="onClickHandler"
-  />
+    <div class="pagination">
+      <vue-awesome-paginate
+        :total-items="50"
+        :items-per-page="5"
+        :max-pages-shown="1"
+        v-model="currentPage"
+        :show-breapoint-buttons="false"
+        :show-jump-buttons="true"
+        :on-click="onClickHandler"/>
+    </div>
   </div>
 </template>
 
@@ -118,9 +119,13 @@ Array.prototype.asyncForEach = async function(callback) {
   border-radius: 5px;
 }
 
+.pagination {
+  display: flex;
+  justify-content: center;
+}
   .pagination-container {
     display: flex;
-    column-gap: 10px;
+    column-gap: 8px;
   }
   .paginate-buttons {
     height: 40px;

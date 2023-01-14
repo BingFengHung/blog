@@ -1,6 +1,18 @@
 <template>
   <div class="container">
     <header>
+      <div class="header_container">
+        <div>Logo</div>
+        <div class="menu-icon">
+          <input id="menu" name="menu" class="menu_check" type="checkbox">
+          <label for="menu">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+          </label>
+        </div>
+      </div>
+
       <ul>
         <li><NuxtLink to="/">Home</NuxtLink></li>
         <li><NuxtLink to="/archives">Archives</NuxtLink></li>
@@ -72,7 +84,6 @@ header ul {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: white;
   margin: 0px;
   height: 100px;
 }
@@ -80,5 +91,120 @@ header ul {
 li {
   margin: 10px;
   list-style-type: none;
+}
+
+.menu-icon {
+  display: none;
+  margin: 3px 5px;
+  padding: 3px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.bar1, .bar2, .bar3 {
+  width: 30px;
+  height: 3px;
+  background-color: #ccc;
+  margin: 5px 0;
+  transition: .4s;
+}
+
+@media screen and (min-width: 1024px) {
+  main {
+    width: 960px;
+  }
+
+  .side {
+    width: 30%;
+  }
+
+  .content {
+    width: 70%;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  /* 如果使用者之視窗寬度 >= 1200px，將會再載入這裡的 CSS。 */
+  main {
+    width: 960px;
+  }
+
+  .side {
+    width: 30%;
+  }
+
+  .content {
+    width: 70%;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 979px) {
+  /* 如果使用者之視窗寬度介於 768px ~ 979px，將會再載入這裡的 CSS。 */
+  main {
+    width: 960px;
+  }
+
+  .side {
+    width: 30%;
+  }
+
+  .content {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  /* 如果使用者之視窗寬度 <= 768px，將會再載入這裡的 CSS。*/
+  main {
+    width: 100%;
+  }
+
+  .side {
+    width: 30%;
+  }
+
+  .content {
+    width: 70%;
+  }
+}
+
+@media screen and (max-device-width: 480px) {
+  /* 如果使用者之裝置寬度 <= 480px，將會再載入這裡的 CSS。 */
+  .side {
+    display: none;
+  }
+
+  main {
+    width: 100%;
+  }
+
+  .content {
+    width: 100%;
+  }
+
+  header ul {
+    display: none;
+  }
+
+  .menu-icon {
+    display: inline-block;
+  }
+
+  .menu_check {
+    display: none;
+  }
+
+  /* .menu-icon:has(> input[type=checkbox]:checked) + ul {
+    display: block;
+  } */
+
+  .header_container:has(.menu-icon > input[type=checkbox]:checked) + ul {
+    display: block;
+  }
+  .header_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 </style>
