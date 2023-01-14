@@ -45,8 +45,8 @@ onMounted(async () => {
 
     data.value = Object.keys(data.value).reduce(((pre, cur) => {
       const dataSet = data.value[cur] = data.value[cur].map(el => {
-        el.link = el.link.replaceAll('#', '%23').replaceAll(' ', '%20')// .replaceAll('.', '%2E')
-        el.title = el.title.replaceAll('#', '%23').replaceAll(' ', '%20') //.replaceAll('.', '%2E')
+        el.link = el.link.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B')
+        el.title = el.title.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B')
         return {...el}
       })
 
@@ -73,7 +73,12 @@ onMounted(async () => {
     data.value['CSharp'] = data.value['C#']
     delete data.value['C#']
 
-    title = title.replaceAll('#', '%23').replaceAll(' ', '%20')
+    data.value['VCpp'] = data.value['Visual C++']
+    delete data.value['Visual C++']
+
+    console.log('MyDAta',data.value)
+
+    title = title.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B')
 
     const result = data.value[group].filter(el => el.title == title)
     console.log(result)

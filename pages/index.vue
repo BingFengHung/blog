@@ -1,6 +1,6 @@
 <template>
   <div>
-    <template v-for="(article, idx) in articleLink" :key="idx">
+    <template v-for="(article, idx) in articleLink" :key="article">
       <ArticleCard :group="article.group" :title="article.title" :link="article.link"></ArticleCard>
     </template>
     <vue-awesome-paginate
@@ -65,43 +65,26 @@ onMounted(async () => {
   nextTick(async () => {
     const { data } = await useFetch('https://bingfenghung.github.io/DevArticles/articles.json')
 
-    console.log('old', data.value)
     data.value = Object.keys(data.value).reduce(((pre, cur) => {
       const dataSet = data.value[cur] = data.value[cur].map(el => {
-        el.link = el.link.replaceAll('#', '%23').replaceAll(' ', '%20')// .replaceAll('.', '%2E')
-        el.title = el.title.replaceAll('#', '%23').replaceAll(' ', '%20') // .replaceAll('.', '%2E')
+        el.link = el.link.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B')
+        el.title = el.title.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B')
         return {...el}
       })
 
       return ({[cur]: dataSet, ...pre})
     }), {})
 
-
-
-    // data.value['VisualStudio'] = data.value['VisualStudio'].map(el => {
-    //   el.link = el.link.replaceAll('#', '%23').replaceAll(' ', '%20')
-    //   el.title = el.title.replaceAll('#', '%23').replaceAll(' ', '%20')
-    //   return {...el}
-    // })
-
-    // data.value['JavaScript'] = data.value['JavaScript'].map(el => {
-    //   el.link = el.link.replaceAll('#', '%23').replaceAll(' ', '%20')
-    //   el.title = el.title.replaceAll('#', '%23').replaceAll(' ', '%20')
-    //   return {...el}
-    // })
-
-    // data.value['C#'] = data.value['C#'].map(el => {
-    //   el.link = el.link.replaceAll('#', '%23').replaceAll(' ', '%20')
-    //   el.title = el.title.replaceAll('#', '%23').replaceAll(' ', '%20')
-    //   return {...el}
-    // })
+    console.log(data.value)
 
     data.value['CSharp'] = data.value['C#']
     delete data.value['C#']
+
+    data.value['VCpp'] = data.value['Visual C++']
+    delete data.value['Visual C++']
     
 
     sortData = getDataByDate(data.value)
-    console.log('vector', sortData)
 
     const recentData = sortData.slice(0, 6)
 
@@ -112,14 +95,14 @@ onMounted(async () => {
 })
 
 const onClickHandler = (page) => {
-  console.log('recent', sortData)
-  const recentData = sortData.slice(6 * (page - 1), 7 + 6 * (page -1))
-  console.log('recent', recentData)
+  const recentData = sortData.slice(6 * (page - 1), 6 + 6 * (page -1))
 
   articleLink = []
+
   recentData.forEach(el => {
     articleLink.push(el)
   })
+  console.log(articleLink)
 };
 
 Array.prototype.asyncForEach = async function(callback) {
@@ -127,7 +110,6 @@ Array.prototype.asyncForEach = async function(callback) {
     await callback(this[i], i, this)
   }
 }
-
 </script>
 
 <style>
