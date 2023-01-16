@@ -1,8 +1,9 @@
 <template>
   <div class="article">
+    <div class="subtitle">更新日期：{{ modifyDate  }}</div>
     <div class="content" v-html="article"></div>
     <NuxtLink :to="`/articles/${group}_${title}`">
-      繼續閱讀
+      <div>繼續閱讀</div>
     </NuxtLink>
   </div>
 </template>
@@ -15,7 +16,11 @@ import 'highlight.js/styles/github-dark.css';
 import convertImageUrl from '../utils/convertImageUrl'
 
 const article = ref('')
-const { group ,title, link } = defineProps(['group','title', 'link'])
+const modifyDate = ref('')
+const { articleData } = defineProps(['articleData'])
+const { group, title, link, lastModifyDate} = articleData
+
+modifyDate.value = lastModifyDate
 
 onMounted(async () => {
   marked.setOptions({
@@ -65,19 +70,29 @@ onMounted(async () => {
 
 <style scoped>
 .article {
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   border-radius: 5px;
   overflow: hidden;
   height: 300px;
   margin-bottom: 10px;
-  padding: 0px 20px;
+  padding: 5px 20px;
   background-color: white;
   box-sizing: border-box;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 5%), 0 0 1px rgb(0 0 0 / 10%)
+}
+
+.subtitle {
+  font-size: .8rem;
+  color: #aaa;
 }
 
 .content {
-  height: 90%;
+  height: 80%;
   overflow: hidden;
+}
+
+.content h1 {
+  margin: 5px 0px !important;
 }
 
 button {

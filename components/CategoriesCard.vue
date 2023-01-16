@@ -18,9 +18,10 @@
 <style scoped>
 .categories {
   display: inline-block;
-  border: 1px solid #ccc;;
+  /* border: 1px solid #ccc;; */
   background-color: #fff;
   border-radius: 5px;
   padding: 10px;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 5%), 0 0 1px rgb(0 0 0 / 10%)
 }
 </style>

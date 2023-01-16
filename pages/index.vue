@@ -1,7 +1,7 @@
 <template>
   <div>
     <template v-for="(article, idx) in articleLink" :key="article">
-      <ArticleCard :group="article.group" :title="article.title" :link="article.link"></ArticleCard>
+      <ArticleCard :articleData="article"></ArticleCard>
     </template>
     <div class="pagination">
       <vue-awesome-paginate
@@ -76,7 +76,6 @@ onMounted(async () => {
       return ({[cur]: dataSet, ...pre})
     }), {})
 
-    console.log(data.value)
 
     data.value['CSharp'] = data.value['C#']
     delete data.value['C#']

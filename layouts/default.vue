@@ -2,7 +2,11 @@
   <div class="container">
     <header>
       <div class="header_container">
-        <div>Logo</div>
+          <NuxtLink to="/">
+            <div class="logo">
+                <Logo></Logo>
+            </div>
+          </NuxtLink>
         <div class="menu-icon">
           <input id="menu" name="menu" class="menu_check" type="checkbox">
           <label for="menu">
@@ -19,8 +23,7 @@
         <li><NuxtLink to="/categories">Categories</NuxtLink></li>
         <li>
           <div>
-            <input type="text">
-            <Button>Search</Button>
+            <Button @click="showModal=true">Search</Button>
           </div>
         </li>
       </ul>
@@ -35,11 +38,13 @@
         <slot></slot>
       </div>
     </main>
+    <SearchModal v-show="showModal" @modal-close="showModal=false"></SearchModal>
   </div>
 </template>
 
 <script setup>
-
+import { ref } from 'vue'
+const showModal = ref(false)
 </script>
 
 <style>
@@ -51,6 +56,11 @@ body {
 </style>
 
 <style scoped>
+.logo {
+  display: inline-block;
+  margin: 10px 10px;
+}
+
 .container {
   margin: 0px;
   padding: 0px;
@@ -61,8 +71,11 @@ body {
 }
 
 header {
+  display: flex;
   margin-bottom: 20px;
   background-color: white;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 5%), 0 0 1px rgb(0 0 0 / 10%);
+  align-items: center;
 }
 
 main {
@@ -141,7 +154,7 @@ li {
 @media screen and (min-width: 768px) and (max-width: 979px) {
   /* 如果使用者之視窗寬度介於 768px ~ 979px，將會再載入這裡的 CSS。 */
   main {
-    width: 960px;
+    width: 100%;
   }
 
   .side {
@@ -199,6 +212,9 @@ li {
   } */
 
   .header_container:has(.menu-icon > input[type=checkbox]:checked) + ul {
+    display: block;
+  }
+  header {
     display: block;
   }
   .header_container {
