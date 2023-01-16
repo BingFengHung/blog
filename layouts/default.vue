@@ -4,7 +4,7 @@
       <div class="header_container">
           <NuxtLink to="/">
             <div class="logo">
-                <Logo></Logo>
+              <Logo></Logo>
             </div>
           </NuxtLink>
         <div class="menu-icon">
@@ -58,7 +58,7 @@ body {
 <style scoped>
 .logo {
   display: inline-block;
-  margin: 10px 10px;
+  margin: 10px 20px;
 }
 
 .container {

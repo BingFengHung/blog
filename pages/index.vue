@@ -26,7 +26,7 @@ const article = ref('')
 let articleLink = reactive([])
 let sortData = reactive([])
 
-  const currentPage = ref(1);
+const currentPage = ref(1);
 
 const getDataByDate = (data) => {
   const dataSet = Object.keys(data).reduce((pre, cur) => {
@@ -82,6 +82,7 @@ onMounted(async () => {
 
     data.value['VCpp'] = data.value['Visual C++']
     delete data.value['Visual C++']
+
     
 
     sortData = getDataByDate(data.value)
@@ -102,7 +103,6 @@ const onClickHandler = (page) => {
   recentData.forEach(el => {
     articleLink.push(el)
   })
-  console.log(articleLink)
 };
 
 Array.prototype.asyncForEach = async function(callback) {

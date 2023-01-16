@@ -51,7 +51,6 @@ onMounted(async () => {
       const current = data.value[cur].reduce((pre, cur) => {
         const obj = cur.tags.reduce((pre, cur) => {
           let obj = { [cur]: 0 }
-          console.log('obj', obj)
           return {...obj, ...pre}
         }, {})
 

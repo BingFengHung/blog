@@ -2,8 +2,9 @@
   <div class="categories">
     <div class="categories__title">標籤</div>
     <ul class="categories__list">
-      <li v-for="(tag) in tags">
-          <font-awesome-icon icon="fa-solid fa-tag" class="tag-icon"/> {{ tag }}
+      <li v-for="(tag, key) of tags" :key="key">
+          <font-awesome-icon icon="fa-solid fa-tag" class="tag-icon"/>
+          <NuxtLink :to="`/tags/${tag}`">{{ key }}</NuxtLink>
       </li>
     </ul>
   </div>
@@ -11,7 +12,8 @@
 
 <script setup>
 import { onMounted, reactive } from 'vue';
-const  tags  = ref([])
+let tags = reactive({})
+
 onMounted(() => {
   nextTick(async () => {
     const { data } = await useFetch('https://bingfenghung.github.io/DevArticles/articles.json')
@@ -19,7 +21,6 @@ onMounted(() => {
       const current = data.value[cur].reduce((pre, cur) => {
         const obj = cur.tags.reduce((pre, cur) => {
           let obj = { [cur]: 0 }
-          console.log('obj', obj)
           return {...obj, ...pre}
         }, {})
 
@@ -28,7 +29,21 @@ onMounted(() => {
       return {...current, ...pre}
     }, {})
 
-    tags.value = Object.keys(tag).map(el => el)
+    const tagKey = Object.keys(tag).map(el => el).reduce((pre, cur)=> {
+      let obj = {}
+      if (cur === 'Visual C++')  {
+        obj = { [cur]: 'VCpp' }
+      } else if (cur === 'C#') {
+        obj = { [cur]: 'CSharp' }
+      } else if (cur === 'Visual Studio') {
+        obj = { [cur]: 'VisualStudio' }
+      } else {
+        obj = { [cur]: cur }
+      }
+      return { ...obj, ...pre }
+    }, {})
+
+    Object.assign(tags, tagKey)
   })
 })
 </script>
@@ -62,5 +77,10 @@ onMounted(() => {
 
 .tag-icon {
   color: gray;
+}
+
+a {
+  text-decoration: none;
+  margin-left: 5px;
 }
 </style>

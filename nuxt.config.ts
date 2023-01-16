@@ -9,6 +9,9 @@ export default defineNuxtConfig({
     '@kevinmarrec/nuxt-pwa'
   ],
   pwa: {
+    meta: {
+      name: 'Joe Dev Blog',
+    },
     workbox: {
       enabled: false
     }
