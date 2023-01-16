@@ -4,5 +4,8 @@ export default defineNuxtConfig({
   app: {
     baseURL: '/blog/',
   },
-  css: [ '@fortawesome/fontawesome-svg-core/styles.css' ]
+  css: [ '@fortawesome/fontawesome-svg-core/styles.css' ],
+  modules: [
+    '@nuxtjs/pwa',
+  ],
 })
