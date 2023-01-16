@@ -39,7 +39,7 @@ const getDataByDate = (data) => {
 
     const date1 = new Date(...splitA)
     const date2 = new Date(...splitB)
-    return date1 - date2
+    return date2 - date1
   })
 }
 

@@ -70,12 +70,19 @@ onMounted(async () => {
 })
 </script>
 
+<style>
+img {
+  width: 100%;
+}
+</style>
+
 <style scoped>
 .article {
-  border: 1px solid #ccc;
   padding:  10px;
   border-radius: 5px;
   background-color: #fff;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 5%), 0 0 1px rgb(0 0 0 / 10%)
 }
+
 </style>
 

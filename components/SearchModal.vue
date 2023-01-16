@@ -5,10 +5,15 @@
         <input v-model="searchText" @keyup.enter="onSearch" class="searchbox__input" type="text" placeholder="請輸入關鍵字">
         <button class="searchbox__close-btn" @click="modalClose">x</button>
       </div>
+
       <h6 v-show="searchResult.length == 0">No Data</h6>
 
-      <div v-for="(result, idx) in searchResult" :key="result.title">
-        <div @click="$emit('modal-close')"><NuxtLink :to="`/articles/${result.group}_${result.fake_title}`">{{ result.title }}</NuxtLink></div>
+      <div class="search-result">
+        <template v-for="(result, idx) in searchResult" :key="result.title">
+          <div @click="$emit('modal-close')">
+            <NuxtLink :to="`/articles/${result.group}_${result.fake_title}`">{{ result.title }}</NuxtLink>
+          </div>
+        </template>
       </div>
     </div>
   </div>
@@ -85,13 +90,14 @@ const modalClose = () => {
 .modal {
   text-align: center;
   background-color: white;
-  max-height: 500px;
+  height: 500px;
   width: 500px;
   margin-top: 10%;
   padding: 0px 0;
   border-radius: 5px;
   z-index: 1;
   overflow: hidden;
+  background-color: #eee;
 }
 
 .modal-overlay {
@@ -115,8 +121,14 @@ const modalClose = () => {
   outline: none;
   border: none;
   padding: 0.5rem 0.75rem;
-  font-size: 1rem;
+  font-size: 1.2rem;
   cursor: pointer;
+  background-color: white;
+  font-weight: 700;
+}
+
+.searchbox__close-btn:active {
+  background-color: #eee;
 }
 
 .close {
@@ -136,6 +148,59 @@ h6 {
   font-weight: 500;
   font-size: 28px;
   margin: 20px 0;
+}
+
+.search-result div {
+  display: flex;
+  position: relative;
+  margin-top: 3px;
+  margin-left: 10px;
+  margin-bottom: 15px;
+}
+
+.search-result div::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  background-color: #ccc;
+  height: 1px;
+  width: 100%;
+}
+
+.search-result div:hover::after {
+  background-color: #999;
+}
+
+.search-result a {
+  text-decoration: none;
+  text-align: left;
+  display: inline-block;
+  width: 100%;
+}
+
+@media screen and (min-width: 1024px) {
+  /*STYLES*/
+}
+
+@media screen and (min-width: 1200px) {
+  /* 如果使用者之視窗寬度 >= 1200px，將會再載入這裡的 CSS。 */
+}
+
+@media screen and (min-width: 768px) and (max-width: 979px) {
+  /* 如果使用者之視窗寬度介於 768px ~ 979px，將會再載入這裡的 CSS。 */
+}
+
+@media screen and (max-width: 767px) {
+  /* 如果使用者之視窗寬度 <= 768px，將會再載入這裡的 CSS。*/
+}
+
+@media screen and (max-device-width: 480px) {
+  /* 如果使用者之裝置寬度 <= 480px，將會再載入這裡的 CSS。 */
+  .modal {
+    width: 300px;
+    height: 300px;
+  }
 }
 
 </style>

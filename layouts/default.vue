@@ -22,9 +22,9 @@
         <li><NuxtLink to="/archives">Archives</NuxtLink></li>
         <li><NuxtLink to="/categories">Categories</NuxtLink></li>
         <li>
-          <div>
-            <Button @click="showModal=true">Search</Button>
-          </div>
+          <Button class="search-btn" @click="showModal=true">
+            <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
+          </Button>
         </li>
       </ul>
     </header>
@@ -106,6 +106,12 @@ li {
   list-style-type: none;
 }
 
+li a {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: black;
+}
+
 .menu-icon {
   display: none;
   margin: 3px 5px;
@@ -120,6 +126,18 @@ li {
   background-color: #ccc;
   margin: 5px 0;
   transition: .4s;
+}
+
+.search-btn {
+  outline: none;
+  background-color: white;
+  border: 0px;
+  border-radius: 5px;
+}
+
+a.router-link-active {
+  font-weight: bold;
+  color: #1b9fda;
 }
 
 @media screen and (min-width: 1024px) {
