@@ -9,13 +9,13 @@
     "deploy": "gh-pages --dotfiles=true -d dist"
   },
   "devDependencies": {
+    "@kevinmarrec/nuxt-pwa": "^0.15.0",
     "nuxt": "3.0.0"
   },
   "dependencies": {
     "@fortawesome/free-brands-svg-icons": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@fortawesome/vue-fontawesome": "^3.0.2",
-    "@nuxtjs/pwa": "^3.3.5",
     "@types/marked": "^4.0.8",
     "gh-pages": "^4.0.0",
     "highlight.js": "^11.7.0",
