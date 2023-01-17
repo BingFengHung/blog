@@ -16,10 +16,15 @@
     "@fortawesome/free-brands-svg-icons": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@fortawesome/vue-fontawesome": "^3.0.2",
+    "@pinia/nuxt": "^0.4.6",
     "@types/marked": "^4.0.8",
     "gh-pages": "^4.0.0",
     "highlight.js": "^11.7.0",
     "marked": "^4.2.5",
+    "pinia": "^2.0.29",
     "vue-awesome-paginate": "^1.1.46"
+  },
+  "overrides": {
+    "vue": "3.2.45"
   }
 }

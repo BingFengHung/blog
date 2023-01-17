@@ -2,7 +2,7 @@
   <div class="categories">
     <div class="categories__title">標籤</div>
     <ul class="categories__list">
-      <li v-for="(tag, key) of tags" :key="key">
+      <li v-for="(tag, key) of articleStore.tags" :key="key">
           <font-awesome-icon icon="fa-solid fa-tag" class="tag-icon"/>
           <NuxtLink :to="`/tags/${tag}`">{{ key }}</NuxtLink>
       </li>
@@ -12,40 +12,47 @@
 
 <script setup>
 import { onMounted, reactive } from 'vue';
+import { useArticleStore } from '../store/articles'
 let tags = reactive({})
+const articleStore = useArticleStore()
+await articleStore.fetchArticleData()
+articleStore.getTags()
 
-onMounted(() => {
-  nextTick(async () => {
-    const { data } = await useFetch('https://bingfenghung.github.io/DevArticles/articles.json')
-    const tag = Object.keys(data.value).reduce((pre, cur) => {
-      const current = data.value[cur].reduce((pre, cur) => {
-        const obj = cur.tags.reduce((pre, cur) => {
-          let obj = { [cur]: 0 }
-          return {...obj, ...pre}
-        }, {})
+// onMounted(() => {
+//   nextTick(async () => {
+//     const { data } = await useFetch('https://bingfenghung.github.io/DevArticles/articles.json')
+//     // const data = useArticleStore.articleData
+//     const tag = Object.keys(data.value).reduce((pre, cur) => {
+//       const current = data.value[cur].reduce((pre, cur) => {
+//         const obj = cur.tags.reduce((pre, cur) => {
+//           let obj = { [cur]: 0 }
+//           return {...obj, ...pre}
+//         }, {})
 
-        return {...obj, ...pre}
-      }, {})
-      return {...current, ...pre}
-    }, {})
+//         return {...obj, ...pre}
+//       }, {})
+//       return {...current, ...pre}
+//     }, {})
 
-    const tagKey = Object.keys(tag).map(el => el).reduce((pre, cur)=> {
-      let obj = {}
-      if (cur === 'Visual C++')  {
-        obj = { [cur]: 'VCpp' }
-      } else if (cur === 'C#') {
-        obj = { [cur]: 'CSharp' }
-      } else if (cur === 'Visual Studio') {
-        obj = { [cur]: 'VisualStudio' }
-      } else {
-        obj = { [cur]: cur }
-      }
-      return { ...obj, ...pre }
-    }, {})
+//     const tagKey = Object.keys(tag).map(el => el).reduce((pre, cur)=> {
+//       let obj = {}
+//       if (cur === 'Visual C++')  {
+//         obj = { [cur]: 'VCpp' }
+//       } else if (cur === 'C#') {
+//         obj = { [cur]: 'CSharp' }
+//       } else if (cur === 'Visual Studio') {
+//         obj = { [cur]: 'VisualStudio' }
+//       } else {
+//         obj = { [cur]: cur }
+//       }
+//       return { ...obj, ...pre }
+//     }, {})
 
-    Object.assign(tags, tagKey)
-  })
-})
+//     Object.assign(tags, tagKey)
+
+//     useArticleStore.tags
+//   })
+// })
 </script>
 
 <style scoped>

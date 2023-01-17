@@ -6,11 +6,15 @@ export default defineNuxtConfig({
   },
   css: [ '@fortawesome/fontawesome-svg-core/styles.css' ],
   modules: [
-    '@kevinmarrec/nuxt-pwa'
+    '@kevinmarrec/nuxt-pwa',
+    '@pinia/nuxt'
   ],
   pwa: {
     meta: {
       name: 'Joe Dev Blog',
+    },
+    manifest: {
+      name: 'Joe Dev Blog'
     },
     workbox: {
       enabled: false

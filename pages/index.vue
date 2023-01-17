@@ -21,12 +21,15 @@ import { marked } from 'marked'
 import hljs from 'highlight.js'
 import { ref, onMounted } from 'vue'
 import 'highlight.js/styles/github-dark.css';
+import { useArticleStore } from '../store/articles'
 
 const article = ref('')
 let articleLink = reactive([])
 let sortData = reactive([])
 
 const currentPage = ref(1);
+
+const articleStore = useArticleStore()
 
 const getDataByDate = (data) => {
   const dataSet = Object.keys(data).reduce((pre, cur) => {
@@ -42,6 +45,7 @@ const getDataByDate = (data) => {
     return date2 - date1
   })
 }
+
 
 onMounted(async () => {
   marked.setOptions({
@@ -63,8 +67,11 @@ onMounted(async () => {
       xhtml: false
     });
 
+
   nextTick(async () => {
+    // console.log('data', articleStore)
     const { data } = await useFetch('https://bingfenghung.github.io/DevArticles/articles.json')
+    articleStore.setData(data)
 
     data.value = Object.keys(data.value).reduce(((pre, cur) => {
       const dataSet = data.value[cur] = data.value[cur].map(el => {
