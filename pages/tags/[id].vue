@@ -19,14 +19,24 @@ import { marked } from 'marked'
 import hljs from 'highlight.js'
 import { ref, reactive,onMounted } from 'vue'
 import 'highlight.js/styles/github-dark.css';
-import convertImageUrl from '~~/utils/convertImageUrl';
 
 let { id: tag } = useRoute().params
 tag = tag.replace(' ', '')
-console.log(tag)
-const articleLink = reactive([])
 
+let articleLink = reactive([])
 const currentPage = ref(1);
+let sortData = reactive([])
+
+const getDataByDate = (data) => {
+  return data.sort((a, b) => {
+    const splitA = a.lastModifyDate.split('-')
+    const splitB = b.lastModifyDate.split('-')
+
+    const date1 = new Date(...splitA)
+    const date2 = new Date(...splitB)
+    return date2 - date1
+  })
+}
 
 onMounted(async () => {
   marked.setOptions({
@@ -66,17 +76,14 @@ onMounted(async () => {
 
     data.value['VCpp'] = data.value['Visual C++']
     delete data.value['Visual C++']
-
-    console.log('data', data.value)
-
     data.value = data.value[tag]
     data.value = data.value.map(el => ({'group': tag,...el}))
-    console.log('e', data.value)
+
+    sortData = getDataByDate(data.value)
+
     data.value.forEach(el => {
       articleLink.push(el)
     })
-
-
   })
 })
 
@@ -88,7 +95,6 @@ const onClickHandler = (page) => {
   recentData.forEach(el => {
     articleLink.push(el)
   })
-  console.log(articleLink)
 };
 </script>
 

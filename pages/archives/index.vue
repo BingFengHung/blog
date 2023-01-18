@@ -1,24 +1,60 @@
 <template>
   <div class="container">
     <div>2022</div>
-    <div class="timeline">
+    <div class="timeline" v-for="time in timelineData" :key="time.title">
       <div class="article">
-        <p>2022-08-17</p>
-        <p>標題</p>
-      </div>
-      <div class="article">
-        <p>2022-08-17</p>
-        <p>標題</p>
-      </div>
-      <div class="article">
-        <p>2022-08-17</p>
-        <p>標題</p>
+        <p>{{ time.lastModifyDate }}</p>
+        <NuxtLink :to="`articles/${time.group}_${time.realTitle}`">{{ time.title }}</NuxtLink>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { reactive } from 'vue'
+import { useArticleStore } from '../../store/articles'
+let timelineData = reactive([])
+const articleStore = useArticleStore()
+await articleStore.fetchArticleData()
+
+console.log('Article: ', articleStore.articleData)
+Object.keys(articleStore.articleData).forEach(el => console.log(el))
+const data = Object.keys(articleStore.articleData).reduce((pre, cur) => {
+  const target = articleStore.articleData
+  const dataSet = target[cur].map(el => {
+    el.realLink = el.link.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B')
+    el.realTitle = el.title.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B')
+    return {...el}
+  })
+
+  return ({[cur]: dataSet, ...pre})
+}, {})
+
+data['CSharp'] = data['C#']
+delete data['C#']
+
+data['VCpp'] = data['Visual C++']
+delete data['Visual C++']
+
+
+const getDataByDate = (data) => {
+  const dataSet = Object.keys(data).reduce((pre, cur) => {
+    const datas = data[cur].map(el => ({"group": cur, ...el}))
+    return pre.concat(datas)
+  }, [])
+  return dataSet.sort((a, b) => {
+    const splitA = a.lastModifyDate.split('-')
+    const splitB = b.lastModifyDate.split('-')
+
+    const date1 = new Date(...splitA)
+    const date2 = new Date(...splitB)
+    return date2 - date1
+  })
+}
+
+const sortData = getDataByDate(data)
+timelineData = sortData
+
 
 </script>
 
