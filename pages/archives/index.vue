@@ -3,7 +3,7 @@
     <div>2022</div>
     <div class="timeline" v-for="time in timelineData" :key="time.title">
       <div class="article">
-        <p>{{ time.lastModifyDate }}</p>
+        <p class="datetime">{{ time.lastModifyDate }}</p>
         <NuxtLink :to="`articles/${time.group}_${time.realTitle}`">{{ time.title }}</NuxtLink>
       </div>
     </div>
@@ -54,8 +54,6 @@ const getDataByDate = (data) => {
 
 const sortData = getDataByDate(data)
 timelineData = sortData
-
-
 </script>
 
 <style scoped>
@@ -85,4 +83,16 @@ timelineData = sortData
   left: -5px;
 }
 
+.datetime {
+  margin: 0;
+  color: #7a7a7a;
+  font-size: 1rem;
+}
+
+.datetime + a {
+  display: inline-block;
+  font-size: 1.2rem;
+  text-decoration: none;
+  margin-bottom: 5px;
+}
 </style>

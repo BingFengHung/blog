@@ -55,7 +55,7 @@ li {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px 20px;
+  padding: 5px 0px;
 }
 
 li:hover {
@@ -75,7 +75,9 @@ li:hover {
   padding: 5px 20px;
 }
 
-a {
+
+li a  {
   width: 100%;
+  text-decoration: none;
 }
 </style>
