@@ -1,10 +1,12 @@
 <template>
-  <div class="container">
-    <div>2022</div>
-    <div class="timeline" v-for="time in timelineData" :key="time.title">
-      <div class="article">
-        <p class="datetime">{{ time.lastModifyDate }}</p>
-        <NuxtLink :to="`articles/${time.group}_${time.realTitle}`">{{ time.title }}</NuxtLink>
+  <div>
+    <div v-for="(data, key) in timelineData" class="container">
+      <div>{{ data.year }}</div>
+      <div class="timeline" v-for="time in data.data" :key="time.title">
+        <div class="article">
+          <p class="datetime">{{ time.lastModifyDate }}</p>
+          <NuxtLink :to="`articles/${time.group}_${time.realTitle}`">{{ time.title }}</NuxtLink>
+        </div>
       </div>
     </div>
   </div>
@@ -53,7 +55,33 @@ const getDataByDate = (data) => {
 }
 
 const sortData = getDataByDate(data)
-timelineData = sortData
+console.log('sortData', sortData)
+
+let groupWithTime = sortData.reduce((pre, cur) => {
+  const year = cur.lastModifyDate.split('-')[0]
+  if (year in pre) {
+    pre[year].push(cur)
+  } else {
+    pre[year] = [cur]
+  }
+
+  return pre
+}, {})
+
+const keysSorted = Object.keys(groupWithTime).sort(function(a,b){return b-a})
+
+const arr = [];
+// Adding the sorted result to an array of object
+for (let i=0; i<keysSorted.length;i++) {
+  const obj = {};
+  obj.year= keysSorted[i];
+  obj.data= groupWithTime[keysSorted[i]];
+  arr.push(obj);
+}
+console.log(arr)
+
+timelineData = arr//groupWithTime
+
 </script>
 
 <style scoped>
@@ -63,6 +91,7 @@ timelineData = sortData
   border-radius: 5px;
   padding: 10px;
   background-color: #fff;
+  margin-bottom: 10px;
 }
 .timeline {
   border-left: 1px solid #ccc;
