@@ -150,6 +150,11 @@ h6 {
   margin: 20px 0;
 }
 
+.search-result {
+  overflow: auto;
+  height: 450px;
+}
+
 .search-result div {
   display: flex;
   position: relative;
