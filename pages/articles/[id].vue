@@ -6,11 +6,9 @@
 </template>
 
 <script setup>
-import { marked } from 'marked'
-import hljs from 'highlight.js'
 import { ref, onMounted } from 'vue'
-import 'highlight.js/styles/github-dark.css';
 import convertImageUrl from '~~/utils/convertImageUrl';
+import marked from '../../utils/markedSetup';
 
 const article = ref('')
 const { id } = useRoute().params
@@ -18,28 +16,8 @@ const { describe } = ref('')
 
 
 let [group, title] = id.split('_')
-console.log(group, title)
 
 onMounted(async () => {
-  marked.setOptions({
-      renderer: new marked.Renderer(),
-      highlight: function (code, language) {
-        const validLanguage = hljs.getLanguage(language) ? language : 'plaintext';
-        if (language && hljs.getLanguage(language)) {
-          return '<div class="hljs">' + hljs.highlight(validLanguage, code).value + '</div>';
-        }
-        return hljs.highlight(validLanguage, code).value;
-      },
-      pedantic: false,
-      gfm: true,
-      tables: true,
-      breaks: false,
-      sanitize: false,
-      smartLists: true,
-      smartypants: false,
-      xhtml: false
-  });
-
   nextTick(async () => {
     const { data } = await useFetch('https://bingfenghung.github.io/DevArticles/articles.json')
 
@@ -65,7 +43,7 @@ onMounted(async () => {
     const articles = await useFetch(result[0].link)
 
     const temp = convertImageUrl.imageUrlConverter(result[0].link, articles)
-    article.value = marked(temp)
+    article.value = marked.marked(temp)
   })
 })
 </script>

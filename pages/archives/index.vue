@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="(data, key) in timelineData" class="container">
-      <div>{{ data.year }}</div>
+      <div class="year-tag">{{ data.year }}</div>
       <div class="timeline" v-for="time in data.data" :key="time.title">
         <div class="article">
           <p class="datetime">{{ time.lastModifyDate }}</p>
@@ -19,8 +19,6 @@ let timelineData = reactive([])
 const articleStore = useArticleStore()
 await articleStore.fetchArticleData()
 
-console.log('Article: ', articleStore.articleData)
-Object.keys(articleStore.articleData).forEach(el => console.log(el))
 const data = Object.keys(articleStore.articleData).reduce((pre, cur) => {
   const target = articleStore.articleData
   const dataSet = target[cur].map(el => {
@@ -55,7 +53,6 @@ const getDataByDate = (data) => {
 }
 
 const sortData = getDataByDate(data)
-console.log('sortData', sortData)
 
 let groupWithTime = sortData.reduce((pre, cur) => {
   const year = cur.lastModifyDate.split('-')[0]
@@ -78,7 +75,6 @@ for (let i=0; i<keysSorted.length;i++) {
   obj.data= groupWithTime[keysSorted[i]];
   arr.push(obj);
 }
-console.log(arr)
 
 timelineData = arr//groupWithTime
 
@@ -87,11 +83,11 @@ timelineData = arr//groupWithTime
 <style scoped>
 .container {
   display: block;
-  border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
   background-color: #fff;
   margin-bottom: 10px;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 5%), 0 0 1px rgb(0 0 0 / 10%)
 }
 .timeline {
   border-left: 1px solid #ccc;
@@ -123,5 +119,15 @@ timelineData = arr//groupWithTime
   font-size: 1.2rem;
   text-decoration: none;
   margin-bottom: 5px;
+}
+
+.year-tag {
+  display: inline-block;
+  border-radius: 5px;
+  padding: 3px 5px;
+  margin-bottom: 10px;
+  background-color: #1b9fda;
+  color: white;
+  cursor: pointer;
 }
 </style>

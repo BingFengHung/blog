@@ -17,13 +17,11 @@
 </template>
 
 <script setup>
-import { marked } from 'marked'
 import hljs from 'highlight.js'
-import { ref, onMounted } from 'vue'
 import 'highlight.js/styles/github-dark.css';
+import { ref, onMounted } from 'vue'
 import { useArticleStore } from '../store/articles'
 
-const article = ref('')
 let articleLink = reactive([])
 let sortData = reactive([])
 
@@ -46,30 +44,8 @@ const getDataByDate = (data) => {
   })
 }
 
-
 onMounted(async () => {
-  marked.setOptions({
-      renderer: new marked.Renderer(),
-      highlight: function (code, language) {
-        const validLanguage = hljs.getLanguage(language) ? language : 'plaintext';
-        if (language && hljs.getLanguage(language)) {
-          return '<div class="hljs">' + hljs.highlight(validLanguage, code).value + '</div>';
-        }
-        return hljs.highlight(validLanguage, code).value;
-      },
-      pedantic: false,
-      gfm: true,
-      tables: true,
-      breaks: false,
-      sanitize: false,
-      smartLists: true,
-      smartypants: false,
-      xhtml: false
-    });
-
-
   nextTick(async () => {
-    // console.log('data', articleStore)
     const { data } = await useFetch('https://bingfenghung.github.io/DevArticles/articles.json')
     articleStore.setData(data)
 

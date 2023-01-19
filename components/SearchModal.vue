@@ -145,9 +145,10 @@ const modalClose = () => {
 }
 
 h6 {
-  font-weight: 500;
-  font-size: 28px;
+  font-weight: 900;
+  font-size: 1.2rem;
   margin: 20px 0;
+  color: red;
 }
 
 .search-result {

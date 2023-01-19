@@ -15,10 +15,7 @@
 </template>
 
 <script setup>
-import { marked } from 'marked'
-import hljs from 'highlight.js'
 import { ref, reactive,onMounted } from 'vue'
-import 'highlight.js/styles/github-dark.css';
 
 let { id: tag } = useRoute().params
 tag = tag.replace(' ', '')
@@ -39,25 +36,6 @@ const getDataByDate = (data) => {
 }
 
 onMounted(async () => {
-  marked.setOptions({
-      renderer: new marked.Renderer(),
-      highlight: function (code, language) {
-        const validLanguage = hljs.getLanguage(language) ? language : 'plaintext';
-        if (language && hljs.getLanguage(language)) {
-          return '<div class="hljs">' + hljs.highlight(validLanguage, code).value + '</div>';
-        }
-        return hljs.highlight(validLanguage, code).value;
-      },
-      pedantic: false,
-      gfm: true,
-      tables: true,
-      breaks: false,
-      sanitize: false,
-      smartLists: true,
-      smartypants: false,
-      xhtml: false
-  });
-
   nextTick(async () => {
     const { data } = await useFetch('https://bingfenghung.github.io/DevArticles/articles.json')
 

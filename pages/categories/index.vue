@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { onMounted, reactive } from 'vue';
+import { reactive } from 'vue';
 import { useArticleStore } from '../../store/articles'
 let tags = reactive({})
 let dataSet = reactive({})
@@ -25,8 +25,6 @@ let dataSet = reactive({})
 const articleStore = useArticleStore()
 await articleStore.fetchArticleData()
 articleStore.getTags()
-console.log(`tga`, articleStore.tags)
-console.log(articleStore.articleData)
 
 const data = articleStore.articleData
 data['CSharp'] = data['C#']
@@ -34,32 +32,33 @@ delete data['C#']
 
 data['VCpp'] = data['Visual C++']
 delete data['Visual C++']
-console.log(data)
 
 dataSet = data
-console.log('dataSet', dataSet)
 
 </script>
 
 <style scoped>
 .container {
-  border: 1px solid #ccc;
   background-color: #fff;
   border-radius: 5px;
   padding: 10px;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 5%), 0 0 1px rgb(0 0 0 / 10%)
 }
+
 ul {
   padding: 2px 15px;
 }
+
 li {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 5px 0px;
+  border-radius: 5px;
 }
 
 li:hover {
-  background-color: #ccc;
+  background-color: #eee;
 }
 
 .count {
@@ -72,12 +71,13 @@ li:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px 20px;
+  padding: 5px 5px;
 }
 
 
 li a  {
   width: 100%;
   text-decoration: none;
+  font-size: 1.1rem;
 }
 </style>

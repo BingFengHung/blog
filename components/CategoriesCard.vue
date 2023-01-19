@@ -18,41 +18,6 @@ const articleStore = useArticleStore()
 await articleStore.fetchArticleData()
 articleStore.getTags()
 
-// onMounted(() => {
-//   nextTick(async () => {
-//     const { data } = await useFetch('https://bingfenghung.github.io/DevArticles/articles.json')
-//     // const data = useArticleStore.articleData
-//     const tag = Object.keys(data.value).reduce((pre, cur) => {
-//       const current = data.value[cur].reduce((pre, cur) => {
-//         const obj = cur.tags.reduce((pre, cur) => {
-//           let obj = { [cur]: 0 }
-//           return {...obj, ...pre}
-//         }, {})
-
-//         return {...obj, ...pre}
-//       }, {})
-//       return {...current, ...pre}
-//     }, {})
-
-//     const tagKey = Object.keys(tag).map(el => el).reduce((pre, cur)=> {
-//       let obj = {}
-//       if (cur === 'Visual C++')  {
-//         obj = { [cur]: 'VCpp' }
-//       } else if (cur === 'C#') {
-//         obj = { [cur]: 'CSharp' }
-//       } else if (cur === 'Visual Studio') {
-//         obj = { [cur]: 'VisualStudio' }
-//       } else {
-//         obj = { [cur]: cur }
-//       }
-//       return { ...obj, ...pre }
-//     }, {})
-
-//     Object.assign(tags, tagKey)
-
-//     useArticleStore.tags
-//   })
-// })
 </script>
 
 <style scoped>
