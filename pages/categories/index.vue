@@ -19,7 +19,6 @@
 <script setup>
 import { reactive } from 'vue';
 import { useArticleStore } from '../../store/articles'
-let tags = reactive({})
 let dataSet = reactive({})
 
 const articleStore = useArticleStore()

@@ -21,6 +21,7 @@
         <li><NuxtLink to="/">Home</NuxtLink></li>
         <li><NuxtLink to="/archives">Archives</NuxtLink></li>
         <li><NuxtLink to="/categories">Categories</NuxtLink></li>
+        <li><NuxtLink to="/tools">Tools</NuxtLink></li>
         <li>
           <Button class="search-btn" @click="showModal=true">
             <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
