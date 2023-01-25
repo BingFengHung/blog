@@ -25,6 +25,14 @@
         <a href="https://github.com/BingFengHung">
           <font-awesome-icon icon="fa-brands fa-github" />
         </a>
+
+        <a href="https://github.com/BingFengHung/DevBlogs">
+          <font-awesome-icon icon="fa-solid fa-blog" />
+        </a>
+
+        <a href="https://gist.github.com/BingFengHung">
+          <font-awesome-icon icon="fa-solid fa-code" />
+        </a>
       </div>
     </div>
     <a href="https://github.com/BingFengHung"></a>
@@ -32,7 +40,6 @@
 </template>
 
 <script setup>
-import { compileScript } from '@vue/compiler-sfc';
 import { ref , onMounted} from 'vue'
 const articleCount = ref(0)
 const categoryCount = ref(0)
@@ -95,6 +102,7 @@ onMounted(async () => {
 .links {
   display: flex;
   justify-content: center;
+  gap: 20px;
 }
 
 .links a {
