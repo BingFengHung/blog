@@ -119,11 +119,12 @@ li a {
   padding: 3px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .1);
 }
 
 .bar1, .bar2, .bar3 {
   width: 30px;
-  height: 3px;
+  height: 2px;
   background-color: #ccc;
   margin: 5px 0;
   transition: .4s;
@@ -216,6 +217,7 @@ a.router-link-active {
 
   header ul {
     display: none;
+    height: 140px;
   }
 
   .menu-icon {
