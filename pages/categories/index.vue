@@ -7,7 +7,7 @@
           <NuxtLink :to="`/tags/${tag}`">
             <div class="link"> 
               <div>{{ key }}</div> 
-              <div class="count">{{ dataSet[tag].length }}</div>
+              <div class="count">{{ dataSet[tag] ? dataSet[tag].length : 0 }}</div>
             </div>
           </NuxtLink>
         </li>
@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue';
+import { reactive, onMounted } from 'vue';
 import { useArticleStore } from '../../store/articles'
 let dataSet = reactive({})
 
@@ -32,8 +32,8 @@ delete data['C#']
 data['VCpp'] = data['Visual C++']
 delete data['Visual C++']
 
+console.log(data)
 dataSet = data
-
 </script>
 
 <style scoped>

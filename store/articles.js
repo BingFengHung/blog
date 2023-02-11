@@ -38,7 +38,9 @@ export const useArticleStore = defineStore('articleStore', {
         obj = { [cur]: 'CSharp' }
       } else if (cur === 'Visual Studio') {
         obj = { [cur]: 'VisualStudio' }
-      } else {
+      } else if (cur === 'Unit Test') {
+        obj = { [cur]: 'UnitTest' }
+      }else {
         obj = { [cur]: cur }
       }
       return { ...obj, ...pre }
