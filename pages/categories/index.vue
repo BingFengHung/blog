@@ -32,7 +32,6 @@ delete data['C#']
 data['VCpp'] = data['Visual C++']
 delete data['Visual C++']
 
-console.log(data)
 dataSet = data
 </script>
 
