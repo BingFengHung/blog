@@ -159,7 +159,7 @@ a.router-link-active {
 @media screen and (min-width: 1200px) {
   /* 如果使用者之視窗寬度 >= 1200px，將會再載入這裡的 CSS。 */
   main {
-    width: 960px;
+    width: 1200px;
   }
 
   .side {
