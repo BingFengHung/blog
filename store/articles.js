@@ -47,7 +47,7 @@ export const useArticleStore = defineStore('articleStore', {
     }, {})
 
     // 將標籤數量為 0 的項目清除
-    for(var key in tagKey[i]) { 
+    for(var key in tagKey) { 
       if(tagKey[key] === "0") delete tagKey[key];
     } 
     
