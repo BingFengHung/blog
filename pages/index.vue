@@ -99,6 +99,8 @@ Array.prototype.asyncForEach = async function(callback) {
 .hljs {
   padding: 15px;
   border-radius: 5px;
+  word-wrap: break-word;
+  overflow-x: auto;
 }
 
 .pagination {
