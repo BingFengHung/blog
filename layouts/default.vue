@@ -135,6 +135,7 @@ li a {
   background-color: white;
   border: 0px;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 a.router-link-active {
