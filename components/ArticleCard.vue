@@ -2,8 +2,8 @@
   <div class="article">
     <div class="subtitle">更新日期：{{ modifyDate  }}</div>
     <div class="content" v-html="article"></div>
-    <NuxtLink :to="`/articles/${group}_${title}`">
-      <div>繼續閱讀</div>
+    <NuxtLink class="read-more" :to="`/articles/${group}_${title}`">
+      <span>繼續閱讀...</span>
     </NuxtLink>
   </div>
 </template>
@@ -34,16 +34,38 @@ img {
 </style>
 
 <style scoped>
+.read-more {
+  background-color: #007bff;
+  color: #fff;
+  box-sizing: border-box;
+  margin: 1px;
+  border-radius: 5px;
+  text-decoration: none;
+  border: none;
+  padding: 3px 5px;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 10px;
+  position: absolute;
+  right: 10px;
+}
+
+.read-more:hover {
+  background-color: #0056b3;
+}
+
 .article {
   /* border: 1px solid #ccc; */
   border-radius: 5px;
   overflow: hidden;
-  height: 300px;
+  height: 320px;
   margin-bottom: 10px;
   padding: 5px 20px;
   background-color: white;
   box-sizing: border-box;
-  box-shadow: 0 4px 10px rgb(0 0 0 / 5%), 0 0 1px rgb(0 0 0 / 10%)
+  box-shadow: 0 4px 10px rgb(0 0 0 / 5%), 0 0 1px rgb(0 0 0 / 10%);
+  position: relative;
 }
 
 img {
@@ -64,9 +86,6 @@ img {
   margin: 5px 0px !important;
 }
 
-button {
-}
-
 @media screen and (min-width: 1024px) {
   /*STYLES*/
 }
@@ -85,8 +104,5 @@ button {
 
 @media screen and (max-device-width: 480px) {
   /* 如果使用者之裝置寬度 <= 480px，將會再載入這裡的 CSS。 */
-  .article {
-    
-  }
 }
 </style>

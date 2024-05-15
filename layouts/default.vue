@@ -86,7 +86,6 @@ main {
   margin: 0 auto;
 }
 
-
 .side {
   display: flex;
   flex-direction: column;
