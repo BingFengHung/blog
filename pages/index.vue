@@ -17,7 +17,6 @@
 </template>
 
 <script setup>
-import hljs from 'highlight.js'
 import 'highlight.js/styles/github-dark.css';
 import { ref, onMounted } from 'vue'
 import { useArticleStore } from '../store/articles'
@@ -65,8 +64,6 @@ onMounted(async () => {
 
     data.value['VCpp'] = data.value['Visual C++']
     delete data.value['Visual C++']
-
-    
 
     sortData = getDataByDate(data.value)
 

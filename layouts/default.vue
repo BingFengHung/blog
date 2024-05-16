@@ -38,6 +38,9 @@
       <div class="content">
         <slot></slot>
       </div>
+      <div class="side-right">
+        <RecentArticle></RecentArticle>
+      </div>
     </main>
     <SearchModal v-show="showModal" @modal-close="showModal=false"></SearchModal>
   </div>
@@ -90,6 +93,12 @@ main {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.side-right {
+  /* display: flex;
+  flex-direction: column;
+  gap: 10px; */
 }
 
 header ul {

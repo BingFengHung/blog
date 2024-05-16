@@ -25,9 +25,9 @@ export const useArticleStore = defineStore('articleStore', {
             return {...obj, ...pre}
           }, {})
 
-          return {...obj, ...pre}
+          return {...obj, ...pre }
         }, {})
-        return {...current, ...pre}
+        return {...current, ...pre }
       }, {})
 
     const tagKey = Object.keys(tag).map(el => el).reduce((pre, cur)=> {

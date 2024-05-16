@@ -15,7 +15,7 @@ const { id } = useRoute().params
 const { describe } = ref('')
 
 
-let [group, title] = id.split('_')
+let [ group, title ] = id.split('_')
 
 onMounted(async () => {
   nextTick(async () => {
@@ -25,10 +25,10 @@ onMounted(async () => {
       const dataSet = data.value[cur] = data.value[cur].map(el => {
         el.link = el.link.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B')
         el.title = el.title.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B')
-        return {...el}
+        return { ...el }
       })
 
-      return ({[cur]: dataSet, ...pre})
+      return ({ [ cur ]: dataSet, ...pre })
     }), {})
 
     data.value['CSharp'] = data.value['C#']

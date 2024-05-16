@@ -13,7 +13,7 @@
 <script setup>
 import { onMounted, reactive } from 'vue';
 import { useArticleStore } from '../store/articles'
-let tags = reactive({})
+// let tags = reactive({})
 const articleStore = useArticleStore()
 await articleStore.fetchArticleData()
 articleStore.getTags()
