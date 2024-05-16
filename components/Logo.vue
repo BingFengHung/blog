@@ -29,6 +29,7 @@ div {
   z-index: 1;
   align-items: center;
   font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .primary p {
@@ -36,7 +37,7 @@ div {
 }
 
 .secondary {
-
+  font-weight: bold;
 }
 
 
