@@ -91,5 +91,13 @@ console.log(timelineData)
   text-align: justify;
   margin-left: 5px;
 }
+    
+.link a:hover {
+  text-decoration: underline;
+}
+    
+.link a:visited {
+  color: #007bff
+}
 
 </style>

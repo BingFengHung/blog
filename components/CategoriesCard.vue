@@ -48,11 +48,21 @@ articleStore.getTags()
 }
 
 .tag-icon {
-  color: gray;
+  color: #555;
 }
 
 a {
+  color: #007bff;
   text-decoration: none;
   margin-left: 5px;
+}
+
+a:hover {
+  color: #0056b3;
+  font-weight: 300;
+}
+
+a:visited {
+  color: #007bff;
 }
 </style>
