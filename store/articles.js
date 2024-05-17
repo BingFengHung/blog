@@ -29,21 +29,17 @@ export const useArticleStore = defineStore('articleStore', {
         }, {})
         return {...current, ...pre }
       }, {})
-
-    const tagKey = Object.keys(tag).map(el => el).reduce((pre, cur)=> {
-      let obj = {}
-      if (cur === 'Visual C++')  {
-        obj = { [cur]: 'VCpp' }
-      } else if (cur === 'C#') {
-        obj = { [cur]: 'CSharp' }
-      } else if (cur === 'Visual Studio') {
-        obj = { [cur]: 'VisualStudio' }
-      } else if (cur === 'Unit Test') {
-        obj = { [cur]: 'UnitTest' }
-      }else {
-        obj = { [cur]: cur }
-      }
-      return { ...obj, ...pre }
+      
+    const tagKeyMap = {
+      'Visual C++': 'VCpp',
+      'C#': 'CSharp',
+      'Visual Studio': 'VisualStudio',
+      'Unit Test': 'UnitTest'
+    }
+      
+    const tagKey = Object.keys(tag).reduce((pre, cur) => {
+      const key = tagKeyMap[cur] || cur;
+      return { ...pre, [cur]: key}
     }, {})
 
     this.tags = tagKey 

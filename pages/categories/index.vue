@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div>分類</div>
+    <div style="font-weight: bold;">分類</div>
     <div>
       <ul>
         <li v-for="(tag, key) of articleStore.tags" :key="key">
@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { reactive, onMounted } from 'vue';
+import { reactive } from 'vue';
 import { useArticleStore } from '../../store/articles'
 let dataSet = reactive({})
 
@@ -79,5 +79,6 @@ li a  {
   width: 100%;
   text-decoration: none;
   font-size: 1.1rem;
+  color: #007bff;
 }
 </style>
