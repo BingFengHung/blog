@@ -5,7 +5,7 @@
     </template>
     <div class="pagination">
       <vue-awesome-paginate
-        :total-items="50"
+        :total-items="100"
         :items-per-page="5"
         :max-pages-shown="1"
         v-model="currentPage"
@@ -33,6 +33,7 @@ const getDataByDate = (data) => {
     const datas = data[cur].map(el => ({"group": cur, ...el}))
     return pre.concat(datas)
   }, [])
+
   return dataSet.sort((a, b) => {
     const splitA = a.lastModifyDate.split('-')
     const splitB = b.lastModifyDate.split('-')

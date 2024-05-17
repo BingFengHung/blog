@@ -4,7 +4,7 @@
   </template>
   <div class="pagination">
     <vue-awesome-paginate
-      :total-items="50"
+      :total-items="100"
       :items-per-page="5"
       :max-pages-shown="1"
       v-model="currentPage"
@@ -24,15 +24,16 @@ let articleLink = reactive([])
 const currentPage = ref(1);
 let sortData = reactive([])
 
+const parseDate = (dateString) => {
+  const [year, month, day] = dateString.split('-').map(Number);
+  return new Date(year, month - 1, day)
+}
 const getDataByDate = (data) => {
   return data.sort((a, b) => {
-    const splitA = a.lastModifyDate.split('-')
-    const splitB = b.lastModifyDate.split('-')
-
-    const date1 = new Date(...splitA)
-    const date2 = new Date(...splitB)
+    const date1 = parseDate(a.lastModifyDate);
+    const date2 = parseDate(b.lastModifyDate);
     return date2 - date1
-  })
+  });
 }
 
 onMounted(async () => {

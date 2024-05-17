@@ -44,6 +44,9 @@
     </main>
     <SearchModal v-show="showModal" @modal-close="showModal=false"></SearchModal>
   </div>
+  <div>
+    <GoToTop/>
+  </div>
 </template>
 
 <script setup>
