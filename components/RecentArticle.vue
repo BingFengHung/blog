@@ -1,11 +1,14 @@
 <template>
-  <div class="profile">
-    <div>近期文章:</div>
-    <ul>
-      <li v-for="(data, key) in timelineData" :key="key">
-        <NuxtLink :to="`/articles/${data.group}_${data.realTitle}`" :key="key">{{ data.title }}</NuxtLink>
-      </li>
-    </ul>
+  <div class="box">
+    <div class="title">近期文章:</div>
+    <div class="link" v-for="(data, key) in timelineData" :key="key">
+      <NuxtLink :to="`/articles/${data.group}_${data.realTitle}`" :key="key">
+        <div>
+          <span>{{ data.title }}</span>
+          <span class="link__time">({{ data.lastModifyDate }})</span>
+        </div>
+      </NuxtLink>
+    </div>
   </div>
 </template>
 
@@ -61,58 +64,32 @@ console.log(timelineData)
 </script>
 
 <style scoped>
-.profile {
+.box {
   border-radius: 5px;
   background-color: white;
-  padding: 10px;
+  padding: 20px;
   box-shadow: 0 4px 10px rgb(0 0 0 / 5%), 0 0 1px rgb(0 0 0 / 10%)
 }
 
-.avatar {
-  display: flex;
-  justify-content: center;
-}
-
-.avatar img {
-  border-radius: 50%;
-  width: 50%;
-  height: 50%;
-}
-
-.bio {
-  text-align: center;
-  font-size: 1.2rem;
-  margin-top: 10px;
-  font-weight: 600;
-}
-
-.links {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-
-.links a {
-  color: black;
-}
-
-.menu {
-  display: flex;
-  justify-content: space-between;
-}
-
-ul.menu {
-  padding: 0px;
-  margin: 5px 15px 5px;
-}
-
-.menu li {
-  list-style-type: none;
-  text-align: center;
-}
-
-.menu li p:nth-child(1) {
-  font-size: 1.2rem;
+.title {
   font-weight: bold;
 }
+
+.box a {
+  text-decoration: none;
+  list-style: none;
+}
+
+.link {
+  margin: 6px 5px;
+  font-size: 1rem;
+}
+    
+.link__time {
+  font-size: 0.7rem;
+  color: #333;
+  text-align: justify;
+  margin-left: 5px;
+}
+
 </style>

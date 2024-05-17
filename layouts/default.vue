@@ -199,20 +199,44 @@ a.router-link-active {
   /* 如果使用者之視窗寬度 <= 768px，將會再載入這裡的 CSS。*/
   main {
     width: 100%;
+    /* display: flex; */
+    display: grid;
+    grid-template-columns: 30% 68%;
+    gap: 10px;
   }
 
   .side {
-    width: 30%;
+    /* width: 30%;
+    display: flex;
+    order: 1; */
+    grid-column:  1 / 2;;
   }
 
   .content {
-    width: 70%;
+    /* width: 70%;
+    display: flex;
+    order: 2; */
+    grid-column: 2 / 3;
+  }
+  
+  .side-right {
+    /* width: 100%;
+    order: 3; */
+    grid-column: 2 / 3;;
   }
 }
 
 @media screen and (max-device-width: 480px) {
+  main {
+    display: flex;
+    gap: 10px;
+  }
   /* 如果使用者之裝置寬度 <= 480px，將會再載入這裡的 CSS。 */
   .side {
+    display: none;
+  }
+  
+  .side-right {
     display: none;
   }
 
