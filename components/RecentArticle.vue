@@ -38,8 +38,6 @@ delete data['C#']
 data['VCpp'] = data['Visual C++']
 delete data['Visual C++']
 
-console.log(data)
-
 const getDataByDate = (data) => {
   const dataSet = Object.keys(data).reduce((pre, cur) => {
     const datas = data[cur].map(el => ({ "group": cur, ...el }))
@@ -59,8 +57,6 @@ const sortData = getDataByDate(data)
 // 取得前 10 筆資料
 
 timelineData = sortData.slice(0, 10);//groupWithTime
-
-console.log(timelineData)
 </script>
 
 <style scoped>

@@ -23,9 +23,9 @@
         <li><NuxtLink to="/categories">Categories</NuxtLink></li>
         <li><NuxtLink to="/tools">Tools</NuxtLink></li>
         <li>
-          <Button class="search-btn" @click="showModal=true">
+          <button class="search-btn" @click="showModal=true">
             <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
-          </Button>
+          </button>
         </li>
       </ul>
     </header>

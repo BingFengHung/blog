@@ -33,7 +33,7 @@ onBeforeUnmount(() => {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  padding: 10px 15px;
+  padding: 10px 12px;
   background-color: #007bff;
   color: white;
   border: none;

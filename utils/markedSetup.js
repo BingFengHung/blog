@@ -8,9 +8,11 @@ const markedSetup = () => {
       highlight: function (code, language) {
         const validLanguage = hljs.getLanguage(language) ? language : 'plaintext';
         if (language && hljs.getLanguage(language)) {
-          return '<div class="hljs">' + hljs.highlight(validLanguage, code).value + '</div>';
+          const result = hljs.highlight(code, { "language": validLanguage }).value
+          return '<div class="hljs">' + result + '</div>';
         }
-        return hljs.highlight(validLanguage, code).value;
+        // return hljs.highlight(validLanguage, code).value;
+        return hljs.highlight(code, { "language": validLanguage}).value;
       },
       pedantic: false,
       gfm: true,
