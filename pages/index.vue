@@ -1,6 +1,6 @@
 <template>
   <div>
-    <template v-for="(article, idx) in articleLink" :key="article">
+    <template v-for="(article, idx) in articleLink" :key="idx">
       <ArticleCard :articleData="article"></ArticleCard>
     </template>
     <div class="pagination">
@@ -30,7 +30,7 @@ const articleStore = useArticleStore()
 
 const getDataByDate = (data) => {
   const dataSet = Object.keys(data).reduce((pre, cur) => {
-    const datas = data[cur].map(el => ({"group": cur, ...el}))
+    const datas = data[cur].map(el => ({ "group": cur, ...el }))
     return pre.concat(datas)
   }, [])
 
@@ -46,52 +46,33 @@ const getDataByDate = (data) => {
 
 onMounted(async () => {
   nextTick(async () => {
-    // const { data } = await useFetch('https://bingfenghung.github.io/DevArticles/articles.json')
-    // articleStore.setData(data)
     if (!articleStore.articleData) await articleStore.fetchArticleData()
     
     let data = articleStore.articleData;
-    // console.log(data)
-    // console.log(datas)
-
-    // data.value = Object.keys(data.value).reduce(((pre, cur) => {
-    //   const dataSet = data.value[cur] = data.value[cur].map(el => {
-    //     el.link = el.link.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B')
-    //     el.title = el.title.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B')
-    //     return { ...el }
-    //   })
-
-    //   return ({[cur]: dataSet, ...pre})
-    // }), {})
-
-
-    // data.value['CSharp'] = data.value['C#']
-    // delete data.value['C#']
-
-    // data.value['VCpp'] = data.value['Visual C++']
-    // delete data.value['Visual C++']
-
-    // sortData = getDataByDate(data.value)
 
     data = Object.keys(data).reduce(((pre, cur) => {
       const dataSet = data[cur] = data[cur].map(el => {
-        el.link = el.link.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B')
-        el.title = el.title.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B')
-        return { ...el }
+        return { 
+          ...el,
+          link: el.link.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B'), 
+          title: el.title.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B'),
+        }
       })
 
       return ({[cur]: dataSet, ...pre})
     }), {})
 
+    if (data.hasOwnProperty("C")) { 
+      data['CSharp'] = data['C#'] 
+      delete data['C#']
+    }
 
-    data['CSharp'] = data['C#']
-    delete data['C#']
-
-    data['VCpp'] = data['Visual C++']
-    delete data['Visual C++']
-
+    if (data.hasOwnProperty("Visual C++")) {
+      data['VCpp'] = data['Visual C++']
+      delete data['Visual C++']
+    }
+    
     sortData = getDataByDate(data)
-    // ---- 
 
     const recentData = sortData.slice(0, 6)
 

@@ -1,5 +1,5 @@
 <template>
-  <template v-for="(article, idx) in articleLink" :key="article">
+  <template v-for="(article, idx) in articleLink" :key="idx">
     <ArticleCard :articleData="article"></ArticleCard>
   </template>
   <div class="pagination">
@@ -44,7 +44,7 @@ onMounted(async () => {
       const dataSet = data.value[cur] = data.value[cur].map(el => {
         el.link = el.link.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B')
         el.title = el.title.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B')
-        return {...el}
+        return { ...el }
       })
 
       return ({[cur]: dataSet, ...pre})
@@ -55,8 +55,9 @@ onMounted(async () => {
 
     data.value['VCpp'] = data.value['Visual C++']
     delete data.value['Visual C++']
+
     data.value = data.value[tag]
-    data.value = data.value.map(el => ({'group': tag,...el}))
+    data.value = data.value.map(el => ({ 'group': tag, ...el }))
 
     sortData = getDataByDate(data.value)
 

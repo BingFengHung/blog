@@ -11,13 +11,11 @@
 </template>
 
 <script setup>
-import { onMounted, reactive } from 'vue';
 import { useArticleStore } from '../store/articles'
-// let tags = reactive({})
-const articleStore = useArticleStore()
-await articleStore.fetchArticleData()
-articleStore.getTags()
 
+const articleStore = useArticleStore()
+if (!articleStore.articleData) await articleStore.fetchArticleData()
+articleStore.getTags()
 </script>
 
 <style scoped>
