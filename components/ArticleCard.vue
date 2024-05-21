@@ -2,7 +2,7 @@
   <div class="article">
     <div class="subtitle">更新日期：{{ modifyDate  }}</div>
     <div class="content" v-html="article"></div>
-    <NuxtLink class="read-more" :to="`/articles/${group}_${title}`">
+    <NuxtLink class="read-more" :to="`/articles/${group}<_>>${title}`">
       <span>繼續閱讀...</span>
     </NuxtLink>
   </div>
@@ -17,7 +17,6 @@ const article = ref('')
 const modifyDate = ref('')
 const { articleData } = defineProps(['articleData'])
 const { group, title, link, lastModifyDate } = articleData
-
 modifyDate.value = lastModifyDate
 
 onMounted(async () => {

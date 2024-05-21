@@ -15,7 +15,7 @@ const { id } = useRoute().params
 const { describe } = ref('')
 
 
-let [ group, title ] = id.split('_')
+let [ group, title ] = id.split('<_>>')
 
 onMounted(async () => {
   nextTick(async () => {
@@ -39,7 +39,9 @@ onMounted(async () => {
 
     title = title.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B')
 
+    console.log(title)
     const result = data.value[group].filter(el => el.title == title)
+    console.log(result)
     const articles = await useFetch(result[0].link)
 
     const temp = convertImageUrl.imageUrlConverter(result[0].link, articles)
