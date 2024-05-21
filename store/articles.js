@@ -22,7 +22,7 @@ export const useArticleStore = defineStore('articleStore', {
         const current = data[cur].reduce((pre, cur) => {
           const obj = cur.tags.reduce((pre, cur) => {
             let obj = { [cur]: 0 }
-            return {...obj, ...pre}
+            return { ...obj, ...pre }
           }, {})
 
           return {...obj, ...pre }

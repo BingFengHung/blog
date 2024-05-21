@@ -14,7 +14,6 @@ const article = ref('')
 const { id } = useRoute().params
 const { describe } = ref('')
 
-
 let [ group, title ] = id.split('<_>>')
 
 onMounted(async () => {
@@ -23,14 +22,17 @@ onMounted(async () => {
 
     data.value = Object.keys(data.value).reduce(((pre, cur) => {
       const dataSet = data.value[cur] = data.value[cur].map(el => {
-        el.link = el.link.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B')
-        el.title = el.title.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B')
-        return { ...el }
+        return { 
+          ...el, 
+          link: el.link.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B'), 
+          title: el.title.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B') 
+        }
       })
 
       return ({ [ cur ]: dataSet, ...pre })
     }), {})
 
+    // 修改特定鍵名
     data.value['CSharp'] = data.value['C#']
     delete data.value['C#']
 
@@ -39,30 +41,27 @@ onMounted(async () => {
 
     title = title.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B')
 
-    console.log(title)
     const result = data.value[group].filter(el => el.title == title)
-    console.log(result)
-    const articles = await useFetch(result[0].link)
-
-    const temp = convertImageUrl.imageUrlConverter(result[0].link, articles)
-    article.value = marked.marked(temp)
+    
+    if (result.length > 0) { 
+      const articles = await useFetch(result[0].link) 
+      const temp = convertImageUrl.imageUrlConverter(result[0].link, articles) 
+      article.value = marked.marked(temp)
+    }
   })
 })
 </script>
 
-<style>
+<style scoped>
 img {
   width: 100%;
 }
-</style>
 
-<style scoped>
 .article {
   padding:  10px;
   border-radius: 5px;
   background-color: #fff;
   box-shadow: 0 4px 10px rgb(0 0 0 / 5%), 0 0 1px rgb(0 0 0 / 10%)
 }
-
 </style>
 

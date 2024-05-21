@@ -22,7 +22,10 @@ import { useArticleStore } from '../../store/articles'
 let dataSet = reactive({})
 
 const articleStore = useArticleStore()
-await articleStore.fetchArticleData()
+
+if (!articleStore.articleData) await articleStore.fetchArticleData()
+
+// await articleStore.fetchArticleData()
 articleStore.getTags()
 
 const data = articleStore.articleData

@@ -41,21 +41,29 @@
 
 <script setup>
 import { ref , onMounted} from 'vue'
+import { useArticleStore } from '~~/store/articles'
+
 const articleCount = ref(0)
 const categoryCount = ref(0)
 const tagCount = ref(0)
 
+const articleStore = useArticleStore()
+
 onMounted(async () => {
   nextTick(async () => {
-    const { data } = await useFetch('https://bingfenghung.github.io/DevArticles/articles.json')
-    articleCount.value = Object.keys(data.value).reduce((pre, cur) => {
-      return data.value[cur].length + pre
+    if (!articleStore.articleData)  await articleStore.fetchArticleData()     
+    
+    const data = articleStore.articleData;
+
+    // const { data } = await useFetch('https://bingfenghung.github.io/DevArticles/articles.json')
+    articleCount.value = Object.keys(data).reduce((pre, cur) => {
+      return data[cur].length + pre
     }, 0)
 
-    categoryCount.value = Object.keys(data.value).map(el => el).length
+    categoryCount.value = Object.keys(data).map(el => el).length
 
-    const tags = Object.keys(data.value).reduce((pre, cur) => {
-      const current = data.value[cur].reduce((pre, cur) => {
+    const tags = Object.keys(data).reduce((pre, cur) => {
+      const current = data[cur].reduce((pre, cur) => {
         const obj = cur.tags.reduce((pre, cur) => {
           let obj = { [cur]: 0 }
           return {...obj, ...pre}

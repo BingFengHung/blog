@@ -11,7 +11,7 @@
       <div class="search-result">
         <template v-for="(result, idx) in searchResult" :key="result.title">
           <div @click="$emit('modal-close')">
-            <NuxtLink :to="`/articles/${result.group}_${result.fake_title}`">{{ result.title }}</NuxtLink>
+            <NuxtLink :to="`/articles/${result.group}<_>>${result.fake_title}`">{{ result.title }}</NuxtLink>
           </div>
         </template>
       </div>
@@ -21,27 +21,36 @@
 
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
+import { useArticleStore } from '~~/store/articles'
+
 const searchText = ref('')
 let searchResult = reactive([])
 const emit = defineEmits(['modal-close'])
 
 let searchData = {}
+const articleStore = useArticleStore()
+
+
 onMounted(() => {
   nextTick(async () => {
-    const { data } = await useFetch('https://bingfenghung.github.io/DevArticles/articles.json')
+    if (!articleStore.articleData)  await articleStore.fetchArticleData()     
+    // const { data } = await useFetch('https://bingfenghung.github.io/DevArticles/articles.json')
+    let data = articleStore.articleData
 
-    data.value = Object.keys(data.value).reduce(((pre, cur) => {
-      const dataSet = data.value[cur] = data.value[cur].map(el => { 
-        el.link = el.link.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B')
-        el.fake_title = el.title.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B')
-        return {...el}
+    data= Object.keys(data).reduce(((pre, cur) => {
+      const dataSet = data[cur] = data[cur].map(el => { 
+        return { 
+          link: el.link.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B'), 
+          fake_title: el.title.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B'),
+          ...el
+        }
       })
 
       return ({[cur]: dataSet, ...pre})
     }), {})
 
-    data.value = Object.keys(data.value).reduce((pre, cur) => {
-      const datas = data.value[cur].map(el => {
+    data= Object.keys(data).reduce((pre, cur) => {
+      const datas = data[cur].map(el => {
         if (cur === 'C#') cur = 'CSharp'
         if (cur === 'Visual C++') cur = 'VCpp'
         return ({"group": cur, ...el})
@@ -49,8 +58,7 @@ onMounted(() => {
       return pre.concat(datas)
     }, [])
 
-
-    searchData = data.value
+    searchData = data
   })
 })
 

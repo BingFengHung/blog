@@ -2,7 +2,7 @@
   <div class="box">
     <div class="title">近期文章:</div>
     <div class="link" v-for="(data, key) in timelineData" :key="key">
-      <NuxtLink :to="`/articles/${data.group}_${data.realTitle}`" :key="key">
+      <NuxtLink :to="`/articles/${data.group}<_>>${data.realTitle}`" :key="key">
         <div>
           <span>{{ data.title }}</span>
           <span class="link__time">({{ data.lastModifyDate }})</span>
@@ -19,7 +19,8 @@ import { useArticleStore } from '../store/articles'
 let timelineData = reactive([])
 
 const articleStore = useArticleStore()
-await articleStore.fetchArticleData()
+
+if (!articleStore.articleData) await articleStore.fetchArticleData()
 
 const data = Object.keys(articleStore.articleData).reduce((pre, cur) => {
   const target = articleStore.articleData
