@@ -157,4 +157,5 @@ Array.prototype.asyncForEach = async function(callback) {
   display: flex;
   justify-content: center;
 }
+
 </style>

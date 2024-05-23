@@ -34,7 +34,7 @@ onBeforeUnmount(() => {
   bottom: 20px;
   right: 20px;
   padding: 10px 12px;
-  background-color: #007bff;
+  background-color: #2f94ff;
   color: white;
   border: none;
   border-radius: 5px;
@@ -46,4 +46,13 @@ onBeforeUnmount(() => {
 .back-to-top:hover {
   background-color: #0056b3;
 }
+
+@media screen and (max-device-width: 480px) {
+  .back-to-top {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+  }
+}
+
 </style>

@@ -46,10 +46,10 @@
 </script>
 
 <style>
-.pagination { 
+/* .pagination { 
   display: flex;
   justify-content: center;
-}
+} */
   
 /* .pagination {
   display: flex;
@@ -87,10 +87,10 @@
   border-radius: 2px;
 }
 .back-button {
-  width: 70px;
+  width: 50px;
 }
 .next-button {
-  width: 70px;
+  width: 50px;
 }
 
 .back-button svg {
@@ -113,5 +113,16 @@
 .back-button:active,
 .next-button:active {
   background-color: #dedede;
+}
+
+@media screen and (max-device-width: 480px) {
+  /* 如果使用者之裝置寬度 <= 480px，將會再載入這裡的 CSS。 */
+  .paginate-buttons {
+    width: 30px;
+  }
+  
+  .pagination-container {
+    margin-bottom: 50px;
+  }
 }
 </style>
