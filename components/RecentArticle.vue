@@ -41,8 +41,10 @@ delete data['Visual C++']
 
 const getDataByDate = (data) => {
   const dataSet = Object.keys(data).reduce((pre, cur) => {
-    const datas = data[cur].map(el => ({ "group": cur, ...el }))
-    return pre.concat(datas)
+    if (data[cur]) {
+      const datas = data[cur].map(el => ({ "group": cur, ...el }))
+      return pre.concat(datas)
+    } else return pre
   }, [])
   return dataSet.sort((a, b) => {
     const splitA = a.lastModifyDate.split('-')
@@ -57,7 +59,7 @@ const sortData = getDataByDate(data)
 
 // 取得前 10 筆資料
 
-timelineData = sortData.slice(0, 10);//groupWithTime
+timelineData = sortData?.slice(0, 10);//groupWithTime
 </script>
 
 <style scoped>

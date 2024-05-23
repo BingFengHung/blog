@@ -15,14 +15,26 @@ import marked from '../utils/markedSetup'
 
 const article = ref('')
 const modifyDate = ref('')
-const { articleData } = defineProps(['articleData'])
-const { group, title, link, lastModifyDate } = articleData
-modifyDate.value = lastModifyDate
+const props = defineProps(['articleData'])
 
-onMounted(async () => {
+const { group, title, link, lastModifyDate } = props.articleData
+
+const fetchArticle = async (link) => {
   const articles = await useFetch(link)
   const temp = convertImageUrl.imageUrlConverter(link, articles)
   article.value = marked.marked(temp)
+}
+
+// 當 prop 改變時更新
+watch(() => props.articleData, (newData) => {
+  const { group, title, link, lastModifyDate } = newData
+  modifyDate.value = lastModifyDate
+  fetchArticle(link)
+}, { immediate: true})
+
+
+onMounted(() => {
+  fetchArticle(link)
 })
 </script>
 

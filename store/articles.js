@@ -4,14 +4,20 @@ export const useArticleStore = defineStore('articleStore', {
   state: () => ({
     articleData: null,
     tags: null,
+    articleCount: 0, 
   }),
   actions: {
     async fetchArticleData() {
-      return new Promise(async (resolve, reject) => {
-        const { data } = await useFetch('https://bingfenghung.github.io/DevArticles/articles.json')
+      try {
+        const { data } = await useFetch('https://bingfenghung.github.io/DevArticles/articles.json')        
         this.articleData = data
-        resolve(data)
-      })
+        this.articleCount = Object.keys(data.value).reduce((pre, cur) => {
+          pre += data.value[cur].length
+          return pre
+        }, 0)
+      } catch (error) {
+        console.log("Error fetch: ", error)
+      }
     },
     setData(data) {
       this.articleData = data
@@ -30,22 +36,21 @@ export const useArticleStore = defineStore('articleStore', {
         return {...current, ...pre }
       }, {})
       
-    const tagKeyMap = {
-      'Visual C++': 'VCpp',
-      'C#': 'CSharp',
-      'Visual Studio': 'VisualStudio',
-      'Unit Test': 'UnitTest'
-    }
+      const tagKeyMap = {
+        'Visual C++': 'VCpp',
+        'C#': 'CSharp',
+        'Visual Studio': 'VisualStudio',
+        'Unit Test': 'UnitTest'
+      }
       
-    const tagKey = Object.keys(tag).reduce((pre, cur) => {
-      const key = tagKeyMap[cur] || cur;
-      return { ...pre, [cur]: key}
-    }, {})
+      const tagKey = Object.keys(tag).reduce((pre, cur) => {
+        const key = tagKeyMap[cur] || cur;
+        return { ...pre, [cur]: key}
+      }, {})
 
-    this.tags = tagKey 
-  }
-  },
-  getters: {
-
+      this.tags = tagKey 
+    } 
+  }, 
+  getters: { 
   }
 }) 

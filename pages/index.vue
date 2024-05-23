@@ -1,27 +1,51 @@
 <template>
   <div>
-    <template v-for="(article, idx) in articleLink" :key="idx">
+    <template v-for="(article, index) in articleLink" :key="index">
       <ArticleCard :articleData="article"></ArticleCard>
     </template>
-    <div class="pagination">
+    <div class="example-five">
       <vue-awesome-paginate
-        :total-items="100"
-        :items-per-page="5"
-        :max-pages-shown="1"
         v-model="currentPage"
+        :total-items="articleCount"
+        :items-per-page="6"
+        :max-pages-shown="3"
         :show-breapoint-buttons="false"
-        :show-jump-buttons="true"
-        :on-click="onClickHandler"/>
+        :show-jump-buttons="false"
+        :on-click="onClickHandler"> 
+      <template #prev-button>
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg"
+              fill="black"
+              width="8"
+              height="8"
+              viewBox="0 0 24 24" >
+            <path d="M8.122 24l-4.122-4 8-8-8-8 4.122-4 11.878 12z" />
+          </svg>
+        </span>
+      </template>
+
+      <template #next-button>
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg"
+              fill="black"
+              width="8"
+              height="8"
+              viewBox="0 0 24 24" >
+            <path d="M8.122 24l-4.122-4 8-8-8-8 4.122-4 11.878 12z" />
+          </svg>
+        </span>
+      </template>
+      </vue-awesome-paginate>
     </div>
   </div>
 </template>
 
 <script setup>
 import 'highlight.js/styles/github-dark.css';
-import { ref, onMounted } from 'vue'
+import { ref, reactive, onMounted, computed } from 'vue'
 import { useArticleStore } from '../store/articles'
 
-let articleLink = reactive([])
+const articleLink = reactive([])
 let sortData = reactive([])
 
 const currentPage = ref(1);
@@ -74,23 +98,34 @@ onMounted(async () => {
     
     sortData = getDataByDate(data)
 
-    const recentData = sortData.slice(0, 6)
+    // const recentData = sortData.slice(0, 6)
 
-    recentData.forEach(el => {
-      articleLink.push(el)
-    })
+    // recentData.forEach(el => {
+    //   articleLink.push(el)
+    // })
+    updateArticleLink(1)
   })
 })
 
-const onClickHandler = (page) => {
-  const recentData = sortData.slice(6 * (page - 1), 6 + 6 * (page -1))
+const updateArticleLink = (page) => {
+  const recentData = sortData.slice(6 * (page - 1), 6 * page);
+  articleLink.splice(0, articleLink.length, ...recentData)
+}
 
-  articleLink = []
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
 
-  recentData.forEach(el => {
-    articleLink.push(el)
-  })
+
+const onClickHandler = (page) => { 
+  updateArticleLink(page)
+  scrollToTop()
 };
+
+const articleCount = computed(() => articleStore.articleCount);
 
 Array.prototype.asyncForEach = async function(callback) {
   for (let i = 0; i < this.length; i++) {
@@ -135,4 +170,48 @@ Array.prototype.asyncForEach = async function(callback) {
   .active-page:hover {
     background-color: #2988c8;
   }
+  
+  .example-five {
+  display: flex;
+  justify-content: center;
+  }
+  .example-five .pagination-container {
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  padding: 10px 0px;
+}
+.example-five .paginate-buttons {
+  width: 40px;
+  height: 40px;
+  margin-inline: 5px;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  border-radius: 2px;
+}
+.example-five .back-button {
+  width: 70px;
+}
+.example-five .next-button {
+  width: 70px;
+}
+.example-five .back-button svg {
+  transform: rotate(180deg);
+}
+.example-five .active-page {
+  background-color: #2980b9;
+  color: #fff;
+}
+
+.example-five .paginate-buttons:hover {
+  background-color: #e5e5e5;
+}
+.example-five .active-page:hover {
+  background-color: #3b8cc3;
+  color: #fff;
+}
+.example-five .back-button:active,
+.example-five .next-button:active {
+  background-color: #dedede;
+}
 </style>
