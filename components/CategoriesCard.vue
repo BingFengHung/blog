@@ -34,7 +34,6 @@ if (data.hasOwnProperty("Visual C++")) {
 }
 
 dataSet = data
-console.log('test', dataSet)
 </script>
 
 <style scoped>
