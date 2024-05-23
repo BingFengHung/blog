@@ -3,8 +3,10 @@
     <template v-for="(article, index) in articleLink" :key="index">
       <ArticleCard :articleData="article"></ArticleCard>
     </template>
+
     <div class="example-five">
-      <vue-awesome-paginate
+      <Paginate :items="articleCount" @changePage="onClickHandler"></Paginate>
+      <!-- <vue-awesome-paginate
         v-model="currentPage"
         :total-items="articleCount"
         :items-per-page="6"
@@ -35,7 +37,7 @@
           </svg>
         </span>
       </template>
-      </vue-awesome-paginate>
+      </vue-awesome-paginate> -->
     </div>
   </div>
 </template>
@@ -142,76 +144,17 @@ Array.prototype.asyncForEach = async function(callback) {
   overflow-x: auto;
 }
 
-.pagination {
-  display: flex;
-  justify-content: center;
+.active-page {
+  background-color: #3498db;
+  border: 1px solid #3498db;
+  color: white;
 }
-  .pagination-container {
-    display: flex;
-    column-gap: 8px;
-  }
-  .paginate-buttons {
-    height: 40px;
-    width: 40px;
-    border-radius: 20px;
-    cursor: pointer;
-    background-color: rgb(242, 242, 242);
-    border: 1px solid rgb(217, 217, 217);
-    color: black;
-  }
-  .paginate-buttons:hover {
-    background-color: #d8d8d8;
-  }
-  .active-page {
-    background-color: #3498db;
-    border: 1px solid #3498db;
-    color: white;
-  }
-  .active-page:hover {
-    background-color: #2988c8;
-  }
-  
-  .example-five {
-  display: flex;
-  justify-content: center;
-  }
-  .example-five .pagination-container {
-  background-color: #f0f0f0;
-  border-radius: 5px;
-  padding: 10px 0px;
-}
-.example-five .paginate-buttons {
-  width: 40px;
-  height: 40px;
-  margin-inline: 5px;
-  cursor: pointer;
-  border: none;
-  background-color: transparent;
-  border-radius: 2px;
-}
-.example-five .back-button {
-  width: 70px;
-}
-.example-five .next-button {
-  width: 70px;
-}
-.example-five .back-button svg {
-  transform: rotate(180deg);
-}
-.example-five .active-page {
-  background-color: #2980b9;
-  color: #fff;
+.active-page:hover {
+  background-color: #2988c8;
 }
 
-.example-five .paginate-buttons:hover {
-  background-color: #e5e5e5;
-}
-.example-five .active-page:hover {
-  background-color: #3b8cc3;
-  color: #fff;
-}
-.example-five .back-button:active,
-.example-five .next-button:active {
-  background-color: #dedede;
+.example-five { 
+  display: flex;
+  justify-content: center;
 }
 </style>
