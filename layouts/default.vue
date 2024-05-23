@@ -98,12 +98,6 @@ main {
   gap: 10px;
 }
 
-.side-right {
-  /* display: flex;
-  flex-direction: column;
-  gap: 10px; */
-}
-
 header ul {
   display: flex;
   flex-direction: row;
@@ -124,19 +118,45 @@ li a {
   color: black;
 }
 
+ul li {
+  position: relative;
+}
+
+ul li::after {
+  content: '';
+  width: 0px;
+  height: 2px;
+  position: absolute;
+  bottom: -2px;
+  left: 0px;
+  transition: width 0.5s ease;
+}
+
+ul li:hover::after {
+  content: '';
+  width: 100%;
+  height: 2px;
+  position: absolute;
+  background-color: #1b9fda;
+  bottom: -2px;
+  left: 0px;
+}
+
 .menu-icon {
   display: none;
   margin: 3px 5px;
   padding: 3px;
-  border: 1px solid #ccc;
+  border: 1px solid #0069d9;
   border-radius: 5px;
-  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .1);
+  /* box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .1); */
+  box-shadow: 0 2px 4px rgba(0, 0, 255, 0.3);
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .bar1, .bar2, .bar3 {
   width: 30px;
-  height: 2px;
-  background-color: #ccc;
+  height: 1.6px;
+  background-color: #0069d9;
   margin: 5px 0;
   transition: .4s;
 }
@@ -253,7 +273,7 @@ a.router-link-active {
 
   header ul {
     display: none;
-    height: 140px;
+    height: 145px;
   }
 
   .menu-icon {
@@ -271,13 +291,30 @@ a.router-link-active {
   .header_container:has(.menu-icon > input[type=checkbox]:checked) + ul {
     display: block;
   }
+
   header {
     display: block;
   }
+
   .header_container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+  
+
+  ul li::after {
+    content: '';
+    width: 0px;
+    height: 2px;
+    position: absolute;
+    bottom: -2px;
+    left: 0px;
+    transition: width 0.5s ease;
+  }
+
+  ul li:hover::after {
+    width: 0%;
   }
 }
 </style>
