@@ -3,8 +3,8 @@
     <div style="font-weight: bold;">分類</div>
     <div>
       <ul>
-        <li v-for="(tag, key) of articleStore.tags" :key="key">
-          <NuxtLink :to="`/tags/${tag}`">
+        <li v-for="(tag, key) of articleStore.tags" :key="key" v-show="dataSet[tag] && dataSet[tag].length !== 0">
+          <NuxtLink :to="`/tags/${tag}`" >
             <div class="link"> 
               <div>{{ key }}</div> 
               <div class="count">{{ dataSet[tag] ? dataSet[tag].length : 0 }}</div>
