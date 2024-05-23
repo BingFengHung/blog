@@ -23,17 +23,22 @@ let dataSet = reactive({})
 
 const articleStore = useArticleStore()
 
-if (!articleStore.articleData) await articleStore.fetchArticleData()
-
-// await articleStore.fetchArticleData()
-articleStore.getTags()
+if (!articleStore.articleData) {
+  await articleStore.fetchArticleData() 
+  articleStore.getTags()
+}
 
 const data = articleStore.articleData
-data['CSharp'] = data['C#']
-delete data['C#']
 
-data['VCpp'] = data['Visual C++']
-delete data['Visual C++']
+if (data.hasOwnProperty("C#")) { 
+  data['CSharp'] = data['C#'] 
+  delete data['C#']
+}
+
+if (data.hasOwnProperty("Visual C++")) {
+  data['VCpp'] = data['Visual C++']
+  delete data['Visual C++']
+}
 
 dataSet = data
 

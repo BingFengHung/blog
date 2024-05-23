@@ -24,6 +24,7 @@ export const useArticleStore = defineStore('articleStore', {
     },
     getTags() {
       const data = this.articleData
+
       const tag = Object.keys(data).reduce((pre, cur) => {
         const current = data[cur].reduce((pre, cur) => {
           const obj = cur.tags.reduce((pre, cur) => {

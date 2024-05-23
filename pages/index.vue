@@ -88,7 +88,7 @@ onMounted(async () => {
       return ({[cur]: dataSet, ...pre})
     }), {})
 
-    if (data.hasOwnProperty("C")) { 
+    if (data.hasOwnProperty("C#")) { 
       data['CSharp'] = data['C#'] 
       delete data['C#']
     }
