@@ -52,13 +52,21 @@ onMounted(async () => {
     }
   })
 
+  //addCopyButtons('.hljs.my-code');
   addCopyButtons('pre code');
 })
 </script>
 
+<style>
+.plaintext {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+</style>
+
 <style scoped>
 img {
-  width: 100%;
+  width: 100%
 }
 
 .article {
@@ -67,5 +75,7 @@ img {
   background-color: #fff;
   box-shadow: 0 4px 10px rgb(0 0 0 / 5%), 0 0 1px rgb(0 0 0 / 10%)
 }
+
+
 </style>
 
