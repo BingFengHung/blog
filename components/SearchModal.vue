@@ -3,7 +3,7 @@
     <div class="modal">
       <div class="searchbox">
         <input v-model="searchText" @keyup.enter="onSearch" class="searchbox__input" type="text" placeholder="請輸入關鍵字">
-        <button class="searchbox__close-btn" @click="modalClose">x</button>
+        <button class="searchbox__close-btn" @click="modalClose">X</button>
       </div>
 
       <h6 v-show="searchResult.length == 0">No Data</h6>
@@ -108,9 +108,11 @@ const modalClose = () => {
 .modal-overlay {
   z-index: 1;
 }
+
 .searchbox {
   display: flex;
 }
+
 .searchbox__input {
   flex-grow: 1;
   box-sizing: border-box;
@@ -131,6 +133,7 @@ const modalClose = () => {
   cursor: pointer;
   background-color: white;
   font-weight: 700;
+  color: black;
 }
 
 .searchbox__close-btn:active {
@@ -210,9 +213,8 @@ h6 {
 @media screen and (max-device-width: 480px) {
   /* 如果使用者之裝置寬度 <= 480px，將會再載入這裡的 CSS。 */
   .modal {
-    width: 300px;
-    height: 300px;
+    width: 320px;
+    height: 350px;
   }
 }
-
 </style>
