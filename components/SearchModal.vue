@@ -34,22 +34,21 @@ const articleStore = useArticleStore()
 onMounted(() => {
   nextTick(async () => {
     if (!articleStore.articleData)  await articleStore.fetchArticleData()     
-    // const { data } = await useFetch('https://bingfenghung.github.io/DevArticles/articles.json')
     let data = articleStore.articleData
 
-    data= Object.keys(data).reduce(((pre, cur) => {
+    data = Object.keys(data).reduce(((pre, cur) => {
       const dataSet = data[cur] = data[cur].map(el => { 
         return { 
+          ...el,
           link: el.link.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B'), 
           fake_title: el.title.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B'),
-          ...el
         }
       })
 
       return ({[cur]: dataSet, ...pre})
     }), {})
 
-    data= Object.keys(data).reduce((pre, cur) => {
+    data = Object.keys(data).reduce((pre, cur) => {
       const datas = data[cur].map(el => {
         if (cur === 'C#') cur = 'CSharp'
         if (cur === 'Visual C++') cur = 'VCpp'
@@ -69,11 +68,9 @@ const onSearch = () => {
     return el.title.includes(targetText)
   })
 
-  // searchResult = []
   while(searchResult.length != 0) searchResult.pop()
 
   result.forEach(el => searchResult.push(el))
-  // emit('modal-close')
 }
 
 const modalClose = () => {

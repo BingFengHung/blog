@@ -47,7 +47,7 @@ onMounted(async () => {
         return { 
           ...el,
           link: el.link.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B'), 
-          title: el.title.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B'),
+          title: el.title, //.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B'),
         }
       })
 
