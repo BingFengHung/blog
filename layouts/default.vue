@@ -148,17 +148,17 @@ ul li:hover::after {
   display: none;
   margin: 3px 5px;
   padding: 3px;
-  border: 1px solid #0069d9;
+  border: 2px solid rgb(27, 159, 218);
   border-radius: 5px;
   /* box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .1); */
-  box-shadow: 0 2px 4px rgba(0, 0, 255, 0.3);
+  box-shadow: 1px 2px 3px rgba(27, 159, 218, .3);
   transition: background-color 0.3s, transform 0.3s;
 }
 
 .bar1, .bar2, .bar3 {
   width: 30px;
-  height: 1.6px;
-  background-color: #0069d9;
+  height: 1.8px;
+  background-color: #1b9fda;
   margin: 5px 0;
   transition: .4s;
 }
@@ -169,6 +169,7 @@ ul li:hover::after {
   border: 0px;
   border-radius: 5px;
   cursor: pointer;
+  color: black;
 }
 
 a.router-link-active {
@@ -198,10 +199,14 @@ a.router-link-active {
   .content {
     width: 100%;
   }
+  
+  header {
+    padding-bottom: 5px;
+  }
 
   header ul {
     display: none;
-    height: 170px;
+    height: auto;
   }
 
   .menu-icon {
