@@ -8,7 +8,7 @@
             </div>
           </NuxtLink>
         <div class="menu-icon">
-          <input id="menu" name="menu" class="menu_check" type="checkbox">
+          <input ref="menuBox" id="menu" name="menu" class="menu_check" type="checkbox">
           <label for="menu">
             <div class="bar1"></div>
             <div class="bar2"></div>
@@ -43,7 +43,7 @@
         <RecentArticle></RecentArticle>
       </div>
     </main>
-    <SearchModal v-show="showModal" @modal-close="showModal=false"></SearchModal>
+    <SearchModal v-show="showModal" @modal-close="showModal=false" @jump-link="searchJumpLink"></SearchModal>
   </div>
   <div>
     <GoToTop/>
@@ -52,7 +52,13 @@
 
 <script setup>
 import { ref } from 'vue'
+const menuBox = ref(null)
 const showModal = ref(false)
+
+const searchJumpLink = () => {
+  showModal.value = false;
+  menuBox.value.checked = false
+}
 </script>
 
 <style>

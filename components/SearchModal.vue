@@ -9,8 +9,8 @@
       <h6 v-show="searchResult.length == 0">No Data</h6>
 
       <div class="search-result">
-        <template v-for="(result, idx) in searchResult" :key="result.title">
-          <div @click="$emit('modal-close')">
+        <template v-for="result in searchResult" :key="result.title">
+          <div @click="jumpLink">
             <NuxtLink :to="`/articles/${result.group}<_>>${result.fake_title}`">{{ result.title }}</NuxtLink>
           </div>
         </template>
@@ -25,7 +25,7 @@ import { useArticleStore } from '~~/store/articles'
 
 const searchText = ref('')
 let searchResult = reactive([])
-const emit = defineEmits(['modal-close'])
+const emit = defineEmits(['modal-close', 'jump-link'])
 
 let searchData = {}
 const articleStore = useArticleStore()
@@ -75,6 +75,12 @@ const onSearch = () => {
 
 const modalClose = () => {
   emit('modal-close')
+  searchText.value = ''
+  while(searchResult.length != 0) searchResult.pop()
+}
+
+const jumpLink = () => {
+  emit('jump-link')
   searchText.value = ''
   while(searchResult.length != 0) searchResult.pop()
 }
