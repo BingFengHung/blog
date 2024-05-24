@@ -46,10 +46,10 @@
 </script>
 
 <style>
-/* .pagination { 
+.pagination { 
   display: flex;
   justify-content: center;
-} */
+}
   
 /* .pagination {
   display: flex;
