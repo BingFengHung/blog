@@ -18,10 +18,16 @@
       </div>
 
       <ul>
-        <li><NuxtLink to="/">Home</NuxtLink></li>
+        <!-- <li><NuxtLink to="/">Home</NuxtLink></li>
         <li><NuxtLink to="/archives">Archives</NuxtLink></li>
         <li><NuxtLink to="/categories">Categories</NuxtLink></li>
-        <li><NuxtLink to="/tools">Tools</NuxtLink></li>
+        <li><NuxtLink to="/tools">Tools</NuxtLink></li> -->
+
+        <li><NuxtLink to="/">首頁</NuxtLink></li>
+        <li><NuxtLink to="/archives">文章歸檔</NuxtLink></li>
+        <li><NuxtLink to="/categories">分類目錄</NuxtLink></li>
+        <li><NuxtLink to="/tools">開發工具</NuxtLink></li>
+
         <li>
           <button class="search-btn" @click="showModal=true">
             <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
@@ -116,6 +122,7 @@ li a {
   text-decoration: none;
   text-transform: uppercase;
   color: black;
+  font-size: 1.2rem
 }
 
 ul li {
@@ -207,14 +214,21 @@ a.router-link-active {
   /* 如果使用者之視窗寬度介於 768px ~ 979px，將會再載入這裡的 CSS。 */
   main {
     width: 100%;
+    display: grid;
+    grid-template-columns: 30% 68%;
+    gap: 10px;
   }
 
   .side {
-    width: 30%;
+    grid-column:  1 / 2;;
   }
 
   .content {
-    width: 70%;
+    grid-column: 2 / 3;
+  }
+  
+  .side-right {
+    grid-column: 2 / 3;;
   }
 }
 
@@ -222,29 +236,20 @@ a.router-link-active {
   /* 如果使用者之視窗寬度 <= 768px，將會再載入這裡的 CSS。*/
   main {
     width: 100%;
-    /* display: flex; */
     display: grid;
     grid-template-columns: 30% 68%;
     gap: 10px;
   }
 
   .side {
-    /* width: 30%;
-    display: flex;
-    order: 1; */
     grid-column:  1 / 2;;
   }
 
   .content {
-    /* width: 70%;
-    display: flex;
-    order: 2; */
     grid-column: 2 / 3;
   }
   
   .side-right {
-    /* width: 100%;
-    order: 3; */
     grid-column: 2 / 3;;
   }
 }
