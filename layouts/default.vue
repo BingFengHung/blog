@@ -230,8 +230,9 @@ a.router-link-active {
 
   .menus .search-btn {
     font-size: 1.3rem;
-    margin-right: 10px; 
     color: #1b9fda;
+    padding: 5px 10px; 
+    margin-right: 5px;
   }
 
   ul .search-btn {
