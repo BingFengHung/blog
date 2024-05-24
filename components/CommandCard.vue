@@ -29,6 +29,8 @@ onMounted(async () => {
 <style>
 .hljs {
   white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-x: auto;
 }
 </style>
 
