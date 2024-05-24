@@ -19,9 +19,13 @@ const { group, commandData } = defineProps(['group', 'commandData'])
 const baseUrl = `https://bingfenghung.github.io/DevArticles/Tools`
 
 onMounted(async () => {
-  const data: any = await useFetch(`${baseUrl}/${group}/${commandData.link}`)
-  const value = data.data;
-  command.value = marked.marked(value.value.toString())
+  await nextTick(async () => {
+    const data: any = await useFetch(`${baseUrl}/${group}/${commandData.link}`)
+    const value = data.data;
+    command.value = marked.marked(value.value.toString())
+  })
+  
+  addCopyButtons('pre code')
 })
 
 </script>
