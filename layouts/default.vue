@@ -248,15 +248,15 @@ a.router-link-active {
 
 @media screen and (min-width: 481px) {
   /* 如果使用者之視窗寬度 <= 768px，將會再載入這裡的 CSS。*/
-  main {
+ /*  main {
     width: 100%;
-    display: grid;
-    grid-template-columns: 30% 68%;
+    display: flex;
+    grid-template-columns: 30% 68%; 
     gap: 10px;
   }
 
   .side {
-    grid-column:  1 / 2;;
+    grid-column:  1 / 2;
   }
 
   .content {
@@ -264,8 +264,30 @@ a.router-link-active {
   }
   
   .side-right {
-    grid-column: 2 / 3;;
-  }
+    grid-column: 2 / 3;
+  } */
+  main {
+        display: grid;
+        width: 100%;
+        grid-template-columns: 30% 68%;
+        grid-template-rows: auto 1fr;
+        gap: 10px;
+    }
+
+    .side {
+        grid-column: 1 / 2;
+        grid-row: 1 / 3; /* 覆蓋第一和第二行 */
+    }
+
+    .content {
+        grid-column: 2 / 3;
+        grid-row: 1 / 2; /* 只佔第一行 */
+    }
+    
+    .side-right {
+        grid-column: 2 / 3;
+        grid-row: 2 / 3; /* 佔第二行 */
+    }
 }
 
 @media screen and (min-width: 768px) and (max-width: 1024px) {
