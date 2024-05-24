@@ -9,6 +9,7 @@
 import { ref, onMounted } from 'vue'
 import convertImageUrl from '~~/utils/convertImageUrl';
 import marked from '../../utils/markedSetup';
+import { addCopyButtons } from '~~/utils/addCopyButtons';
 
 const article = ref('')
 const { id } = useRoute().params
@@ -17,7 +18,7 @@ const { describe } = ref('')
 let [ group, title ] = id.split('<_>>')
 
 onMounted(async () => {
-  nextTick(async () => {
+  await nextTick(async () => {
     const { data } = await useFetch('https://bingfenghung.github.io/DevArticles/articles.json')
 
     data.value = Object.keys(data.value).reduce(((pre, cur) => {
@@ -47,8 +48,11 @@ onMounted(async () => {
       const articles = await useFetch(result[0].link) 
       const temp = convertImageUrl.imageUrlConverter(result[0].link, articles) 
       article.value = marked.marked(temp)
+
     }
   })
+
+  addCopyButtons('pre code');
 })
 </script>
 
