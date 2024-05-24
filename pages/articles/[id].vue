@@ -48,7 +48,6 @@ onMounted(async () => {
       const articles = await useFetch(result[0].link) 
       const temp = convertImageUrl.imageUrlConverter(result[0].link, articles) 
       article.value = marked.marked(temp)
-
     }
   })
 
