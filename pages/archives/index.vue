@@ -31,12 +31,6 @@ const data = Object.keys(articleStore.articleData).reduce((pre, cur) => {
   return ({[cur]: dataSet, ...pre})
 }, {})
 
-// data['CSharp'] = data['C#']
-// delete data['C#']
-
-// data['VCpp'] = data['Visual C++']
-// delete data['Visual C++']
-
 
 if (data.hasOwnProperty("C#")) { 
   data['CSharp'] = data['C#'] 
