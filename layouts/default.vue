@@ -18,11 +18,6 @@
       </div>
 
       <ul>
-        <!-- <li><NuxtLink to="/">Home</NuxtLink></li>
-        <li><NuxtLink to="/archives">Archives</NuxtLink></li>
-        <li><NuxtLink to="/categories">Categories</NuxtLink></li>
-        <li><NuxtLink to="/tools">Tools</NuxtLink></li> -->
-
         <li><NuxtLink to="/">首頁</NuxtLink></li>
         <li><NuxtLink to="/archives">文章歸檔</NuxtLink></li>
         <li><NuxtLink to="/categories">分類目錄</NuxtLink></li>
@@ -85,7 +80,7 @@ body {
 
 header {
   display: flex;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   background-color: white;
   box-shadow: 0 4px 10px rgb(0 0 0 / 5%), 0 0 1px rgb(0 0 0 / 10%);
   align-items: center;
@@ -181,78 +176,6 @@ a.router-link-active {
   color: #1b9fda;
 }
 
-@media screen and (min-width: 1024px) {
-  main {
-    width: 960px;
-  }
-
-  .side {
-    width: 30%;
-  }
-
-  .content {
-    width: 70%;
-  }
-}
-
-@media screen and (min-width: 1200px) {
-  /* 如果使用者之視窗寬度 >= 1200px，將會再載入這裡的 CSS。 */
-  main {
-    width: 1200px;
-  }
-
-  .side {
-    width: 30%;
-  }
-
-  .content {
-    width: 70%;
-  }
-}
-
-@media screen and (min-width: 768px) and (max-width: 979px) {
-  /* 如果使用者之視窗寬度介於 768px ~ 979px，將會再載入這裡的 CSS。 */
-  main {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 30% 68%;
-    gap: 10px;
-  }
-
-  .side {
-    grid-column:  1 / 2;;
-  }
-
-  .content {
-    grid-column: 2 / 3;
-  }
-  
-  .side-right {
-    grid-column: 2 / 3;;
-  }
-}
-
-@media screen and (max-width: 767px) {
-  /* 如果使用者之視窗寬度 <= 768px，將會再載入這裡的 CSS。*/
-  main {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 30% 68%;
-    gap: 10px;
-  }
-
-  .side {
-    grid-column:  1 / 2;;
-  }
-
-  .content {
-    grid-column: 2 / 3;
-  }
-  
-  .side-right {
-    grid-column: 2 / 3;;
-  }
-}
 
 @media screen and (max-device-width: 480px) {
   main {
@@ -278,7 +201,7 @@ a.router-link-active {
 
   header ul {
     display: none;
-    height: 145px;
+    height: 170px;
   }
 
   .menu-icon {
@@ -320,6 +243,94 @@ a.router-link-active {
 
   ul li:hover::after {
     width: 0%;
+  }
+}
+
+@media screen and (min-width: 481px) {
+  /* 如果使用者之視窗寬度 <= 768px，將會再載入這裡的 CSS。*/
+  main {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 30% 68%;
+    gap: 10px;
+  }
+
+  .side {
+    grid-column:  1 / 2;;
+  }
+
+  .content {
+    grid-column: 2 / 3;
+  }
+  
+  .side-right {
+    grid-column: 2 / 3;;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  /* 如果使用者之視窗寬度介於 768px ~ 1024px，將會再載入這裡的 CSS。 */
+  main {
+    width: 99%;
+    display: grid;
+    grid-template-columns: 30% 68%;
+    gap: 10px;
+    margin: 10px;
+  }
+
+  .side {
+    grid-column:  1 / 2;;
+  }
+
+  .content {
+    grid-column: 2 / 3;
+  }
+  
+  .side-right {
+    grid-column: 2 / 3;;
+  }
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1199px) {
+  main {
+    display: flex;
+    gap: 10px;
+    width: 1020px;
+    margin: 0 auto;
+  }
+
+  .side {
+    width: calc(20% - 10px);
+  }
+
+  .content {
+    width: calc(60% - 10px);
+  }
+
+  .side-right {
+    width: calc(20% - 10px);
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  /* 如果使用者之視窗寬度 >= 1200px，將會再載入這裡的 CSS。 */
+  main {
+  display: flex;
+  gap: 10px;
+  width: 1200px;
+  margin: 0 auto;
+  }
+
+  .side {
+    width: calc(18% - 10px);
+  }
+
+  .content {
+    width: calc(60% - 10px);
+  }
+
+  .side-right {
+    width: calc(22% - 10px);
   }
 }
 </style>
