@@ -5,7 +5,7 @@
       <div class="timeline" v-for="time in data.data" :key="time.title">
         <div class="article">
           <p class="datetime">{{ time.lastModifyDate }}</p>
-          <NuxtLink :to="`articles/${time.group}_${time.realTitle}`">{{ time.title }}</NuxtLink>
+          <NuxtLink :to="`articles/${time.group}<_>>${time.realTitle}`">{{ time.title }}</NuxtLink>
         </div>
       </div>
     </div>
@@ -17,7 +17,8 @@ import { reactive } from 'vue'
 import { useArticleStore } from '../../store/articles'
 let timelineData = reactive([])
 const articleStore = useArticleStore()
-await articleStore.fetchArticleData()
+
+if (!articleStore.articleData) await articleStore.fetchArticleData()
 
 const data = Object.keys(articleStore.articleData).reduce((pre, cur) => {
   const target = articleStore.articleData
@@ -30,11 +31,22 @@ const data = Object.keys(articleStore.articleData).reduce((pre, cur) => {
   return ({[cur]: dataSet, ...pre})
 }, {})
 
-data['CSharp'] = data['C#']
-delete data['C#']
+// data['CSharp'] = data['C#']
+// delete data['C#']
 
-data['VCpp'] = data['Visual C++']
-delete data['Visual C++']
+// data['VCpp'] = data['Visual C++']
+// delete data['Visual C++']
+
+
+if (data.hasOwnProperty("C#")) { 
+  data['CSharp'] = data['C#'] 
+  delete data['C#']
+}
+
+if (data.hasOwnProperty("Visual C++")) {
+  data['VCpp'] = data['Visual C++']
+  delete data['Visual C++']
+}
 
 
 const getDataByDate = (data) => {

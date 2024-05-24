@@ -33,11 +33,23 @@ const data = Object.keys(articleStore.articleData).reduce((pre, cur) => {
   return ({[cur]: dataSet, ...pre})
 }, {})
 
-data['CSharp'] = data['C#']
+/* data['CSharp'] = data['C#']
 delete data['C#']
 
 data['VCpp'] = data['Visual C++']
 delete data['Visual C++']
+ */
+
+if (data.hasOwnProperty("C#")) { 
+  data['CSharp'] = data['C#'] 
+  delete data['C#']
+}
+
+if (data.hasOwnProperty("Visual C++")) {
+  data['VCpp'] = data['Visual C++']
+  delete data['Visual C++']
+}
+
 
 const getDataByDate = (data) => {
   const dataSet = Object.keys(data).reduce((pre, cur) => {
