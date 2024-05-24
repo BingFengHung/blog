@@ -18,12 +18,16 @@ export const addCopyButtons = (_class) => {
       const code = block.innerText;
       try {
         await navigator.clipboard.writeText(code);
-        button.innerText = 'Copied';
+        button.innerText = 'Copied!';
+        button.classList.add('copied')
       } catch (error) {
         button.innerText = 'Failed';
       }
 
-      setTimeout(() => button.innerText = 'Copy', 2000);
+      setTimeout(() => { 
+        button.innerText = 'Copy'
+        button.classList.remove('copied')
+      }, 2000);
     })
   });
 };

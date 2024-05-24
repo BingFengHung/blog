@@ -1,8 +1,8 @@
 /* assets/copy-button.css */
 .copy-button {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 8px;
+  right: 8px;
   padding: 5px 10px;
   background-color: #4CAF50;
   color: white;
@@ -10,12 +10,19 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
+  opacity: .3;
 }
 
 .copy-button:hover {
   background-color: #45a049;
+  opacity: 1;
 }
 
 .copy-button:active {
   background-color: #3e8e41;
+}
+
+.copy-button.copied {
+  background-color: #FFD700; 
+  opacity: 1; 
 }
