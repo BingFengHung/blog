@@ -6,38 +6,6 @@
 
     <div class="example-five">
       <Paginate :items="articleCount" @changePage="onClickHandler"></Paginate>
-      <!-- <vue-awesome-paginate
-        v-model="currentPage"
-        :total-items="articleCount"
-        :items-per-page="6"
-        :max-pages-shown="3"
-        :show-breapoint-buttons="false"
-        :show-jump-buttons="false"
-        :on-click="onClickHandler"> 
-      <template #prev-button>
-        <span>
-          <svg xmlns="http://www.w3.org/2000/svg"
-              fill="black"
-              width="8"
-              height="8"
-              viewBox="0 0 24 24" >
-            <path d="M8.122 24l-4.122-4 8-8-8-8 4.122-4 11.878 12z" />
-          </svg>
-        </span>
-      </template>
-
-      <template #next-button>
-        <span>
-          <svg xmlns="http://www.w3.org/2000/svg"
-              fill="black"
-              width="8"
-              height="8"
-              viewBox="0 0 24 24" >
-            <path d="M8.122 24l-4.122-4 8-8-8-8 4.122-4 11.878 12z" />
-          </svg>
-        </span>
-      </template>
-      </vue-awesome-paginate> -->
     </div>
   </div>
 </template>
@@ -49,8 +17,6 @@ import { useArticleStore } from '../store/articles'
 
 const articleLink = reactive([])
 let sortData = reactive([])
-
-const currentPage = ref(1);
 
 const articleStore = useArticleStore()
 
@@ -100,11 +66,6 @@ onMounted(async () => {
     
     sortData = getDataByDate(data)
 
-    // const recentData = sortData.slice(0, 6)
-
-    // recentData.forEach(el => {
-    //   articleLink.push(el)
-    // })
     updateArticleLink(1)
   })
 })
@@ -120,7 +81,6 @@ const scrollToTop = () => {
     behavior: 'smooth'
   });
 }
-
 
 const onClickHandler = (page) => { 
   updateArticleLink(page)
