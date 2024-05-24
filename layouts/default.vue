@@ -7,14 +7,19 @@
               <Logo></Logo>
             </div>
           </NuxtLink>
-        <div class="menu-icon">
-          <input ref="menuBox" id="menu" name="menu" class="menu_check" type="checkbox">
-          <label for="menu">
-            <div class="bar1"></div>
-            <div class="bar2"></div>
-            <div class="bar3"></div>
-          </label>
-        </div>
+          <div class="menus">
+            <button class="search-btn" @click="showModal=true">
+              <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
+            </button>
+            <div class="menu-icon">
+              <input ref="menuBox" id="menu" name="menu" class="menu_check" type="checkbox">
+              <label for="menu">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+              </label>
+            </div>
+          </div>
       </div>
 
       <ul>
@@ -150,6 +155,10 @@ ul li:hover::after {
   left: 0px;
 }
 
+.menus {
+  display: none;
+}
+
 .menu-icon {
   display: none;
   margin: 3px 5px;
@@ -215,6 +224,20 @@ a.router-link-active {
     height: auto;
   }
 
+  .menus {
+    display: flex;
+  }
+
+  .menus .search-btn {
+    font-size: 1.3rem;
+    margin-right: 10px; 
+    color: #1b9fda;
+  }
+
+  ul .search-btn {
+    display: none;
+  }
+
   .menu-icon {
     display: inline-block;
   }
@@ -240,7 +263,6 @@ a.router-link-active {
     justify-content: space-between;
     align-items: center;
   }
-  
 
   ul li::after {
     content: '';

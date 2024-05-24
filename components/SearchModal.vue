@@ -24,6 +24,7 @@ import { ref, reactive, onMounted } from 'vue'
 import { useArticleStore } from '~~/store/articles'
 
 const searchText = ref('')
+
 let searchResult = reactive([])
 const emit = defineEmits(['modal-close', 'jump-link'])
 
@@ -117,6 +118,7 @@ const jumpLink = () => {
 
 .searchbox {
   display: flex;
+  position: relative;
 }
 
 .searchbox__input {
@@ -198,6 +200,11 @@ h6 {
   text-align: left;
   display: inline-block;
   width: 100%;
+  color: #007bff;
+}
+
+.search-result a:visited {
+  color: #007bff;
 }
 
 @media screen and (min-width: 1024px) {
