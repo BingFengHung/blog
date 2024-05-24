@@ -120,6 +120,7 @@ const modalClose = () => {
   border: none;
   outline: none;
   border-radius: 0;
+  font-size: 1.2rem
 }
 
 .searchbox__close-btn {
