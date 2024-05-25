@@ -31,7 +31,8 @@ watch(() => props.articleData, (newData) => {
   const { group, title, link, lastModifyDate } = newData
   modifyDate.value = lastModifyDate
   fetchArticle(link)
-  linkTo.value = `/articles/${group}<_>>${title}`
+  const newTitle = encodeURIComponent(title)
+  linkTo.value = `/articles/${group}<_>>${newTitle}`
 }, { immediate: true})
 
 
