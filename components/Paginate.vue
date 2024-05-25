@@ -51,7 +51,6 @@
 
   const onClickHandler = (page) => { 
     currentPage.value = page
-    console.log(currentPage.value)
     emit('changePage', page);
   }
   
