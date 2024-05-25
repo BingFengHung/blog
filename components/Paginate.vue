@@ -1,4 +1,12 @@
 <template>
+  <!-- <vue-awesome-paginate
+    v-model="currentPage"
+    :total-items="items"
+    :items-per-page="6"
+    :max-pages-shown="3"
+    :show-breapoint-buttons="false"
+    :show-jump-buttons="false"
+    :on-click="onClickHandler">  -->
   <vue-awesome-paginate
     v-model="currentPage"
     :total-items="items"
@@ -34,15 +42,23 @@
 </template>
 
 <script setup>
-  import { defineProps, defineEmits } from 'vue'
+  import { watch, defineProps, defineEmits, onMounted } from 'vue'
   
-  const props = defineProps(['items'])
-  const emit = defineEmits(['changePage'])
-  const currentPage = ref(1)
+  const props = defineProps(['items', 'modelValue'])
+  const emit = defineEmits(['changePage', 'update:modelValue'])
 
-  const onClickHandler = (page) => {
+  const currentPage = ref(props.modelValue)
+
+  const onClickHandler = (page) => { 
+    currentPage.value = page
+    console.log(currentPage.value)
     emit('changePage', page);
   }
+  
+  watch(currentPage, (newPage) => {
+    emit('update:modelValue', newPage)
+  })
+  
 </script>
 
 <style>

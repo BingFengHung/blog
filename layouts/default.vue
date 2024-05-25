@@ -23,10 +23,10 @@
       </div>
 
       <ul>
-        <li><NuxtLink to="/">首頁</NuxtLink></li>
-        <li><NuxtLink to="/archives">文章歸檔</NuxtLink></li>
-        <li><NuxtLink to="/categories">分類目錄</NuxtLink></li>
-        <li><NuxtLink to="/tools">開發工具</NuxtLink></li>
+        <li><NuxtLink to="/" @click="refreshPaginateIndex">首頁</NuxtLink></li>
+        <li><NuxtLink to="/archives" @click="refreshPaginateIndex">文章歸檔</NuxtLink></li>
+        <li><NuxtLink to="/categories" @click="refreshPaginateIndex">分類目錄</NuxtLink></li>
+        <li><NuxtLink to="/tools" @click="refreshPaginateIndex">開發工具</NuxtLink></li>
 
         <li>
           <button class="search-btn" @click="showModal=true">
@@ -57,12 +57,20 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useCurrentPageStore } from '../store/currentPage'
+
 const menuBox = ref(null)
 const showModal = ref(false)
+
+const currentPageStore = useCurrentPageStore()
 
 const searchJumpLink = () => {
   showModal.value = false;
   menuBox.value.checked = false
+}
+
+const refreshPaginateIndex = () => {
+currentPageStore.setData(1)
 }
 </script>
 

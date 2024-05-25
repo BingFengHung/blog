@@ -2,7 +2,7 @@
   <div class="article">
     <div class="subtitle">更新日期：{{ modifyDate  }}</div>
     <div class="content" v-html="article"></div>
-    <NuxtLink class="read-more" :to="`/articles/${group}<_>>${title}`">
+    <NuxtLink class="read-more" :to="linkTo">
       <span>繼續閱讀...</span>
     </NuxtLink>
   </div>
@@ -14,10 +14,11 @@ import convertImageUrl from '../utils/convertImageUrl'
 import marked from '../utils/markedSetup'
 
 const article = ref('')
+const linkTo = ref('')
 const modifyDate = ref('')
 const props = defineProps(['articleData'])
 
-const { group, title, link, lastModifyDate } = props.articleData
+const { group, title, link } = props.articleData
 
 const fetchArticle = async (link) => {
   const articles = await useFetch(link)
@@ -30,6 +31,7 @@ watch(() => props.articleData, (newData) => {
   const { group, title, link, lastModifyDate } = newData
   modifyDate.value = lastModifyDate
   fetchArticle(link)
+  linkTo.value = `/articles/${group}<_>>${title}`
 }, { immediate: true})
 
 

@@ -4,7 +4,8 @@ export const useArticleStore = defineStore('articleStore', {
   state: () => ({
     articleData: null,
     tags: null,
-    articleCount: 0, 
+    articleCount: 0,
+    currentPage: 1,
   }),
   actions: {
     async fetchArticleData() {

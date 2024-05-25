@@ -5,7 +5,7 @@
     </template>
 
     <div class="example-five">
-      <Paginate :items="articleCount" @changePage="onClickHandler"></Paginate>
+      <Paginate :items="articleCount" @changePage="onClickHandler" v-model="currentPageStore.currentPage"></Paginate>
     </div>
   </div>
 </template>
@@ -14,11 +14,13 @@
 import 'highlight.js/styles/github-dark.css';
 import { ref, reactive, onMounted, computed } from 'vue'
 import { useArticleStore } from '../store/articles'
+import { useCurrentPageStore } from '../store/currentPage'
 
 const articleLink = reactive([])
 let sortData = reactive([])
 
 const articleStore = useArticleStore()
+const currentPageStore = useCurrentPageStore()
 
 const getDataByDate = (data) => {
   const dataSet = Object.keys(data).reduce((pre, cur) => {
@@ -37,7 +39,6 @@ const getDataByDate = (data) => {
 }
 
 onMounted(async () => {
-  nextTick(async () => {
     if (!articleStore.articleData) await articleStore.fetchArticleData()
     
     let data = articleStore.articleData;
@@ -66,8 +67,7 @@ onMounted(async () => {
     
     sortData = getDataByDate(data)
 
-    updateArticleLink(1)
-  })
+    updateArticleLink(currentPageStore.currentPage)
 })
 
 const updateArticleLink = (page) => {
