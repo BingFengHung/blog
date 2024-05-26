@@ -69,9 +69,7 @@ const searchJumpLink = () => {
   menuBox.value.checked = false
 }
 
-const refreshPaginateIndex = () => {
-currentPageStore.setData(1)
-}
+const refreshPaginateIndex = () => currentPageStore.setData(1)
 </script>
 
 <style>

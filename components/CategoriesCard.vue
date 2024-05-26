@@ -4,7 +4,7 @@
     <ul class="categories__list">
       <li v-for="(tag, key) of articleStore.tags" :key="key" v-show="dataSet[tag] && dataSet[tag].length !== 0"> 
         <font-awesome-icon icon="fa-solid fa-tag" class="tag-icon"/> 
-        <NuxtLink :to="`/tags/${tag}`">{{ key }}</NuxtLink>
+        <NuxtLink :to="`/tags/${tag}`" @click="refreshPaginateIndex">{{ key }}</NuxtLink>
       </li>
     </ul>
   </div>
@@ -12,9 +12,13 @@
 
 <script setup>
 import { useArticleStore } from '../store/articles'
+import { useCurrentPageStore } from '../store/currentPage'
+
 let dataSet = reactive({})
 
 const articleStore = useArticleStore()
+const currentPageStore = useCurrentPageStore()
+
 
 if (!articleStore.articleData) {
   await articleStore.fetchArticleData()
@@ -34,6 +38,8 @@ if (data.hasOwnProperty("Visual C++")) {
 }
 
 dataSet = data
+
+const refreshPaginateIndex = () => currentPageStore.setData(1)
 </script>
 
 <style scoped>
