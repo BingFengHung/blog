@@ -3,6 +3,8 @@
     <div>{{ describe }}</div>
     <div v-html="article"></div>
   </div>
+  <div>
+  </div>
 </template>
 
 <script setup>
@@ -12,6 +14,10 @@ import marked from '../../utils/markedSetup';
 import { addCopyButtons } from '~~/utils/addCopyButtons';
 import { useArticleStore } from '~~/store/articles';
 
+definePageMeta({
+  layout: 'article'
+})
+
 const article = ref('')
 const { id } = useRoute().params
 const { describe } = ref('')
@@ -19,6 +25,7 @@ const { describe } = ref('')
 let [ group, title ] = id.split('<_>>')
 
 const articleStore = useArticleStore()
+
 
 onMounted(async () => {
   await nextTick(async () => {
@@ -38,7 +45,7 @@ onMounted(async () => {
 
       return {
         ...el,
-        link: fullUrl, //mylink, //el.link,//el.link.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B'), 
+        link: fullUrl,
         title: el.title
       }})  
       return ({ [cur]: dataSet, ...pre }) 
@@ -54,13 +61,12 @@ onMounted(async () => {
       delete data['Visual C++']
     }
 
-
     const result = data[group].filter(el => el.title == title)
     
     if (result.length > 0) { 
       const articles = await useFetch(result[0].link) 
-      const temp = convertImageUrl.imageUrlConverter(result[0].link, articles) 
-      article.value = marked.marked(temp)
+      const content = convertImageUrl.imageUrlConverter(result[0].link, articles) 
+      article.value = marked.marked(content)
     }
   })
 
