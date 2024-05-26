@@ -10,6 +10,7 @@ import { ref, onMounted } from 'vue'
 import convertImageUrl from '~~/utils/convertImageUrl';
 import marked from '../../utils/markedSetup';
 import { addCopyButtons } from '~~/utils/addCopyButtons';
+import { useArticleStore } from '~~/store/articles';
 
 const article = ref('')
 const { id } = useRoute().params
@@ -17,32 +18,44 @@ const { describe } = ref('')
 
 let [ group, title ] = id.split('<_>>')
 
+const articleStore = useArticleStore()
+
 onMounted(async () => {
   await nextTick(async () => {
-    const { data } = await useFetch('https://bingfenghung.github.io/DevArticles/articles.json')
+    if (!articleStore.articleData) await articleStore.fetchArticleData()
+    
+    let data = articleStore.articleData;
+    
+    data = Object.keys(data).reduce((pre, cur) => {
+      const dataSet = data[cur].map(el => {
+      const url = el.link
+      const parseUrl = new URL(url)
+      const baseUrl = `${parseUrl.protocol}//${parseUrl.host}`
+      const rawPath = url.replace(baseUrl, '')
+      let decodedPath = rawPath.split('/').map(decodeURIComponent).join('/');
+      let encodedPath = decodedPath.split('/').map(encodeURIComponent).join('/');
+      let fullUrl = `${baseUrl}${encodedPath}`;
 
-    data.value = Object.keys(data.value).reduce(((pre, cur) => {
-      const dataSet = data.value[cur] = data.value[cur].map(el => {
-        return { 
-          ...el, 
-          link: el.link.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B'), 
-          title: el.title.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B') 
-        }
-      })
+      return {
+        ...el,
+        link: fullUrl, //mylink, //el.link,//el.link.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B'), 
+        title: el.title
+      }})  
+      return ({ [cur]: dataSet, ...pre }) 
+    })
+    
+    if (data.hasOwnProperty("C#")) { 
+      data['CSharp'] = data['C#'] 
+      delete data['C#']
+    }
 
-      return ({ [ cur ]: dataSet, ...pre })
-    }), {})
+    if (data.hasOwnProperty("Visual C++")) {
+      data['VCpp'] = data['Visual C++']
+      delete data['Visual C++']
+    }
 
-    // 修改特定鍵名
-    data.value['CSharp'] = data.value['C#']
-    delete data.value['C#']
 
-    data.value['VCpp'] = data.value['Visual C++']
-    delete data.value['Visual C++']
-
-    title = title.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B')
-
-    const result = data.value[group].filter(el => el.title == title)
+    const result = data[group].filter(el => el.title == title)
     
     if (result.length > 0) { 
       const articles = await useFetch(result[0].link) 
