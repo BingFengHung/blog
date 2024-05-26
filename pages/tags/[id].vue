@@ -3,26 +3,23 @@
     <ArticleCard :articleData="article"></ArticleCard>
   </template>
   <div class="pagination">
-    <vue-awesome-paginate
-      :total-items="100"
-      :items-per-page="5"
-      :max-pages-shown="1"
-      v-model="currentPage"
-      :show-breapoint-buttons="false"
-      :show-jump-buttons="true"
-      :on-click="onClickHandler"/>
+    <Paginate :items="totalArticleCount" @changePage="onClickHandler" 
+              v-model="currentPageStore.currentPage"></Paginate>
   </div>
 </template>
 
 <script setup>
-import { ref, reactive,onMounted } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
+import { useArticleStore } from '~~/store/articles'
+import { useCurrentPageStore } from '~~/store/currentPage'
 
 let { id: tag } = useRoute().params
 tag = tag.replace(' ', '')
 
 let articleLink = reactive([])
-const currentPage = ref(1);
 let sortData = reactive([])
+const totalArticleCount = ref(0)
+const currentPageStore = useCurrentPageStore()
 
 const parseDate = (dateString) => {
   const [year, month, day] = dateString.split('-').map(Number);
@@ -36,46 +33,67 @@ const getDataByDate = (data) => {
   });
 }
 
+const articleStore = useArticleStore()
+
 onMounted(async () => {
-  nextTick(async () => {
-    const { data } = await useFetch('https://bingfenghung.github.io/DevArticles/articles.json')
+  if (!articleStore.articleData) await articleStore.fetchArticleData();
+  
+  let data = articleStore.articleData;
+  
+  data = Object.keys(data).reduce((pre, cur) => { 
+    const dataSet = data[cur].map(el => {
+    const url = el.link
+    const parseUrl = new URL(url)
+    const baseUrl = `${parseUrl.protocol}//${parseUrl.host}`
+    const rawPath = url.replace(baseUrl, '')
+    let decodedPath = rawPath.split('/').map(decodeURIComponent).join('/');
+    let encodedPath = decodedPath.split('/').map(encodeURIComponent).join('/');
+    let fullUrl = `${baseUrl}${encodedPath}`;
 
-    data.value = Object.keys(data.value).reduce(((pre, cur) => {
-      const dataSet = data.value[cur] = data.value[cur].map(el => {
-        el.link = el.link.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B')
-        el.title = el.title.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B')
-        return { ...el }
-      })
-
-      return ({[cur]: dataSet, ...pre})
-    }), {})
-
-    data.value['CSharp'] = data.value['C#']
-    delete data.value['C#']
-
-    data.value['VCpp'] = data.value['Visual C++']
-    delete data.value['Visual C++']
-
-    data.value = data.value[tag]
-    data.value = data.value.map(el => ({ 'group': tag, ...el }))
-
-    sortData = getDataByDate(data.value)
-
-    data.value.forEach(el => {
-      articleLink.push(el)
-    })
-  })
+    return {
+      ...el,
+      link: fullUrl, //mylink, //el.link,//el.link.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B'), 
+      title: el.title
+    }})  
+    return ({ [cur]: dataSet, ...pre }) 
+  }, {})
+  
+  if (data.hasOwnProperty('C#')) {
+    data['CSharp'] = data['C#']
+    delete data['C#']
+  }
+  
+  if (data.hasOwnProperty('Visual C++')) {
+    data['VCpp'] = data['Visaul C++']
+    delete data['Visual C++']
+  }
+  
+  data = data[tag]
+  data = data.map(el => ({ 'group': tag, ...el }))
+  totalArticleCount.value = data.length
+  sortData = getDataByDate(data)
+  
+  updateArticleLink(currentPageStore.currentPage)
 })
 
+const updateArticleLink = (page) => {
+  const recentData = sortData.slice(6 * (page - 1), 6 * page);
+  articleLink.splice(0, articleLink.length, ...recentData)
+}
+
 const onClickHandler = (page) => {
-  const recentData = sortData.slice(6 * (page - 1), 6 + 6 * (page -1))
-
-  articleLink = []
-
-  recentData.forEach(el => {
-    articleLink.push(el)
-  })
+  // const recentData = sortData.slice(6 * (page - 1), 6 + 6 * (page -1))
+  //articleLink.splice(0, articleLink.length, ...recentData)
+  updateArticleLink(page);
+  scrollToTop();
 };
+
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  })
+}
 </script>
 
 <style>

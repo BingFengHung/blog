@@ -1,6 +1,6 @@
 <template>
   <div class="article">
-    <div class="subtitle">更新日期：{{ modifyDate  }}</div>
+    <div class="subtitle">更新日期：{{ modifyDate }}</div>
     <div class="content" v-html="article"></div>
     <NuxtLink class="read-more" :to="linkTo">
       <span>繼續閱讀...</span>
