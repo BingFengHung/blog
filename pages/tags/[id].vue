@@ -38,35 +38,7 @@ const articleStore = useArticleStore()
 onMounted(async () => {
   if (!articleStore.articleData) await articleStore.fetchArticleData();
   
-  let data = articleStore.articleData;
-  
-  data = Object.keys(data).reduce((pre, cur) => { 
-    const dataSet = data[cur].map(el => {
-    const url = el.link
-    const parseUrl = new URL(url)
-    const baseUrl = `${parseUrl.protocol}//${parseUrl.host}`
-    const rawPath = url.replace(baseUrl, '')
-    let decodedPath = rawPath.split('/').map(decodeURIComponent).join('/');
-    let encodedPath = decodedPath.split('/').map(encodeURIComponent).join('/');
-    let fullUrl = `${baseUrl}${encodedPath}`;
-
-    return {
-      ...el,
-      link: fullUrl, //mylink, //el.link,//el.link.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B'), 
-      title: el.title
-    }})  
-    return ({ [cur]: dataSet, ...pre }) 
-  }, {})
-  
-  if (data.hasOwnProperty('C#')) {
-    data['CSharp'] = data['C#']
-    delete data['C#']
-  }
-  
-  if (data.hasOwnProperty('Visual C++')) {
-    data['VCpp'] = data['Visaul C++']
-    delete data['Visual C++']
-  }
+  let data = articleStore.articles;
   
   data = data[tag]
   data = data.map(el => ({ 'group': tag, ...el }))
@@ -82,8 +54,6 @@ const updateArticleLink = (page) => {
 }
 
 const onClickHandler = (page) => {
-  // const recentData = sortData.slice(6 * (page - 1), 6 + 6 * (page -1))
-  //articleLink.splice(0, articleLink.length, ...recentData)
   updateArticleLink(page);
   scrollToTop();
 };

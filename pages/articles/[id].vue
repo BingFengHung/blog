@@ -42,7 +42,6 @@ onMounted(async () => {
     }
   })
 
-  //addCopyButtons('.hljs.my-code');
   addCopyButtons('pre code');
 })
 </script>

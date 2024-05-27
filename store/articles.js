@@ -23,13 +23,12 @@ function handleArtcileData() {
   
   this.articles = Object.keys(data).reduce((pre, cur) => {
     const dataSet = data[cur].map(el => {
-
     return {
       ...el,
       link: convertLinkURL(el.link),
     }})
     return ({ [cur]: dataSet, ...pre }) 
-  })
+  }, {})
   
   if (data.hasOwnProperty("C#")) { 
     data['CSharp'] = data['C#'] 

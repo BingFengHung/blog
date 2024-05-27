@@ -28,19 +28,7 @@ if (!articleStore.articleData) {
   articleStore.getTags()
 }
 
-const data = articleStore.articleData
-
-if (data.hasOwnProperty("C#")) { 
-  data['CSharp'] = data['C#'] 
-  delete data['C#']
-}
-
-if (data.hasOwnProperty("Visual C++")) {
-  data['VCpp'] = data['Visual C++']
-  delete data['Visual C++']
-}
-
-dataSet = data
+dataSet = articleStore.articles
 
 </script>
 

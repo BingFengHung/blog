@@ -5,7 +5,7 @@
       <div class="timeline" v-for="time in data.data" :key="time.title">
         <div class="article">
           <p class="datetime">{{ time.lastModifyDate }}</p>
-          <NuxtLink :to="`articles/${time.group}<_>>${time.realTitle}`">{{ time.title }}</NuxtLink>
+          <NuxtLink :to="`articles/${time.group}<_>>${time.title}`">{{ time.title }}</NuxtLink>
         </div>
       </div>
     </div>
@@ -20,28 +20,7 @@ const articleStore = useArticleStore()
 
 if (!articleStore.articleData) await articleStore.fetchArticleData()
 
-const data = Object.keys(articleStore.articleData).reduce((pre, cur) => {
-  const target = articleStore.articleData
-  const dataSet = target[cur].map(el => {
-    el.realLink = el.link.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B')
-    el.realTitle = el.title.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B')
-    return {...el}
-  })
-
-  return ({[cur]: dataSet, ...pre})
-}, {})
-
-
-if (data.hasOwnProperty("C#")) { 
-  data['CSharp'] = data['C#'] 
-  delete data['C#']
-}
-
-if (data.hasOwnProperty("Visual C++")) {
-  data['VCpp'] = data['Visual C++']
-  delete data['Visual C++']
-}
-
+const data = articleStore.articles
 
 const getDataByDate = (data) => {
   const dataSet = Object.keys(data).reduce((pre, cur) => {
@@ -57,7 +36,6 @@ const getDataByDate = (data) => {
     return date2 - date1
   })
 }
-
 const sortData = getDataByDate(data)
 
 let groupWithTime = sortData.reduce((pre, cur) => {
