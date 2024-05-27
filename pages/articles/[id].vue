@@ -31,35 +31,7 @@ onMounted(async () => {
   await nextTick(async () => {
     if (!articleStore.articleData) await articleStore.fetchArticleData()
     
-    let data = articleStore.articleData;
-    
-    data = Object.keys(data).reduce((pre, cur) => {
-      const dataSet = data[cur].map(el => {
-      const url = el.link
-      const parseUrl = new URL(url)
-      const baseUrl = `${parseUrl.protocol}//${parseUrl.host}`
-      const rawPath = url.replace(baseUrl, '')
-      let decodedPath = rawPath.split('/').map(decodeURIComponent).join('/');
-      let encodedPath = decodedPath.split('/').map(encodeURIComponent).join('/');
-      let fullUrl = `${baseUrl}${encodedPath}`;
-
-      return {
-        ...el,
-        link: fullUrl,
-        title: el.title
-      }})  
-      return ({ [cur]: dataSet, ...pre }) 
-    })
-    
-    if (data.hasOwnProperty("C#")) { 
-      data['CSharp'] = data['C#'] 
-      delete data['C#']
-    }
-
-    if (data.hasOwnProperty("Visual C++")) {
-      data['VCpp'] = data['Visual C++']
-      delete data['Visual C++']
-    }
+    let data = articleStore.articles;
 
     const result = data[group].filter(el => el.title == title)
     
