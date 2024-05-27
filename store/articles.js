@@ -12,13 +12,17 @@ export const useArticleStore = defineStore('articleStore', {
       try {
         const { data } = await useFetch('https://bingfenghung.github.io/DevArticles/articles.json')        
         this.articleData = data
-        this.articleCount = Object.keys(data.value).reduce((pre, cur) => {
-          pre += data.value[cur].length
-          return pre
-        }, 0)
+        this.getArticleCount()
       } catch (error) {
         console.log("Error fetch: ", error)
       }
+    },
+    getArticleCount() {
+      const data = this.articleData
+      this.articleCount = Object.keys(data).reduce((pre, cur) => {
+        pre += data[cur].length
+        return pre
+      }, 0)
     },
     getTags() {
       const data = this.articleData
