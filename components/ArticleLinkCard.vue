@@ -48,6 +48,8 @@ ul {
 ul li {
   text-decoration: none;
   list-style-type: none;
+  position: relative;
+  margin-bottom: 2px;
 }
 a {
   text-decoration: none;
@@ -88,6 +90,7 @@ a {
   left: -15px;
   top: 50%;
   transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
   color: #0056b3;
 }
 
