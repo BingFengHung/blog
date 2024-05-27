@@ -1,5 +1,13 @@
 import { defineStore } from 'pinia'
 
+function getArticleCount() {
+  const data = this.articleData
+  this.articleCount = Object.keys(data).reduce((pre, cur) => {
+    pre + data[cur].length
+    return pre
+  }, 0)
+}
+
 export const useArticleStore = defineStore('articleStore', {
   state: () => ({
     articleData: null,
@@ -12,17 +20,10 @@ export const useArticleStore = defineStore('articleStore', {
       try {
         const { data } = await useFetch('https://bingfenghung.github.io/DevArticles/articles.json')        
         this.articleData = data
-        this.getArticleCount()
+        getArticleCount.call(this)
       } catch (error) {
         console.log("Error fetch: ", error)
       }
-    },
-    getArticleCount() {
-      const data = this.articleData
-      this.articleCount = Object.keys(data).reduce((pre, cur) => {
-        pre += data[cur].length
-        return pre
-      }, 0)
     },
     getTags() {
       const data = this.articleData
