@@ -4,16 +4,13 @@ import { reactive, onMounted } from 'vue'
 export const useToolsStore = defineStore('toolsStore', () => {
   let toolData: any = reactive({})
 
-  const fetchData = ():any => {
-    return new Promise(async (resolve, reject) => {
-      const { data } = await useFetch('https://bingfenghung.github.io/DevArticles/tools.json')
-      resolve(data)
-    })
+  const fetchData = async () => {
+      return await useFetch('https://bingfenghung.github.io/DevArticles/tools.json')
   }
 
   onMounted(async () => {
-    const data = await fetchData()
-    Object.assign(toolData, data.value)
+    const tools = await fetchData()
+    Object.assign(toolData, tools.data.value)
   })
 
   return {
