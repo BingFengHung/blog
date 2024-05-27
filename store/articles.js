@@ -20,9 +20,6 @@ export const useArticleStore = defineStore('articleStore', {
         console.log("Error fetch: ", error)
       }
     },
-    setData(data) {
-      this.articleData = data
-    },
     getTags() {
       const data = this.articleData
 
