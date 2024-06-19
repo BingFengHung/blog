@@ -42,7 +42,7 @@
 </template>
 
 <script setup>
-  import { watch, defineProps, defineEmits, onMounted } from 'vue'
+  import { watch } from 'vue'
   
   const props = defineProps(['items', 'modelValue'])
   const emit = defineEmits(['changePage', 'update:modelValue'])

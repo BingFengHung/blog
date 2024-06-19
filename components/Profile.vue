@@ -98,6 +98,8 @@ onMounted(async () => {
   border-radius: 50%;
   width: 50%;
   height: 50%;
+  border: 1px solid #086bf8;
+  box-shadow: 1px 1px 3px #086bf8;
 }
 
 .bio {

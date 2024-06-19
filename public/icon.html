@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playwrite+RO:wght@100..400&display=swap" rel="stylesheet">
+  <style>
+    .container { 
+      display: flex; 
+      flex-direction: column;
+      align-items: center;
+      transform: scale(7);
+      /* transform-origin: top left; */
+      font-family: "Hack NF";
+    }
+
+    div {
+      color: #1b9fda;
+      font-size: 1rem;
+    }
+
+    .primary {
+      display: flex;
+      position: relative;
+      z-index: 1;
+      align-items: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .primary p {
+      margin: 0px;
+    }
+
+    .secondary {
+      font-weight: bold;
+    }
+
+
+    .primary .special {
+      font-size: 1.5rem;
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      background-color: #1b9fda;
+      border-radius: 50%;
+      color: white;
+      text-align: center;
+      line-height: 30px;
+    }
+    
+    .wrapper {
+      width: 512px;
+      height: 512px;
+      box-sizing: border-box;
+      border: 1px solid black;
+      display: flex; 
+      align-items: center;
+      justify-content: center;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+
+  <div class="container">
+    <div class="primary">
+      <span class="special">J</span>
+      <p>oe</p>
+    </div>
+    <div class="secondary">DevBlog</div>
+  </div>
+  </div>
+</body>
+</html>
