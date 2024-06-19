@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import {  reactive, onMounted } from 'vue';
+import { reactive, onMounted } from 'vue';
 const h1Contents = reactive([])
 const h2Contents = reactive([])
 

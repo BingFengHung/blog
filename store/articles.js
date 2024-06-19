@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { articleBaseUrl } from '~~/utils/articleBaseUrl'
 
 function getArticleCount() {
   const data = this.articleData
@@ -43,22 +44,38 @@ function handleArtcileData() {
 
 export const useArticleStore = defineStore('articleStore', {
   state: () => ({
+    isQueryData: false,
     articleData: null,
     tags: null,
     articleCount: 0,
     currentPage: 1,
-    articles: null
+    articles: null,
+    fetchPromise: null
   }),
   actions: {
     async fetchArticleData() {
-      try {
-        const { data } = await useFetch('https://bingfenghung.github.io/DevArticles/articles.json')        
-        this.articleData = data
-        getArticleCount.call(this)
-        handleArtcileData.call(this)
-      } catch (error) {
-        console.log("Error fetch: ", error)
+      if (!this.fetchPromise) {
+        this.fetchPromise = (async () => {
+          this.isFetching = true;
+          try {
+            // 模擬 fetch 資料的操作 
+            const { data } = await useFetch('https://bingfenghung.github.io/DevArticles/articles.json')        
+            Object.keys(data.value).forEach(key => data.value[key].forEach(el => { 
+              const link = el.link 
+              el.link = `${articleBaseUrl}${link}` 
+            })) 
+            
+            this.articleData = data
+            getArticleCount.call(this)
+            handleArtcileData.call(this)
+            this.isQueryData = true;
+          } finally {
+            this.isFetching = false;
+            this.fetchPromise = null;
+          }
+        })();
       }
+      return this.fetchPromise;
     },
     getTags() {
       const data = this.articleData

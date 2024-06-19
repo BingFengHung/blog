@@ -32,34 +32,32 @@ let searchData = {}
 const articleStore = useArticleStore()
 
 
-onMounted(() => {
-  nextTick(async () => {
-    if (!articleStore.articleData)  await articleStore.fetchArticleData()     
-    let data = articleStore.articleData
+onMounted(async() => {
+  if (!articleStore.isQueryData) await articleStore.fetchArticleData()     
+  let data = articleStore.articleData
 
-    data = Object.keys(data).reduce(((pre, cur) => {
-      const dataSet = data[cur] = data[cur].map(el => { 
-        return { 
-          ...el,
-          link: el.link.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B'), 
-          fake_title: el.title.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B'),
-        }
-      })
+  data = Object.keys(data).reduce(((pre, cur) => {
+    const dataSet = data[cur] = data[cur].map(el => { 
+      return { 
+        ...el,
+        link: el.link.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B'), 
+        fake_title: el.title.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B'),
+      }
+    })
 
-      return ({[cur]: dataSet, ...pre})
-    }), {})
+    return ({[cur]: dataSet, ...pre})
+  }), {})
 
-    data = Object.keys(data).reduce((pre, cur) => {
-      const datas = data[cur].map(el => {
-        if (cur === 'C#') cur = 'CSharp'
-        if (cur === 'Visual C++') cur = 'VCpp'
-        return ({"group": cur, ...el})
-      }) 
-      return pre.concat(datas)
-    }, [])
+  data = Object.keys(data).reduce((pre, cur) => {
+    const datas = data[cur].map(el => {
+      if (cur === 'C#') cur = 'CSharp'
+      if (cur === 'Visual C++') cur = 'VCpp'
+      return ({"group": cur, ...el})
+    }) 
+    return pre.concat(datas)
+  }, [])
 
-    searchData = data
-  })
+  searchData = data
 })
 
 const onSearch = () => {

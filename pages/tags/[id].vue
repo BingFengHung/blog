@@ -36,7 +36,7 @@ const getDataByDate = (data) => {
 const articleStore = useArticleStore()
 
 onMounted(async () => {
-  if (!articleStore.articleData) await articleStore.fetchArticleData();
+  if (!articleStore.isQueryData) await articleStore.fetchArticleData();
   
   let data = articleStore.articles;
   

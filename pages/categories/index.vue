@@ -23,7 +23,7 @@ let dataSet = reactive({})
 
 const articleStore = useArticleStore()
 
-if (!articleStore.articleData) {
+if (!articleStore.isQueryData) {
   await articleStore.fetchArticleData() 
   articleStore.getTags()
 }

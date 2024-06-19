@@ -51,7 +51,7 @@ const articleStore = useArticleStore()
 
 onMounted(async () => {
   nextTick(async () => {
-    if (!articleStore.articleData)  await articleStore.fetchArticleData()     
+    if (!articleStore.isQueryData)  await articleStore.fetchArticleData()     
     
     const data = articleStore.articleData;
 

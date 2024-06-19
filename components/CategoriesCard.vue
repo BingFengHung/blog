@@ -20,7 +20,7 @@ const articleStore = useArticleStore()
 const currentPageStore = useCurrentPageStore()
 
 
-if (!articleStore.articleData) {
+if (!articleStore.isQueryData) {
   await articleStore.fetchArticleData()
   articleStore.getTags()
 } 

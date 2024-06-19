@@ -18,7 +18,7 @@ import { useArticleStore } from '../../store/articles'
 let timelineData = reactive([])
 const articleStore = useArticleStore()
 
-if (!articleStore.articleData) await articleStore.fetchArticleData()
+if (!articleStore.isQueryData) await articleStore.fetchArticleData()
 
 const data = articleStore.articles
 

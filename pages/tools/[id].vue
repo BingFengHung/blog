@@ -20,7 +20,6 @@ while(toolData.length != 0)
 
 const updateToolDate = async () => {
   const data = await fetchData(link.toString())
-  // console.log(`   toolData`, toolData)
 }
 
 updateToolDate()

@@ -29,15 +29,16 @@ const articleStore = useArticleStore()
 
 onMounted(async () => {
   await nextTick(async () => {
-    if (!articleStore.articleData) await articleStore.fetchArticleData()
+    if (!articleStore.isQueryData) await articleStore.fetchArticleData()
     
     let data = articleStore.articles;
 
     const result = data[group].filter(el => el.title == title)
     
     if (result.length > 0) { 
-      const articles = await useFetch(result[0].link) 
-      const content = convertImageUrl.imageUrlConverter(result[0].link, articles) 
+      const articleLink = result[0].link
+      const articles = await useFetch(articleLink)
+      const content = convertImageUrl.imageUrlConverter(articleLink, articles) 
       article.value = marked.marked(content)
     }
   })

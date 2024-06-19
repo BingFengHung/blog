@@ -20,7 +20,7 @@ let timelineData = reactive([])
 
 const articleStore = useArticleStore()
 
-if (!articleStore.articleData) await articleStore.fetchArticleData()
+if (!articleStore.isQueryData) await articleStore.fetchArticleData()
 
 const data = Object.keys(articleStore.articleData).reduce((pre, cur) => {
   const target = articleStore.articleData

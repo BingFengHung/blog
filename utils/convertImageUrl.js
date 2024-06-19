@@ -1,5 +1,7 @@
+import { articleBaseUrl } from "./articleBaseUrl";
+
 const imageUrlConverter = (link, article) => { 
-  const baseUrl = urlResolve(link)
+  const baseUrl = urlResolve(`${articleBaseUrl}${link}`)
   let raw = article.data.value;
 
   const temp = raw.replaceAll(/!\[\]\((.*?)\)/gm, (text) => {
@@ -23,7 +25,6 @@ const urlResolve = (link) => {
 }
 
 const imgUrlConverter = (link, article) => {
-  console.log('in')
   const baseUrl = urlResolve(link);
   const regex = /src="(images\/.*)"/g;
   return article.replaceAll(regex, `src="${baseUrl}$1`)

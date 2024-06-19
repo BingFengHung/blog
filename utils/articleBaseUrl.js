@@ -1,0 +1,1 @@
+export const articleBaseUrl = "https://bingfenghung.github.io/DevArticles";

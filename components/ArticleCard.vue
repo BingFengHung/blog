@@ -100,12 +100,13 @@ img {
   margin: 5px 0px !important;
 }
 
-@media screen and (min-width: 1024px) {
-  /*STYLES*/
-}
 
 @media screen and (min-width: 1200px) {
   /* 如果使用者之視窗寬度 >= 1200px，將會再載入這裡的 CSS。 */
+}
+
+@media screen and (min-width: 1024px) {
+  /*STYLES*/
 }
 
 @media screen and (min-width: 768px) and (max-width: 979px) {
