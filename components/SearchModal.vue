@@ -45,7 +45,6 @@ watch(() => props.isVisible, (newValue) => {
 onMounted(async() => {
   if (!articleStore.isQueryData) await articleStore.fetchArticleData()     
   let data = articleStore.articleData
-  console.log(`search:`, data)
 
   data = Object.keys(data).reduce(((pre, cur) => {
     const dataSet = data[cur] = data[cur].map(el => {
@@ -78,7 +77,6 @@ const onSearch = () => {
     return el.title.includes(targetText)
   })
   
-  console.log(result)
 
   while(searchResult.length != 0) searchResult.pop()
 

@@ -31,7 +31,6 @@ onMounted(async () => {
   await nextTick(async () => {
     if (!articleStore.isQueryData) await articleStore.fetchArticleData()
     let data = articleStore.articleData;
-    console.log(`id`, data, group)
 
     const result = data[group].filter(el => el.title == title)
     
