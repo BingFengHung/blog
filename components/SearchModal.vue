@@ -20,24 +20,34 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, watch } from 'vue'
 import { useArticleStore } from '~~/store/articles'
 
 const searchText = ref('')
 
 let searchResult = reactive([])
 const emit = defineEmits(['modal-close', 'jump-link'])
+const props = defineProps({
+  isVisible: {
+    type: Boolean,
+    default: false 
+  }
+})
 
 let searchData = {}
 const articleStore = useArticleStore()
 
+watch(() => props.isVisible, (newValue) => {
+  if (newValue) disableScroll();
+  else enableScroll()
+})
 
 onMounted(async() => {
   if (!articleStore.isQueryData) await articleStore.fetchArticleData()     
   let data = articleStore.articleData
 
   data = Object.keys(data).reduce(((pre, cur) => {
-    const dataSet = data[cur] = data[cur].map(el => { 
+    const dataSet = data[cur] = data[cur].map(el => {
       return { 
         ...el,
         link: el.link.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B'), 
@@ -82,6 +92,13 @@ const jumpLink = () => {
   emit('jump-link')
   searchText.value = ''
   while(searchResult.length != 0) searchResult.pop()
+}
+
+const enableScroll = () => {
+  document.body.style.overflow = ''
+}
+const disableScroll = () => {
+  document.body.style.overflow = 'hidden'
 }
 </script>
 

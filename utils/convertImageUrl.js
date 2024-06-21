@@ -1,7 +1,5 @@
-import { articleBaseUrl } from "./articleBaseUrl";
-
 const imageUrlConverter = (link, article) => { 
-  const baseUrl = urlResolve(`${articleBaseUrl}${link}`)
+  const baseUrl = urlResolve(`${link}`)
   let raw = article.data.value;
 
   const temp = raw.replaceAll(/!\[\]\((.*?)\)/gm, (text) => {

@@ -48,7 +48,7 @@
         <RecentArticle></RecentArticle>
       </div>
     </main>
-    <SearchModal v-show="showModal" @modal-close="showModal=false" @jump-link="searchJumpLink"></SearchModal>
+    <SearchModal :is-visible="showModal" v-show="showModal" @modal-close="showModal=false" @jump-link="searchJumpLink"></SearchModal>
   </div>
   <div>
     <GoToTop/>
