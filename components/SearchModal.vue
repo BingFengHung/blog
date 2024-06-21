@@ -45,6 +45,7 @@ watch(() => props.isVisible, (newValue) => {
 onMounted(async() => {
   if (!articleStore.isQueryData) await articleStore.fetchArticleData()     
   let data = articleStore.articleData
+  console.log(`search:`, data)
 
   data = Object.keys(data).reduce(((pre, cur) => {
     const dataSet = data[cur] = data[cur].map(el => {
@@ -60,8 +61,8 @@ onMounted(async() => {
 
   data = Object.keys(data).reduce((pre, cur) => {
     const datas = data[cur].map(el => {
-      if (cur === 'C#') cur = 'CSharp'
-      if (cur === 'Visual C++') cur = 'VCpp'
+      // if (cur === 'C#') cur = 'CSharp'
+      // if (cur === 'Visual C++') cur = 'VCpp'
       return ({"group": cur, ...el})
     }) 
     return pre.concat(datas)
@@ -76,6 +77,8 @@ const onSearch = () => {
   const result = searchData.filter(el => {
     return el.title.includes(targetText)
   })
+  
+  console.log(result)
 
   while(searchResult.length != 0) searchResult.pop()
 
@@ -120,11 +123,13 @@ const disableScroll = () => {
   height: 500px;
   width: 500px;
   margin-top: 10%;
-  padding: 0px 0;
+  padding: 10px;
   border-radius: 5px;
   z-index: 1;
   overflow: hidden;
   background-color: #eee;
+  border: 2px solid #007bff;
+  box-shadow: 1px 1px 1px #007bff;
 }
 
 .modal-overlay {
@@ -134,6 +139,9 @@ const disableScroll = () => {
 .searchbox {
   display: flex;
   position: relative;
+  border: 1px solid #007bff;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 .searchbox__input {
@@ -145,7 +153,7 @@ const disableScroll = () => {
   border: none;
   outline: none;
   border-radius: 0;
-  font-size: 1.2rem
+  font-size: 1.2rem;
 }
 
 .searchbox__close-btn {

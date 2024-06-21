@@ -68,6 +68,7 @@ export const useArticleStore = defineStore('articleStore', {
             this.articleData = data
             getArticleCount.call(this)
             handleArtcileData.call(this)
+            console.log(this.articleData)
             this.isQueryData = true;
           } finally {
             this.isFetching = false;
@@ -75,6 +76,7 @@ export const useArticleStore = defineStore('articleStore', {
           }
         })();
       }
+
       return this.fetchPromise;
     },
     getTags() {
