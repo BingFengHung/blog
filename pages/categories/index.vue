@@ -28,7 +28,7 @@ if (!articleStore.isQueryData) {
   articleStore.getTags()
 }
 
-dataSet = articleStore.articles
+dataSet = articleStore.articleData
 
 </script>
 

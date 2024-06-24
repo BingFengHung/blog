@@ -38,7 +38,7 @@ const articleStore = useArticleStore()
 onMounted(async () => {
   if (!articleStore.isQueryData) await articleStore.fetchArticleData();
   
-  let data = articleStore.articles;
+  let data = articleStore.articleData;
   
   data = data[tag]
   data = data.map(el => ({ 'group': tag, ...el }))
