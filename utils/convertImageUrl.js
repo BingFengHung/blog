@@ -11,6 +11,7 @@ const imageUrlConverter = (link, article) => {
   })
   
   var regex = /src="images\/(.*?)"/g;
+  const timestamp = "\?ts=\<\?= time\(\) \?\>";
   var replacement = `src="${baseUrl}images/$1"`;
   return temp.replaceAll(regex, replacement)
 }

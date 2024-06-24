@@ -42,28 +42,32 @@ onMounted(async () => {
     if (!articleStore.isQueryData) await articleStore.fetchArticleData()
     
     let data = articleStore.articleData;
+    
+    console.log(data)
 
     data = Object.keys(data).reduce(((pre, cur) => {
       const dataSet = data[cur] = data[cur].map(el => {
         return { 
           ...el,
-          link: el.link.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B'), 
-          title: el.title, //.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B'),
+          //link: el.link.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B'), 
+          //title: el.title,
         }
       })
 
       return ({[cur]: dataSet, ...pre})
     }), {})
 
-    if (data.hasOwnProperty("C#")) { 
-      data['CSharp'] = data['C#'] 
-      delete data['C#']
-    }
+    // console.log(data)
 
-    if (data.hasOwnProperty("Visual C++")) {
-      data['VCpp'] = data['Visual C++']
-      delete data['Visual C++']
-    }
+    // if (data.hasOwnProperty("C#")) { 
+    //   data['CSharp'] = data['C#'] 
+    //   delete data['C#']
+    // }
+
+    // if (data.hasOwnProperty("Visual C++")) {
+    //   data['VCpp'] = data['Visual C++']
+    //   delete data['Visual C++']
+    // }
     
     sortData = getDataByDate(data)
 

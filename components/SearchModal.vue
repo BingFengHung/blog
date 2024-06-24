@@ -2,7 +2,7 @@
   <div class="modal-overlay">
     <div class="modal">
       <div class="searchbox">
-        <input v-model="searchText" @keyup.enter="onSearch" class="searchbox__input" type="text" placeholder="請輸入關鍵字">
+        <input id="inputText" v-model="searchText" @keyup.enter="onSearch" class="searchbox__input" type="text" placeholder="請輸入關鍵字">
         <button class="searchbox__close-btn" @click="modalClose">X</button>
       </div>
 

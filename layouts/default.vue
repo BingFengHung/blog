@@ -8,7 +8,7 @@
             </div>
           </NuxtLink>
           <div class="menus">
-            <button class="search-btn" @click="showModal=true">
+            <button class="search-btn" aria-label="Search" @click="showModal=true">
               <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
             </button>
             <div class="menu-icon">
