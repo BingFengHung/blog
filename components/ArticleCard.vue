@@ -18,7 +18,7 @@ const linkTo = ref('')
 const modifyDate = ref('')
 const props = defineProps(['articleData'])
 
-const { group, title, link } = props.articleData
+const { group, title, link, realLink } = props.articleData
 
 const fetchArticle = async (link) => {
   const articles = await useFetch(link)
@@ -28,16 +28,16 @@ const fetchArticle = async (link) => {
 
 // 當 prop 改變時更新
 watch(() => props.articleData, (newData) => {
-  const { group, title, link, lastModifyDate } = newData
+  const { group, title, link, realLink,lastModifyDate } = newData
   modifyDate.value = lastModifyDate
-  fetchArticle(link)
+  fetchArticle(realLink)
   const newTitle = encodeURIComponent(title)
   linkTo.value = `/articles/${group}<_>>${newTitle}`
 }, { immediate: true})
 
 
 onMounted(() => {
-  fetchArticle(link)
+  fetchArticle(realLink)
 })
 </script>
 

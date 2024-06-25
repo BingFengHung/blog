@@ -42,15 +42,11 @@ onMounted(async () => {
     if (!articleStore.isQueryData) await articleStore.fetchArticleData()
     
     let data = articleStore.articleData;
-    
-    console.log(data)
 
     data = Object.keys(data).reduce(((pre, cur) => {
       const dataSet = data[cur] = data[cur].map(el => {
         return { 
           ...el,
-          //link: el.link.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B'), 
-          //title: el.title,
         }
       })
 
