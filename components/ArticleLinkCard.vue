@@ -1,14 +1,18 @@
 <template>
   <div class="card">
-    <div class="category">目錄</div>
+    <details :open="isOpen">
+      <summary class="category">目錄</summary>
+    <!-- <div class="category">目錄</div> -->
     <div class="title">
       <a href="#" @click="scrollToElement('h1', 0)">{{ h1Contents[0] }}</a>
     </div>
+
     <ul class="subtitle">
       <li v-for="(title, index) in h2Contents" :key="index">
         <a href="#" @click="scrollToElement('h2', index)">{{ title }}</a>
       </li>
     </ul>
+    </details>
   </div>
 </template>
 
@@ -16,9 +20,24 @@
 import { reactive, onMounted } from 'vue';
 const h1Contents = reactive([])
 const h2Contents = reactive([])
+const isOpen = ref(false);
+
+const checkMediaQuery = () => {
+  if (window.matchMedia('(max-width: 600px)').matches) {
+    isOpen.value = false;
+  }  else {
+    isOpen.value = true;
+  }
+};
 
 onMounted(() => {
   setTimeout(handle, 300);
+  checkMediaQuery();
+  window.addEventListener('resize', checkMediaQuery);
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', checkMediaQuery);
 })
 
 const handle = () => { 
@@ -69,6 +88,7 @@ a {
 }
 
 .category {
+  cursor: pointer;
   font-weight: bold;
   margin-bottom: 10px;
 }

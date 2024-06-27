@@ -60,8 +60,6 @@ onMounted(async() => {
 
   data = Object.keys(data).reduce((pre, cur) => {
     const datas = data[cur].map(el => {
-      // if (cur === 'C#') cur = 'CSharp'
-      // if (cur === 'Visual C++') cur = 'VCpp'
       return ({"group": cur, ...el})
     }) 
     return pre.concat(datas)
@@ -76,7 +74,6 @@ const onSearch = () => {
   const result = searchData.filter(el => {
     return el.title.includes(targetText)
   })
-  
 
   while(searchResult.length != 0) searchResult.pop()
 

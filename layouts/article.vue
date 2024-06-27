@@ -42,10 +42,11 @@
         <CategoriesCard></CategoriesCard>
       </div>
       <div class="content">
+        <ArticleLinkCard class="article_1"></ArticleLinkCard>
         <slot></slot>
       </div>
       <div class="side-right">
-        <ArticleLinkCard></ArticleLinkCard>
+        <ArticleLinkCard class="article_2"></ArticleLinkCard>
         <RecentArticle></RecentArticle>
       </div>
     </main>
@@ -82,6 +83,14 @@ body {
 </style>
 
 <style scoped>
+.article_1 {
+  display: none;
+}
+
+.article_2 {
+  display: block;
+}
+
 .logo {
   display: inline-block;
   margin: 10px 20px;
@@ -285,11 +294,19 @@ a.router-link-active {
   ul li:hover::after {
     width: 0%;
   }
+
+  .article_1 { 
+    display: block; 
+  }
+
+  .article_2 { 
+    display: none;
+  }
 }
 
 @media screen and (min-width: 481px) {
   /* 如果使用者之視窗寬度 <= 768px，將會再載入這裡的 CSS。*/
- /*  main {
+  /*  main {
     width: 100%;
     display: flex;
     grid-template-columns: 30% 68%; 
@@ -307,28 +324,36 @@ a.router-link-active {
   .side-right {
     grid-column: 2 / 3;
   } */
-  main {
-        display: grid;
-        width: 100%;
-        grid-template-columns: 30% 68%;
-        grid-template-rows: auto 1fr;
-        gap: 10px;
-    }
+  main { 
+    display: grid;
+    width: 100%;
+    grid-template-columns: 30% 68%;
+    grid-template-rows: auto 1fr;
+    gap: 10px;
+  }
 
-    .side {
-        grid-column: 1 / 2;
-        grid-row: 1 / 3; /* 覆蓋第一和第二行 */
-    }
+  .side {
+      grid-column: 1 / 2;
+      grid-row: 1 / 3; /* 覆蓋第一和第二行 */
+  }
 
-    .content {
-        grid-column: 2 / 3;
-        grid-row: 1 / 2; /* 只佔第一行 */
-    }
+  .content {
+      grid-column: 2 / 3;
+      grid-row: 1 / 2; /* 只佔第一行 */
+  }
     
-    .side-right {
-        grid-column: 2 / 3;
-        grid-row: 2 / 3; /* 佔第二行 */
-    }
+  .side-right {
+      grid-column: 2 / 3;
+      grid-row: 2 / 3; /* 佔第二行 */
+  }
+
+  .article_1 { 
+    display: block;
+  }
+
+  .article_2 { 
+    display: none;
+  }
 }
 
 @media screen and (min-width: 768px) and (max-width: 1024px) {
@@ -342,7 +367,7 @@ a.router-link-active {
   }
 
   .side {
-    grid-column:  1 / 2;;
+    grid-column:  1 / 2;
   }
 
   .content {
@@ -350,7 +375,15 @@ a.router-link-active {
   }
   
   .side-right {
-    grid-column: 2 / 3;;
+    grid-column: 2 / 3;
+  }
+
+  .article_1 { 
+    display: block;
+  }
+
+  .article_2 { 
+    display: none;
   }
 }
 
@@ -373,6 +406,14 @@ a.router-link-active {
   .side-right {
     width: calc(20% - 10px);
   }
+
+  .article_1 {
+    display: none;
+  }
+
+  .article_2 {
+    display: block;
+  }
 }
 
 @media screen and (min-width: 1200px) {
@@ -394,6 +435,14 @@ a.router-link-active {
 
   .side-right {
     width: calc(22% - 10px);
+  }
+  
+  .article_1 {
+    display: none;
+  }
+
+  .article_2 {
+    display: block;
   }
 }
 </style>
