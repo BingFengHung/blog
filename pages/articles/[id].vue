@@ -3,8 +3,6 @@
     <div>{{ describe }}</div>
     <div v-html="article"></div>
   </div>
-  <div>
-  </div>
 </template>
 
 <script setup>
@@ -64,7 +62,5 @@ img {
   background-color: #fff;
   box-shadow: 0 4px 10px rgb(0 0 0 / 5%), 0 0 1px rgb(0 0 0 / 10%)
 }
-
-
 </style>
 
