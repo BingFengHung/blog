@@ -11,6 +11,8 @@ import convertImageUrl from '~~/utils/convertImageUrl';
 import marked from '../../utils/markedSetup';
 import { addCopyButtons } from '~~/utils/addCopyButtons';
 import { useArticleStore } from '~~/store/articles';
+import { useArticleLinkStore } from '~/store/articleLink'
+const articleLinkStore = useArticleLinkStore()
 
 definePageMeta({
   layout: 'article'
@@ -37,6 +39,7 @@ onMounted(async () => {
       const articles = await useFetch(articleLink)
       const content = convertImageUrl.imageUrlConverter(articleLink, articles) 
       article.value = marked.marked(content)
+      articleLinkStore.setTitle(result[0].title);
     }
   })
 

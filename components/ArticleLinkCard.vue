@@ -2,25 +2,35 @@
   <div class="card">
     <details :open="isOpen">
       <summary class="category">目錄</summary>
-    <!-- <div class="category">目錄</div> -->
-    <div class="title">
-      <a href="#" @click="scrollToElement('h1', 0)">{{ h1Contents[0] }}</a>
-    </div>
+      <div class="title">
+        <a href="#" @click="scrollToElement('h1', 0)">{{ h1Contents[0] }}</a>
+      </div>
 
-    <ul class="subtitle">
-      <li v-for="(title, index) in h2Contents" :key="index">
-        <a href="#" @click="scrollToElement('h2', index)">{{ title }}</a>
-      </li>
-    </ul>
+      <ul class="subtitle">
+        <li v-for="(title, index) in h2Contents" :key="index">
+          <a href="#" @click="scrollToElement('h2', index)">{{ title }}</a>
+        </li>
+      </ul>
     </details>
   </div>
 </template>
 
 <script setup>
-import { reactive, onMounted } from 'vue';
+import { reactive, onMounted, watch} from 'vue';
+import { useArticleLinkStore } from '~/store/articleLink'
 const h1Contents = reactive([])
 const h2Contents = reactive([])
 const isOpen = ref(false);
+const articleLinkStore = useArticleLinkStore()
+
+watch(() => articleLinkStore.title, (newValue) => {
+  if (newValue) { 
+    h1Contents.splice(0, h1Contents.length);
+    h2Contents.splice(0, h2Contents.length);
+    setTimeout(handle, 300);
+  }
+})
+
 
 const checkMediaQuery = () => {
   if (window.matchMedia('(max-width: 600px)').matches) {
@@ -64,17 +74,19 @@ ul {
   padding: 0px;
   margin: 0px;
 }
+
 ul li {
   text-decoration: none;
   list-style-type: none;
   position: relative;
   margin-bottom: 2px;
 }
+
 a {
   text-decoration: none;
   list-style-type: none;
 }
-      
+
 .card {
   border-radius: 5px;
   overflow: hidden;
