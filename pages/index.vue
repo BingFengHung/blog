@@ -97,6 +97,27 @@ Array.prototype.asyncForEach = async function(callback) {
 </script>
 
 <style>
+blockquote {
+  position: relative;
+  padding: 0px;
+  margin: 10px;
+}
+
+blockquote p {
+  padding: 0px;
+  margin: 0px;
+}
+
+blockquote::before {
+  content: '';
+  position: absolute;
+  height: 100%;
+  background-color:#09970c;
+  width: 5px;
+  color: #09970c;
+  top: 0px;
+  left: -10px;
+}
 .hljs {
   padding: 15px;
   border-radius: 5px;
