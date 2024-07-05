@@ -1,0 +1,1 @@
+import{l as e}from"./entry.a42a0462.js";const n=e("articleLink",{state:()=>({h1Contents:[],h2Contents:[],title:""}),actions:{setH1Contents(t){this.h1Contents=t},setH2Contents(t){this.h2Contents=t},setTitle(t){this.title=t}}});export{n as u};
