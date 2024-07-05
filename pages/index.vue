@@ -141,6 +141,7 @@ code {
   font-weight: bold;
   padding: 5px;
   border-radius: 5px;
+  z-index: 1;
 }
 
 .language-go::before {
@@ -154,6 +155,7 @@ code {
   font-weight: bold;
   padding: 5px;
   border-radius: 5px;
+  z-index: 1;
 }
 
 .language-js::before {
@@ -167,6 +169,7 @@ code {
   font-weight: bold;
   padding: 5px;
   border-radius: 5px;
+  z-index: 1;
 }
 
 .language-py::before {
@@ -180,6 +183,7 @@ code {
   font-weight: bold;
   padding: 5px;
   border-radius: 5px;
+  z-index: 1;
 }
 
 .language-csharp::before {
@@ -193,6 +197,7 @@ code {
   font-weight: bold;
   padding: 5px;
   border-radius: 5px;
+  z-index: 1;
 }
 
 .language-cpp::before {
@@ -206,6 +211,7 @@ code {
   font-weight: bold;
   padding: 5px;
   border-radius: 5px;
+  z-index: 1;
 }
 
 .language-ts::before {
@@ -219,6 +225,7 @@ code {
   font-weight: bold;
   padding: 5px;
   border-radius: 5px;
+  z-index: 1;
 }
 
 .active-page {
