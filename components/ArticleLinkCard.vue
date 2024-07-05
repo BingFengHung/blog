@@ -29,8 +29,7 @@ watch(() => articleLinkStore.title, (newValue) => {
     h2Contents.splice(0, h2Contents.length);
     setTimeout(handle, 300);
   }
-})
-
+});
 
 const checkMediaQuery = () => {
   if (window.matchMedia('(max-width: 600px)').matches) {

@@ -11,8 +11,6 @@ const markedSetup = () => {
           const result = hljs.highlight(code, { "language": validLanguage }).value
           return '<div class="hljs">' + result + '</div>';
         }
-        // return hljs.highlight(validLanguage, code).value;
-        //return hljs.highlight(code, { "language": validLanguage}).value;
         const result = hljs.highlight(code, { "language": validLanguage }).value
         return '<div class="hljs plaintext">' + result + '</div>';
       },

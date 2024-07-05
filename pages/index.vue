@@ -102,6 +102,102 @@ Array.prototype.asyncForEach = async function(callback) {
   border-radius: 5px;
   word-wrap: break-word;
   overflow-x: auto;
+  font-size: 1rem;
+}
+
+code {
+  position: relative;
+}
+
+.language-html::before {
+  content: 'html';
+  position: absolute;
+  color: white;
+  font-size: 0.7rem;
+  background-color: #e6532d;
+  left: 10px;
+  top: -10px;
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.language-go::before {
+  content: 'go';
+  position: absolute;
+  color: white;
+  font-size: 0.7rem;
+  background-color: #5bcddd;
+  left: 10px;
+  top: -10px;
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.language-js::before {
+  content: 'js';
+  position: absolute;
+  color: black;
+  font-size: 0.7rem;
+  background-color: #efd81d;
+  left: 10px;
+  top: -10px;
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.language-py::before {
+  content: 'py';
+  position: absolute;
+  color: #ffd24d;
+  font-size: 0.7rem;
+  background-color: #3c74a1;
+  left: 10px;
+  top: -10px;
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.language-csharp::before {
+  content: 'cs';
+  position: absolute;
+  color: white;
+  font-size: 0.7rem;
+  background-color: #09970c;
+  left: 10px;
+  top: -10px;
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.language-cpp::before {
+  content: 'c++';
+  position: absolute;
+  color: white;
+  font-size: 0.7rem;
+  background-color: #085e9f;
+  left: 10px;
+  top: -10px;
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.language-ts::before {
+  content: 'ts';
+  position: absolute;
+  color: white;
+  font-size: 0.7rem;
+  background-color: #3178c6;
+  left: 10px;
+  top: -10px;
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 5px;
 }
 
 .active-page {
