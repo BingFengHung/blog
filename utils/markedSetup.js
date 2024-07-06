@@ -9,7 +9,8 @@ const markedSetup = () => {
         const validLanguage = hljs.getLanguage(language) ? language : 'plaintext';
         if (language && hljs.getLanguage(language)) {
           const result = hljs.highlight(code, { "language": validLanguage }).value
-          return '<div class="hljs">' + result + '</div>';
+          //return '<div class="hljs">' + result + '</div>';
+          return `<div class="hljs code-label code-${validLanguage}" data-code=${validLanguage}>${result}</div>`
         }
         const result = hljs.highlight(code, { "language": validLanguage }).value
         return '<div class="hljs plaintext">' + result + '</div>';

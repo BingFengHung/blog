@@ -130,8 +130,8 @@ code {
   position: relative;
 }
 
-.language-html::before {
-  content: 'html';
+.code-label::before {
+  content: attr(data-code);
   position: absolute;
   color: white;
   font-size: 0.7rem;
@@ -144,88 +144,39 @@ code {
   z-index: 1;
 }
 
-.language-go::before {
-  content: 'go';
-  position: absolute;
+.code-html::before {
   color: white;
-  font-size: 0.7rem;
+  background-color: #e6532d;
+}
+
+.code-go::before {
+  color: white;
   background-color: #5bcddd;
-  left: 10px;
-  top: -10px;
-  font-weight: bold;
-  padding: 5px;
-  border-radius: 5px;
-  z-index: 1;
 }
 
-.language-js::before {
-  content: 'js';
-  position: absolute;
+.code-js::before {
   color: black;
-  font-size: 0.7rem;
   background-color: #efd81d;
-  left: 10px;
-  top: -10px;
-  font-weight: bold;
-  padding: 5px;
-  border-radius: 5px;
-  z-index: 1;
 }
 
-.language-py::before {
-  content: 'py';
-  position: absolute;
+.code-py::before {
   color: #ffd24d;
-  font-size: 0.7rem;
   background-color: #3c74a1;
-  left: 10px;
-  top: -10px;
-  font-weight: bold;
-  padding: 5px;
-  border-radius: 5px;
-  z-index: 1;
 }
 
-.language-csharp::before {
-  content: 'cs';
-  position: absolute;
+.code-csharp::before {
   color: white;
-  font-size: 0.7rem;
   background-color: #09970c;
-  left: 10px;
-  top: -10px;
-  font-weight: bold;
-  padding: 5px;
-  border-radius: 5px;
-  z-index: 1;
 }
 
-.language-cpp::before {
-  content: 'c++';
-  position: absolute;
+.code-cpp::before {
   color: white;
-  font-size: 0.7rem;
   background-color: #085e9f;
-  left: 10px;
-  top: -10px;
-  font-weight: bold;
-  padding: 5px;
-  border-radius: 5px;
-  z-index: 1;
 }
 
 .language-ts::before {
-  content: 'ts';
-  position: absolute;
   color: white;
-  font-size: 0.7rem;
   background-color: #3178c6;
-  left: 10px;
-  top: -10px;
-  font-weight: bold;
-  padding: 5px;
-  border-radius: 5px;
-  z-index: 1;
 }
 
 .active-page {
