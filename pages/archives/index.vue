@@ -5,7 +5,7 @@
       <div class="timeline" v-for="time in data.data" :key="time.title">
         <div class="article">
           <p class="datetime">{{ time.lastModifyDate }}</p>
-          <NuxtLink :to="`articles/${time.group}<_>>${time.title}`">{{ time.title }}</NuxtLink>
+          <NuxtLink :to="`articles/${time.group}<_>>${time.realTitle}`">{{ time.title }}</NuxtLink>
         </div>
       </div>
     </div>
@@ -24,7 +24,11 @@ const data = articleStore.articles
 
 const getDataByDate = (data) => {
   const dataSet = Object.keys(data).reduce((pre, cur) => {
-    const datas = data[cur].map(el => ({"group": cur, ...el}))
+    const datas = data[cur].map(el => ({
+      "group": cur, 
+      "realTitle": [el.title].map(decodeURIComponent).map(encodeURIComponent)[0],//.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B').replaceAll('/', '%2f'),
+      ...el
+    }))
     return pre.concat(datas)
   }, [])
   return dataSet.sort((a, b) => {
@@ -53,14 +57,14 @@ const keysSorted = Object.keys(groupWithTime).sort(function(a,b){return b-a})
 
 const arr = [];
 // Adding the sorted result to an array of object
-for (let i=0; i<keysSorted.length;i++) {
+for (let i = 0; i < keysSorted.length; i++) {
   const obj = {};
   obj.year= keysSorted[i];
   obj.data= groupWithTime[keysSorted[i]];
   arr.push(obj);
 }
 
-timelineData = arr//groupWithTime
+timelineData = arr
 
 </script>
 

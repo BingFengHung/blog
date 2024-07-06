@@ -35,7 +35,7 @@ onMounted(async () => {
     const result = data[group].filter(el => el.title == title)
     
     if (result.length > 0) { 
-      const articleLink = result[0].link
+      const articleLink = result[0].realLink
       const articles = await useFetch(articleLink)
       const content = convertImageUrl.imageUrlConverter(articleLink, articles) 
       article.value = marked.marked(content)

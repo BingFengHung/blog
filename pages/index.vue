@@ -18,7 +18,7 @@ import { useCurrentPageStore } from '../store/currentPage'
 
 const articleLink = reactive([])
 let sortData = reactive([])
-
+// 
 const articleStore = useArticleStore()
 const currentPageStore = useCurrentPageStore()
 
@@ -53,18 +53,6 @@ onMounted(async () => {
       return ({[cur]: dataSet, ...pre})
     }), {})
 
-    // console.log(data)
-
-    // if (data.hasOwnProperty("C#")) { 
-    //   data['CSharp'] = data['C#'] 
-    //   delete data['C#']
-    // }
-
-    // if (data.hasOwnProperty("Visual C++")) {
-    //   data['VCpp'] = data['Visual C++']
-    //   delete data['Visual C++']
-    // }
-    
     sortData = getDataByDate(data)
 
     updateArticleLink(currentPageStore.currentPage)
