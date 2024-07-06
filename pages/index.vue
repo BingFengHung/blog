@@ -87,13 +87,16 @@ Array.prototype.asyncForEach = async function(callback) {
 <style>
 blockquote {
   position: relative;
-  padding: 0px;
-  margin: 10px;
+  padding: 3px 0px 3px 10px;
+  margin: 0px;
+  border: 1px solid #09970c;
+  box-sizing: border-box;
 }
 
 blockquote p {
   padding: 0px;
   margin: 0px;
+  box-sizing: border-box;
 }
 
 blockquote::before {
@@ -104,7 +107,8 @@ blockquote::before {
   width: 5px;
   color: #09970c;
   top: 0px;
-  left: -10px;
+  left: 0px;
+  box-sizing: border-box;
 }
 .hljs {
   padding: 15px;
@@ -130,6 +134,16 @@ code {
   padding: 5px;
   border-radius: 5px;
   z-index: 1;
+}
+
+.code-bash::before {
+  content: '';
+  padding: 0px;
+}
+
+.code-xml::before {
+  color: white;
+  background-color: f67c08;
 }
 
 .code-html::before {
@@ -162,7 +176,7 @@ code {
   background-color: #085e9f;
 }
 
-.language-ts::before {
+.code-ts::before {
   color: white;
   background-color: #3178c6;
 }
