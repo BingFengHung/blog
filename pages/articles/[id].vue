@@ -2,6 +2,7 @@
   <div class="article">
     <div>{{ describe }}</div>
     <div v-html="article"></div>
+    <div v-html="series"></div>
   </div>
 </template>
 
@@ -12,6 +13,8 @@ import marked from '../../utils/markedSetup';
 import { addCopyButtons } from '~~/utils/addCopyButtons';
 import { useArticleStore } from '~~/store/articles';
 import { useArticleLinkStore } from '~/store/articleLink'
+import { articleBaseUrl } from '~~/utils/articleBaseUrl'
+
 const articleLinkStore = useArticleLinkStore()
 
 definePageMeta({
@@ -19,6 +22,7 @@ definePageMeta({
 })
 
 const article = ref('')
+const series = ref('')
 const { id } = useRoute().params
 const { describe } = ref('')
 
@@ -33,6 +37,7 @@ onMounted(async () => {
     let data = articleStore.articleData;
 
     const result = data[group].filter(el => el.title == title)
+    console.log(result)
     
     if (result.length > 0) { 
       const articleLink = result[0].realLink
@@ -40,6 +45,12 @@ onMounted(async () => {
       const content = convertImageUrl.imageUrlConverter(articleLink, articles) 
       article.value = marked.marked(content)
       articleLinkStore.setTitle(result[0].title);
+      
+      if (result[0].isSeries) {
+        const seriesLink = result[0].seriesLink;
+        const seriesContent = await useFetch(`${articleBaseUrl}${seriesLink}`)
+        series.value = marked.marked(seriesContent.data.value);
+      }
     }
   })
 
