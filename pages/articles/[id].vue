@@ -37,7 +37,6 @@ onMounted(async () => {
     let data = articleStore.articleData;
 
     const result = data[group].filter(el => el.title == title)
-    console.log(result)
     
     if (result.length > 0) { 
       const articleLink = result[0].realLink
