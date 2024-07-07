@@ -25,8 +25,8 @@ if (!articleStore.isQueryData) await articleStore.fetchArticleData()
 const data = Object.keys(articleStore.articleData).reduce((pre, cur) => {
   const target = articleStore.articleData
   const dataSet = target[cur].map(el => {
-    el.realLink = el.link.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B')
-    el.realTitle = el.title.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B')
+    el.realLink = el.link.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B'),
+    el.realTitle = [el.title].map(decodeURIComponent).map(encodeURIComponent)[0] //el.title.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B')
     return { ...el }
   })
 

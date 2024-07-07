@@ -166,7 +166,14 @@ code {
   background-color: #3c74a1;
 }
 
+.code-cs::before {
+  content: 'C#';
+  color: white;
+  background-color: #09970c;
+}
+
 .code-csharp::before {
+  content: 'C#';
   color: white;
   background-color: #09970c;
 }

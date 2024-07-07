@@ -20,7 +20,7 @@ const articleStore = useArticleStore()
 
 if (!articleStore.isQueryData) await articleStore.fetchArticleData()
 
-const data = articleStore.articles
+const data = articleStore.articleData
 
 const getDataByDate = (data) => {
   const dataSet = Object.keys(data).reduce((pre, cur) => {
@@ -31,6 +31,7 @@ const getDataByDate = (data) => {
     }))
     return pre.concat(datas)
   }, [])
+
   return dataSet.sort((a, b) => {
     const splitA = a.lastModifyDate.split('-')
     const splitB = b.lastModifyDate.split('-')
@@ -40,6 +41,7 @@ const getDataByDate = (data) => {
     return date2 - date1
   })
 }
+
 const sortData = getDataByDate(data)
 
 let groupWithTime = sortData.reduce((pre, cur) => {
@@ -65,7 +67,6 @@ for (let i = 0; i < keysSorted.length; i++) {
 }
 
 timelineData = arr
-
 </script>
 
 <style scoped>

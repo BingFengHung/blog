@@ -36,7 +36,8 @@ onMounted(async () => {
     if (!articleStore.isQueryData) await articleStore.fetchArticleData()
     let data = articleStore.articleData;
 
-    const result = data[group].filter(el => el.title == title)
+    title = [title].map(decodeURIComponent).map(encodeURIComponent)[0]
+    const result = data[group].filter(el => el.realTitle == title)
     
     if (result.length > 0) { 
       const articleLink = result[0].realLink
