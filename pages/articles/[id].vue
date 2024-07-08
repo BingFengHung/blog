@@ -1,5 +1,6 @@
 <template>
   <div class="article">
+    <div class="subtitle">更新日期：{{ modifyDate }}</div>
     <div>{{ describe }}</div>
     <div v-html="article"></div>
     <div v-html="series"></div>
@@ -16,6 +17,7 @@ import { useArticleLinkStore } from '~/store/articleLink'
 import { articleBaseUrl } from '~~/utils/articleBaseUrl'
 
 const articleLinkStore = useArticleLinkStore()
+const modifyDate = ref('')
 
 definePageMeta({
   layout: 'article'
@@ -40,6 +42,7 @@ onMounted(async () => {
     const result = data[group].filter(el => el.realTitle == title)
     
     if (result.length > 0) { 
+      modifyDate.value = result[0].lastModifyDate;
       const articleLink = result[0].realLink
       const articles = await useFetch(articleLink)
       const content = convertImageUrl.imageUrlConverter(articleLink, articles) 
@@ -66,6 +69,11 @@ onMounted(async () => {
 </style>
 
 <style scoped>
+.subtitle {
+  font-size: .8rem;
+  color: #aaa;
+}
+
 img {
   width: 100%
 }
