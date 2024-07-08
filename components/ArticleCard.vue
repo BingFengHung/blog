@@ -18,8 +18,6 @@ const linkTo = ref('')
 const modifyDate = ref('')
 const props = defineProps(['articleData'])
 
-const { group, title, link, realLink } = props.articleData
-
 const fetchArticle = async (link) => {
   const articles = await useFetch(link)
   const temp = convertImageUrl.imageUrlConverter(link, articles)
@@ -28,7 +26,7 @@ const fetchArticle = async (link) => {
 
 // 當 prop 改變時更新
 watch(() => props.articleData, (newData) => {
-  const { group, title, link, realLink,lastModifyDate } = newData
+  const { group, title, realLink,lastModifyDate } = newData
   modifyDate.value = lastModifyDate
   fetchArticle(realLink)
   const newTitle = encodeURIComponent(title)
@@ -36,9 +34,9 @@ watch(() => props.articleData, (newData) => {
 }, { immediate: true})
 
 
-onMounted(() => {
-  fetchArticle(realLink)
-})
+// onMounted(() => {
+//   fetchArticle(realLink)
+// })
 </script>
 
 <style>
