@@ -12,7 +12,7 @@
 
 <script setup>
 import 'highlight.js/styles/github-dark.css';
-import { ref, reactive, onMounted, computed } from 'vue'
+import { reactive, onMounted, computed } from 'vue'
 import { useArticleStore } from '../store/articles'
 import { useCurrentPageStore } from '../store/currentPage'
 

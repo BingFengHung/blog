@@ -9,19 +9,20 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import convertImageUrl from '../utils/convertImageUrl'
 import marked from '../utils/markedSetup'
 
 const article = ref('')
 const linkTo = ref('')
 const modifyDate = ref('')
+
 const props = defineProps(['articleData'])
 
 const fetchArticle = async (link) => {
-  const articles = await useFetch(link)
-  const temp = convertImageUrl.imageUrlConverter(link, articles)
-  article.value = marked.marked(temp)
+  const content = await useFetch(link)
+  const imgFormated = convertImageUrl.imageUrlConverter(link, content)
+  article.value = marked.marked(imgFormated)
 }
 
 // 當 prop 改變時更新
@@ -33,10 +34,6 @@ watch(() => props.articleData, (newData) => {
   linkTo.value = `/articles/${group}<_>>${newTitle}`
 }, { immediate: true})
 
-
-// onMounted(() => {
-//   fetchArticle(realLink)
-// })
 </script>
 
 <style>
@@ -68,7 +65,6 @@ img {
 }
 
 .article {
-  /* border: 1px solid #ccc; */
   border-radius: 5px;
   overflow: hidden;
   height: 320px;
