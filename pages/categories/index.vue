@@ -1,26 +1,24 @@
 <template>
   <div class="container">
-    <div style="font-weight: bold;">分類</div>
-    <div>
-      <ul>
-        <li v-for="(tag, key) of articleStore.tags" :key="key" v-show="dataSet[tag] && dataSet[tag].length !== 0">
-          <NuxtLink :to="`/tags/${tag}`" >
-            <div class="link"> 
-              <div>{{ key }}</div> 
-              <div class="count">{{ dataSet[tag] ? dataSet[tag].length : 0 }}</div>
-            </div>
-          </NuxtLink>
-        </li>
-      </ul>
-    </div>
+    <div style="font-weight: bold;">分類</div> 
+    <ul>
+      <li v-for="(tag, key) of articleStore.tags" :key="key" v-show="dataSet[tag] && dataSet[tag].length !== 0">
+        <NuxtLink :to="`/tags/${tag}`" >
+          <div class="link"> 
+            <div>{{ key }}</div> 
+            <div class="count">{{ dataSet[tag] ? dataSet[tag].length : 0 }}</div>
+          </div>
+        </NuxtLink>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script setup>
 import { reactive } from 'vue';
 import { useArticleStore } from '../../store/articles'
-let dataSet = reactive({})
 
+const dataSet = reactive({})
 const articleStore = useArticleStore()
 
 if (!articleStore.isQueryData) {
@@ -28,8 +26,7 @@ if (!articleStore.isQueryData) {
   articleStore.getTags()
 }
 
-dataSet = articleStore.articleData
-
+Object.assign(dataSet, articleStore.articleData)
 </script>
 
 <style scoped>
@@ -68,7 +65,6 @@ li:hover {
   align-items: center;
   padding: 5px 5px;
 }
-
 
 li a  {
   width: 100%;
