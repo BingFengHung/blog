@@ -19,7 +19,7 @@ const article = ref('')
 const modifyDate = ref('')
 const props = defineProps(['articleData'])
 
-const { group, title, link, seriesLink, realLink } = props.articleData
+const { seriesLink } = props.articleData
 
 const fetchArticle = async (link) => {
   const articles = await useFetch(link)
@@ -30,10 +30,9 @@ const fetchArticle = async (link) => {
 
 // 當 prop 改變時更新
 watch(() => props.articleData, (newData) => {
-  const { group, title, link, realLink, seriesLink, lastModifyDate } = newData
+  const { seriesLink, lastModifyDate } = newData
   modifyDate.value = lastModifyDate
   fetchArticle(seriesLink)
-  const newTitle = encodeURIComponent(title)
 }, { immediate: true})
 
 
@@ -116,18 +115,6 @@ img {
 details {
   cursor: pointer;
 }
-
-/* details .article-content {
-  overflow: hidden;
-  height: 0;
-  opacity: 0;
-  transition: height 3s ease-out, opacity 3s ease-out;
-}
-
-details[open] .article-content {
-  height: auto;
-  opacity: 1;
-} */
 
 .category {
   margin: 10px;
