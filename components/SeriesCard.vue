@@ -9,67 +9,30 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import convertImageUrl from '../utils/convertImageUrl'
 import marked from '../utils/markedSetup'
 import { articleBaseUrl } from '~~/utils/articleBaseUrl'
 
 const article = ref('')
-const modifyDate = ref('')
 const props = defineProps(['articleData'])
 
-const { seriesLink } = props.articleData
-
 const fetchArticle = async (link) => {
-  const articles = await useFetch(link)
-  const temp = convertImageUrl.imageUrlConverter(link, articles)
-  const temps = temp.replace(/##.*(\r?\n)?/g, '');  // remove h2 title
-  article.value = marked.marked(temps)
+  const content = await useFetch(link)
+  const imgFormat = convertImageUrl.imageUrlConverter(link, content)
+  const result = imgFormat.replace(/##.*(\r?\n)?/g, '');  // remove h2 title
+  article.value = marked.marked(result)
 }
 
 // 當 prop 改變時更新
 watch(() => props.articleData, (newData) => {
-  const { seriesLink, lastModifyDate } = newData
-  modifyDate.value = lastModifyDate
+  const { seriesLink } = newData
   newData.formatTitle = newData.seriesLink.split('/')[2]; //"/RxJS/RxJS 基本概念/系列文章.md"
-  //title.value = newData.formatTitle
-  fetchArticle(seriesLink)
-}, { immediate: true})
-
-
-onMounted(() => {
   fetchArticle(`${articleBaseUrl}${seriesLink}`)
-})
+}, { immediate: true})
 </script>
 
-<style>
-img {
-  width: 100%;
-}
-</style>
-
 <style scoped>
-.read-more {
-  background-color: #007bff;
-  color: #fff;
-  box-sizing: border-box;
-  margin: 1px;
-  border-radius: 5px;
-  text-decoration: none;
-  border: none;
-  padding: 3px 5px;
-  display: inline-block;
-  text-align: center;
-  cursor: pointer;
-  margin-top: 10px;
-  position: absolute;
-  right: 10px;
-}
-
-.read-more:hover {
-  background-color: #0056b3;
-}
-
 .article {
   border-radius: 5px;
   overflow: hidden;
@@ -98,14 +61,6 @@ img {
 .content {
   height: 10%;
   overflow: hidden;
-}
-
-.content h2 {
-  background-color: #0056b3;
-}
-
-.content h1 {
-  margin: 5px 0px !important;
 }
 
 .article-content > h2 {
