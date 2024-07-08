@@ -26,19 +26,12 @@ const data = Object.keys(articleStore.articleData).reduce((pre, cur) => {
   const target = articleStore.articleData
   const dataSet = target[cur].map(el => {
     el.realLink = el.link.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B'),
-    el.realTitle = [el.title].map(decodeURIComponent).map(encodeURIComponent)[0] //el.title.replaceAll('#', '%23').replaceAll(' ', '%20').replaceAll('+', '%2B')
+    el.realTitle = [el.title].map(decodeURIComponent).map(encodeURIComponent)[0] 
     return { ...el }
   })
 
   return ({[cur]: dataSet, ...pre})
 }, {})
-
-/* data['CSharp'] = data['C#']
-delete data['C#']
-
-data['VCpp'] = data['Visual C++']
-delete data['Visual C++']
- */
 
 if (data.hasOwnProperty("C#")) { 
   data['CSharp'] = data['C#'] 

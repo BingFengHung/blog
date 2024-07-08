@@ -26,6 +26,7 @@
         <li><NuxtLink to="/" @click="refreshPaginateIndex">首頁</NuxtLink></li>
         <li><NuxtLink to="/archives" @click="refreshPaginateIndex">文章歸檔</NuxtLink></li>
         <li><NuxtLink to="/categories" @click="refreshPaginateIndex">分類目錄</NuxtLink></li>
+        <li><NuxtLink to="/series" @click="refreshPaginateIndex">系列文章</NuxtLink></li>
         <li><NuxtLink to="/tools" @click="refreshPaginateIndex">開發工具</NuxtLink></li>
 
         <li>
