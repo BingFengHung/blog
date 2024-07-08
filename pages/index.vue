@@ -136,6 +136,16 @@ code {
   z-index: 1;
 }
 
+.code-rs::before {
+  color: #24252a;
+  background-color: #fd501b;
+}
+
+.code-sh::before {
+  content: '';
+  padding: 0px;
+}
+
 .code-bash::before {
   content: '';
   padding: 0px;
@@ -143,7 +153,7 @@ code {
 
 .code-xml::before {
   color: white;
-  background-color: f67c08;
+  background-color: #f67c08;
 }
 
 .code-html::before {
