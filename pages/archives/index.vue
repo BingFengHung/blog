@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <div v-for="(data, key) in timelineData" class="container">
+    <div v-for="(data, key) in timelineData" :key="key" class="container">
       <div class="year-tag">{{ data.year }}</div>
       <div class="timeline" v-for="time in data.data" :key="time.title">
         <div class="article">
@@ -9,7 +8,6 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script setup>
@@ -66,7 +64,12 @@ for (let i = 0; i < keysSorted.length; i++) {
   arr.push(obj);
 }
 
-timelineData = arr
+timelineData.splice(0, timelineData.length);
+
+arr.forEach(el => {
+  timelineData.push(el)
+})
+// timelineData = arr
 </script>
 
 <style scoped>
