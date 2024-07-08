@@ -1,6 +1,5 @@
 <template>
   <div class="article">
-    <div class="subtitle">更新日期：{{ modifyDate }}</div>
     <div class="title">{{ props.articleData.formatTitle }}</div>
     <details>
       <summary class="category">系列文章</summary>
@@ -24,7 +23,7 @@ const { seriesLink } = props.articleData
 const fetchArticle = async (link) => {
   const articles = await useFetch(link)
   const temp = convertImageUrl.imageUrlConverter(link, articles)
-  const temps = temp.replace(/##.*(\r?\n)?/g, '');
+  const temps = temp.replace(/##.*(\r?\n)?/g, '');  // remove h2 title
   article.value = marked.marked(temps)
 }
 
@@ -32,6 +31,8 @@ const fetchArticle = async (link) => {
 watch(() => props.articleData, (newData) => {
   const { seriesLink, lastModifyDate } = newData
   modifyDate.value = lastModifyDate
+  newData.formatTitle = newData.seriesLink.split('/')[2]; //"/RxJS/RxJS 基本概念/系列文章.md"
+  //title.value = newData.formatTitle
   fetchArticle(seriesLink)
 }, { immediate: true})
 
@@ -70,7 +71,6 @@ img {
 }
 
 .article {
-  /* border: 1px solid #ccc; */
   border-radius: 5px;
   overflow: hidden;
   height: auto;
