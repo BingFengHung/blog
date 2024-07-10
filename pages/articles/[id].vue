@@ -74,9 +74,9 @@ onMounted(async () => {
   color: #aaa;
 }
 
-img {
+/* img {
   width: 100%
-}
+} */
 
 .article {
   padding:  10px;

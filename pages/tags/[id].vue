@@ -67,9 +67,9 @@ const scrollToTop = () => {
 </script>
 
 <style>
-img {
+/* img {
   width: 100%;
-}
+} */
 </style>
 
 <style scoped>
