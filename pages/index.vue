@@ -85,6 +85,27 @@ Array.prototype.asyncForEach = async function(callback) {
 </script>
 
 <style>
+table, th, td {
+  border: 1px solid black;
+}
+
+table {
+  border: 2px solid black;
+  border-collapse: collapse;
+}
+
+table {
+    border-spacing: 10px 5px; /* 水平和垂直間距 */
+}
+
+td, th {
+    padding: 2px 5px; /* 單元格內部的填充 */
+}
+
+td, th {
+  text-align: center;
+}
+
 blockquote {
   position: relative;
   padding: 3px 0px 3px 10px;
